@@ -30,7 +30,7 @@
 #category li {
 	float: left;
 	list-style: none;
-	width: 50px; px;
+	width: 50px;
 	border-right: 1px solid #acacac;
 	padding: 6px 0;
 	text-align: center;
@@ -169,7 +169,7 @@
 </style>
 
 
-<main id="main"  style="align-content: center;">
+<main id="main" style="align-content: center;">
 	<!-- ======= Breadcrumbs Section ======= -->
 	<section class="breadcrumbs">
 		<div class="container">
@@ -182,7 +182,7 @@
 			</div>
 		</div>
 	</section>
-	<section  style="text-align: center;">
+	<section style="text-align: center;">
 		<div class="map_wrap">
 			<div id="map"
 				style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>

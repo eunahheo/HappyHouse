@@ -18,6 +18,8 @@ import BoardView from "@/components/board/BoardView.vue";
 import BoardUpdate from "@/components/board/BoardUpdate.vue";
 import BoardDelete from "@/components/board/BoardDelete.vue";
 
+import mapCategory from "@/views/mapCategory.vue";
+
 import House from "@/views/House.vue";
 
 import store from "@/store/index.js";
@@ -129,6 +131,11 @@ const routes = [
     path: "/sign",
     name: "Sign",
     component: Sign,
+  },
+  {
+    path: "/category",
+    name: "mapCategory",
+    component: mapCategory,
   },
 ];
 
