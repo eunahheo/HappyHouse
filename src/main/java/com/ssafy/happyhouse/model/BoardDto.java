@@ -8,7 +8,7 @@ public class BoardDto {
 	@ApiModelProperty(value = "글번호")
 	private int articleno;
 	@ApiModelProperty(value = "작성자 아이디")
-	private String id;
+	private String userid;
 	@ApiModelProperty(value = "글제목")
 	private String subject;
 	@ApiModelProperty(value = "글내용")
@@ -26,12 +26,12 @@ public class BoardDto {
 		this.articleno = articleno;
 	}
 
-	public String getId() {
-		return id;
+	public String getUserid() {
+		return userid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public String getSubject() {

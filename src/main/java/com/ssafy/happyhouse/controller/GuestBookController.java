@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ssafy.happyhouse.controller.GuestBookController;
 import com.ssafy.happyhouse.model.FileInfoDto;
 import com.ssafy.happyhouse.model.GuestBookDto;
 import com.ssafy.happyhouse.model.MemberDto;
@@ -57,7 +58,7 @@ public class GuestBookController {
 
 	@GetMapping("/register")
 	public String register() {
-		return "write";
+		return "guestbook/write";
 	}
 
 	@PostMapping("/register")
@@ -65,7 +66,7 @@ public class GuestBookController {
 			HttpSession session, RedirectAttributes redirectAttributes)
 			throws Exception {
 		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
-		guestBookDto.setId(memberDto.getId());
+		guestBookDto.setUserId(memberDto.getUserid());
 
 //		FileUpload 관련 설정.
 //		logger.debug("MultipartFile.isEmpty : {}", files[0].isEmpty());
@@ -95,7 +96,7 @@ public class GuestBookController {
 			}
 			guestBookDto.setFileInfos(fileInfos);
 		}
-		System.out.println(guestBookDto.getName());
+
 		guestBookService.registerArticle(guestBookDto);
 		redirectAttributes.addFlashAttribute("msg", "글작성 성공!!!");
 		return "redirect:/guestbook/list?pg=1&key=&word=";
@@ -113,7 +114,7 @@ public class GuestBookController {
 		mav.addObject("navigation", pageNavigation);
 		mav.addObject("key", map.get("key"));
 		mav.addObject("word", map.get("word"));
-		mav.setViewName("list");
+		mav.setViewName("guestbook/list");
 		return mav;
 	}
 
@@ -122,7 +123,7 @@ public class GuestBookController {
 		ModelAndView mav = new ModelAndView();
 		GuestBookDto guestBookDto = guestBookService.getArticle(articleNo);
 		mav.addObject("article", guestBookDto);
-		mav.setViewName("modify");
+		mav.setViewName("guestbook/modify");
 		return mav;
 	}
 

@@ -5,30 +5,12 @@
 <mapper namespace="com.ssafy.happyhouse.model.mapper.BoardMapper">
 
 	<insert id="writeArticle" parameterType="boardDto">
-		insert into board (id, subject, content, hit, regtime)
-		values (#{id}, #{subject}, #{content}, 0, now())
+		insert into board (userid, subject, content, hit, regtime)
+		values (#{userid}, #{subject}, #{content}, 0, now())
 	</insert>
 	
 	<select id="listArticle" parameterType="map" resultType="boardDto">
-		select articleno, id, subject, content, hit,
-				case when date_format(regtime, '%Y%m%d') = date_format(now(), '%Y%m%d')
-				then date_format(regtime, '%H:%i:%s')
-				else date_format(regtime, '%y.%m.%d')
-				end regtime
-		from board
-		<if test="word != null and word != ''">
-			<if test="key == 'subject'">
-				where subject like concat('%', #{word}, '%')
-			</if>
-			<if test="key != 'subject'">
-				where ${key} = #{word}
-			</if>
-		</if>
-		order by articleno desc
-		limit #{start}, #{spp}
-	</select>
-	<select id="keywordArticle" parameterType="map" resultType="boardDto">
-		select articleno, id, subject, content, hit,
+		select articleno, userid, subject, content, hit,
 				case when date_format(regtime, '%Y%m%d') = date_format(now(), '%Y%m%d')
 				then date_format(regtime, '%H:%i:%s')
 				else date_format(regtime, '%y.%m.%d')
@@ -60,7 +42,7 @@
 	</select>
 	
 	<select id="getArticle" parameterType="int" resultType="boardDto">
-		select articleno, id, subject, content, hit, regtime
+		select articleno, userid, subject, content, hit, regtime
 		from board
 		where articleno = #{articleno}
 	</select>

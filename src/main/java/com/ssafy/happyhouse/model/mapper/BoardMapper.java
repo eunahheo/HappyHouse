@@ -1,9 +1,7 @@
 package com.ssafy.happyhouse.model.mapper;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,6 +19,5 @@ public interface BoardMapper {
 	public int modifyArticle(BoardDto boardDto) throws SQLException;
 	public void deleteMemo(int articleno) throws SQLException;
 	public int deleteArticle(int articleno) throws SQLException;
-	public List<BoardDto> keywordArticle(Map<String,String> map) throws SQLException;
 	
 }

@@ -5,8 +5,8 @@
 <mapper namespace="com.ssafy.happyhouse.model.mapper.GuestBookMapper">
 
 	<insert id="registerArticle" parameterType="GuestBookDto">
-		insert into guestbook (id, subject, content, regtime)
-		values (#{id}, #{subject}, #{content}, now())
+		insert into guestbook (userid, subject, content, regtime)
+		values (#{userId}, #{subject}, #{content}, now())
 		<selectKey resultType="int" keyProperty="articleNo" order="AFTER">
 			select last_insert_id()
 		</selectKey>
@@ -22,16 +22,14 @@
 
 	<resultMap type="GuestBookDto" id="articleList">
 		<result column="articleno" property="articleNo"/>
-		<result column="id" property="id"/>
-		<result column="name" property="name"/>
+		<result column="userid" property="userId"/>
+		<result column="username" property="userName"/>
 		<result column="subject" property="subject"/>
 		<result column="content" property="content"/>
 		<result column="regtime" property="regTime"/>
 		<collection property="fileInfos" column="articleno=articleno" javaType="list" ofType="FileInfoDto" select="fileInfoList"/>
 	</resultMap>
 
-
-	<!--  -->
 	<sql id="search">
 		<if test="word != null and word != ''">
 			<if test="key == subject">
@@ -44,20 +42,10 @@
 	</sql>
 
 	<select id="listArticle" parameterType="map" resultMap="articleList">
-		select g.articleno, g.id, g.subject, g.content, g.regtime, u.name
-		from guestbook g,user u
-		where g.id = u.id
-		<if test="word != null and word != ''">
-			<if test="key == subject">
-				and subject like concat('%', #{word}, '%')
-			</if>
-			<if test="key == id">
-				and g.${key} like concat('%', #{word}, '%')
-			</if>
-			<if test="key != subject">
-				and g.${key} = #{word}
-			</if>
-		</if>
+		select g.articleno, g.userid, g.subject, g.content, g.regtime, m.username
+		from guestbook g, ssafy_member m
+		where g.userid = m.userid
+		<include refid="search"></include>
 		order by g.articleno desc
 		limit #{start}, #{spp}
 	</select>
