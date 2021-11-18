@@ -94,18 +94,18 @@ export default {
       script.src =
         "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=64eac5c80b2c73c911146817941a78c0";
       document.head.appendChild(script);
-    }
-    this.placeOverlay = new kakao.maps.CustomOverlay({
-      zIndex: 1,
-    });
-    // 장소 검색 객체 생성
-    this.ps = new kakao.maps.services.Places(this.map);
+      this.placeOverlay = new kakao.maps.CustomOverlay({
+        zIndex: 1,
+      });
+      // 장소 검색 객체 생성
+      this.ps = new kakao.maps.services.Places(this.map);
 
-    this.mapContainer = {
-      center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-      level: 5,
-      // 지도의 확대 레벨
-    };
+      this.mapContainer = {
+        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        level: 5,
+        // 지도의 확대 레벨
+      };
+    }
   },
   methods: {
     initMap() {
