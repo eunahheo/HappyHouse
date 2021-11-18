@@ -24,7 +24,11 @@
         ></div>
         <ul id="category">
           <li id="BK9" data-order="0">
-            <span class="category_bg bank"></span> 은행
+            <span
+              class="category_bg bank"
+              :v-on:click="addCategoryClickEvent"
+            ></span>
+            은행
           </li>
           <li id="MT1" data-order="1">
             <span class="category_bg mart"></span> 마트
@@ -75,10 +79,10 @@ export default {
 
       // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
       placeOverlay: null,
-      contentNode: document.createElement("div"), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
+
       markers: [], // 마커를 담을 배열입니다
       currCategory: "", // 현재 선택된 카테고리를 가지고 있을 변수입니다
-      mapContainer: document.getElementById("map"), // 지도를 표시할 div
+      //   mapContainer: document.getElementById("map"), // 지도를 표시할 div
       mapOption: null,
       ps: null,
     };
@@ -92,51 +96,52 @@ export default {
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=64eac5c80b2c73c911146817941a78c0";
+        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=64eac5c80b2c73c911146817941a78c0&libraries=services";
       document.head.appendChild(script);
+    }
+  },
+  methods: {
+    initMap() {
+      const contentNode = document.createElement("div"); // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
+      const mapContainer = document.getElementById("map");
       this.placeOverlay = new kakao.maps.CustomOverlay({
         zIndex: 1,
       });
       // 장소 검색 객체 생성
       this.ps = new kakao.maps.services.Places(this.map);
-
-      this.mapContainer = {
+      this.mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
         level: 5,
         // 지도의 확대 레벨
       };
-    }
-  },
-  methods: {
-    initMap() {
-      this.mapContainer = document.getElementById("map");
+
       const options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
         level: 5,
       };
-      this.map = new kakao.maps.Map(this.mapContainer, options);
+      this.map = new kakao.maps.Map(mapContainer, options);
 
       // 지도에 idle 이벤트를 등록합니다
       kakao.maps.event.addListener(this.map, "idle", this.searchPlaces);
 
       // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다
-      this.contentNode.className = "placeinfo_wrap";
+      contentNode.className = "placeinfo_wrap";
 
       // 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
       // 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 kakao.maps.event.preventMap 메소드를 등록합니다
       this.addEventHandle(
-        this.contentNode,
+        contentNode,
         "mousedown",
         kakao.maps.event.preventMap
       );
       this.addEventHandle(
-        this.contentNode,
+        contentNode,
         "touchstart",
         kakao.maps.event.preventMap
       );
 
       // 커스텀 오버레이 컨텐츠를 설정합니다
-      this.placeOverlay.setContent(this.contentNode);
+      this.placeOverlay.setContent(contentNode);
 
       // 각 카테고리에 클릭 이벤트를 등록합니다
       this.addCategoryClickEvent();
@@ -337,6 +342,7 @@ export default {
 
       for (var i = 0; i < children.length; i++) {
         children[i].onclick = this.onClickCategory;
+        // console.log(children[i]);
       }
     },
 
@@ -344,7 +350,6 @@ export default {
     onClickCategory() {
       var id = this.id,
         className = this.className;
-
       this.placeOverlay.setMap(null);
 
       if (className === "on") {
@@ -353,6 +358,7 @@ export default {
         this.removeMarker();
       } else {
         this.currCategory = id;
+        console.log(id);
         this.changeCategoryClass(this);
         this.searchPlaces();
       }
