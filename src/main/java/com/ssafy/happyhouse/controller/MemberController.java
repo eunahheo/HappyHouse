@@ -1,19 +1,24 @@
 package com.ssafy.happyhouse.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +46,47 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@DeleteMapping(value="/{id}")
+	public ResponseEntity<List<MemberDto>>delete(@PathVariable("id")String id,HttpSession session) throws Exception{
+		memberService.deleteMember(id);
+		session.invalidate();
+		List<MemberDto> list = memberService.listMember();
+		return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
+	}
+	
+	@PostMapping("/signup")
+	public ResponseEntity<String>register(@RequestBody MemberDto memberDto, Model model) throws Exception {
+		logger.debug("memberDto info : {}", memberDto);
+		logger.debug(memberDto.getUserid());
+		memberService.registerMember(memberDto);
+		List<MemberDto> list = memberService.listMember();
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+	@PutMapping("/")
+	public ResponseEntity<List<MemberDto>> update(@RequestBody MemberDto memberDto, HttpSession session, Model model) throws Exception {
+		logger.debug("memberDto info : {}", memberDto);
+		logger.debug(memberDto.getUserid());
+		memberService.updateMember(memberDto);
+		session.setAttribute("userinfo", memberDto);
+		List<MemberDto> list = memberService.listMember();
+		return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
+	}
+	@GetMapping("/userList")
+	public String list() {
+		return "userList";
+	}
+	@GetMapping(value="/")
+	public ResponseEntity<List<MemberDto>> userList() throws Exception {
+		List<MemberDto> list = memberService.listMember();
+		if(list != null && !list.isEmpty()) {
+			return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
+		}else {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+//		session.setAttribute("list", list);
+//		return "userList";
+	}
 
 	@ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
 	@PostMapping("/login")

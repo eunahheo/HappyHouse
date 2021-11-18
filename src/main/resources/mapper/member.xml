@@ -16,4 +16,21 @@
 		where userid = #{userid}
 	</select>
 	
+	<select id="listMember" resultType="MemberDto">
+		select * from user
+	</select>
+	<insert id="registerMember" parameterType="MemberDto">
+		insert into user (userid, username, userpwd, email,joindate) values( #{userid}, #{username}, #{userpwd}, #{email},now() )
+	</insert>
+	<update id="updateMember" parameterType="MemberDto">
+		update user set username = #{username}, userpwd = #{userpwd}, email = #{email} where userid = #{userid}
+	</update>
+	<delete id="deleteMember">
+		delete from user where userid = #{userid}
+	</delete>
+	<select id="useridCheck" parameterType="string" resultType="int">
+		select count(userid)
+		from user
+		where userid = #{userid}
+	</select>	
 </mapper>
