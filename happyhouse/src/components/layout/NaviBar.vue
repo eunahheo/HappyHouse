@@ -29,10 +29,16 @@
           </li>
           <!-- <li><a href="#team">사이트 소개</a></li> -->
           <li>
+            <router-link :to="{ name: 'House' }" class="link"
+              ><b-icon icon="house-fill" font-scale="1"></b-icon>
+              주택거래정보</router-link
+            >
+          </li>
+          <!-- <li>
             <router-link :to="{ name: 'Four' }" class="link"
               ><b-icon icon="calculator" font-scale="1"></b-icon> 주택거래정보
             </router-link>
-          </li>
+          </li> -->
           <li>
             <a href="http://localhost:80/category"> 상권정보 </a>
             <!-- <router-link :to="{ name: 'Four' }" class="link"
