@@ -54,7 +54,12 @@ public class MemberController {
 		List<MemberDto> list = memberService.listMember();
 		return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
 	}
-	
+	@GetMapping("/{userid}")
+	public ResponseEntity<MemberDto>listOne(@PathVariable("userid")String id,HttpSession session) throws Exception{
+		MemberDto member = memberService.userInfo(id);
+		logger.debug(id);
+		return new ResponseEntity<MemberDto>(member, HttpStatus.OK);
+	}
 	@PostMapping("/signup")
 	public ResponseEntity<String>register(@RequestBody MemberDto memberDto, Model model) throws Exception {
 		logger.debug("memberDto info : {}", memberDto);
@@ -64,13 +69,13 @@ public class MemberController {
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 	@PutMapping("/")
-	public ResponseEntity<List<MemberDto>> update(@RequestBody MemberDto memberDto, HttpSession session, Model model) throws Exception {
+	public ResponseEntity<String> update(@RequestBody MemberDto memberDto, HttpSession session, Model model) throws Exception {
 		logger.debug("memberDto info : {}", memberDto);
 		logger.debug(memberDto.getUserid());
 		memberService.updateMember(memberDto);
 		session.setAttribute("userinfo", memberDto);
 		List<MemberDto> list = memberService.listMember();
-		return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 	@GetMapping("/userList")
 	public String list() {
@@ -127,6 +132,7 @@ public class MemberController {
 			try {
 //				로그인 사용자 정보.
 				MemberDto memberDto = memberService.userInfo(userid);
+				System.out.println(memberDto);
 				resultMap.put("userInfo", memberDto);
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;

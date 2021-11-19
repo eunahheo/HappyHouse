@@ -10,17 +10,17 @@
           <thead>
             <tr>
               <th>아이디</th>
-              <th id="infoid">{{ checkUserInfo.userid }}</th>
+              <th id="infoid">{{ user.userid }}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>이름</td>
-              <td>{{ checkUserInfo.username }}</td>
+              <td>{{ user.username }}</td>
             </tr>
             <tr>
               <td>이메일</td>
-              <td>{{ checkUserInfo.email }}</td>
+              <td>{{ user.email }}</td>
             </tr>
           </tbody>
         </table>
@@ -47,12 +47,15 @@ const memberStore = "memberStore";
 
 export default {
   name: "MemberMyPage",
+  props: {
+    userid: String,
+    username: String,
+    userpwd: String,
+    email: String,
+  },
   data() {
     return {
-      userid: "",
-      username: "",
-      userpwd: "",
-      email: "",
+      user: {},
     };
   },
   components: {},
@@ -61,11 +64,8 @@ export default {
     ...mapGetters(memberStore, ["checkUserInfo"]),
   },
   created() {
-    http.get(`/user/info/${this.$route.params.userid}`).then(({ data }) => {
-      this.userid = data.userid;
-      this.username = data.username;
-      this.userpwd = data.userpwd;
-      this.email = data.email;
+    http.get(`/user/${this.checkUserInfo.userid}`).then(({ data }) => {
+      this.user = data;
     });
   },
   methods: {

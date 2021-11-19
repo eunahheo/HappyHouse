@@ -18,7 +18,7 @@
                   class="form-control mt-3 mb-4"
                   required=""
                   name="userid"
-                  v-model="userInfo.userid"
+                  v-model="user.userid"
                   autofocus=""
                   readonly
                 />
@@ -33,7 +33,7 @@
                   id="userpwd"
                   name="userpwd"
                   class="form-control mt-3 mb-4"
-                  v-model="userInfo.userpwd"
+                  v-model="user.userpwd"
                   placeholder=""
                   required=""
                 />
@@ -47,8 +47,8 @@
                   type="text"
                   id="username"
                   name="username"
-                  v-model="userInfo.username"
-                  value="userInfo.username"
+                  v-model="user.username"
+                  value="user.username"
                   class="form-control mt-3 mb-4"
                   required=""
                   autofocus=""
@@ -63,7 +63,7 @@
                   type="email"
                   id="email"
                   name="email"
-                  v-model="userInfo.email"
+                  v-model="user.email"
                   class="form-control mt-3 mb-4"
                   required=""
                 />
@@ -96,22 +96,30 @@ export default {
     ...mapState(memberStore, ["userInfo"]),
     ...mapGetters(memberStore, ["checkUserInfo"]),
   },
+  props: {
+    userid: String,
+    username: String,
+    userpwd: String,
+    email: String,
+  },
   data() {
     return {
-      userid: "",
-      username: "",
-      userpwd: "",
-      email: "",
+      user: {},
     };
+  },
+  created() {
+    http.get(`/user/${this.checkUserInfo.userid}`).then(({ data }) => {
+      this.user = data;
+    });
   },
   methods: {
     userModify() {
       http
         .put(`/user/`, {
-          userid: this.userid,
-          username: this.username,
-          userpwd: this.userpwd,
-          email: this.email,
+          userid: this.user.userid,
+          username: this.user.username,
+          userpwd: this.user.userpwd,
+          email: this.user.email,
         })
         .then(({ data }) => {
           let msg = "등록 처리시 문제가 발생했습니다.";
