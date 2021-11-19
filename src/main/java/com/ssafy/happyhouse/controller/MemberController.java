@@ -48,11 +48,11 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@DeleteMapping(value="/{id}")
-	public ResponseEntity<List<MemberDto>>delete(@PathVariable("id")String id,HttpSession session) throws Exception{
+	public ResponseEntity<String>delete(@PathVariable("id")String id,HttpSession session) throws Exception{
 		memberService.deleteMember(id);
 		session.invalidate();
 		List<MemberDto> list = memberService.listMember();
-		return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 	@GetMapping("/{userid}")
 	public ResponseEntity<MemberDto>listOne(@PathVariable("userid")String id,HttpSession session) throws Exception{

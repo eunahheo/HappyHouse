@@ -32,7 +32,11 @@
           @click="movePage"
           >수정하기</a
         >
-        <button class="btn btn-lg btn-danger btn-block float-left" id="delbtn">
+        <button
+          class="btn btn-lg btn-danger btn-block float-left"
+          id="delbtn"
+          @click="deleteUser"
+        >
           탈퇴
         </button>
       </div>
@@ -41,7 +45,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapMutations } from "vuex";
 import http from "@/util/http-common";
 const memberStore = "memberStore";
 
@@ -60,8 +64,8 @@ export default {
   },
   components: {},
   computed: {
-    ...mapState(memberStore, ["userInfo"]),
     ...mapGetters(memberStore, ["checkUserInfo"]),
+    ...mapState(memberStore, ["isLogin", "userInfo"]),
   },
   created() {
     http.get(`/user/${this.checkUserInfo.userid}`).then(({ data }) => {
@@ -69,8 +73,24 @@ export default {
     });
   },
   methods: {
+    ...mapMutations(memberStore, ["SET_IS_LOGIN", "SET_USER_INFO"]),
     movePage() {
       this.$router.push({ name: "MemberUpdate" });
+    },
+    deleteUser() {
+      http.delete(`/user/${this.checkUserInfo.userid}`).then(({ data }) => {
+        let msg = "삭제 처리시 문제가 발생했습니다.";
+        if (data === "success") {
+          msg = "삭제가 완료되었습니다.";
+        }
+        alert(msg);
+        this.userInfo = "";
+        this.SET_IS_LOGIN(false);
+        this.SET_USER_INFO(null);
+        sessionStorage.removeItem("access-token");
+        // 현재 route를 /list로 변경.
+        this.$router.push({ name: "Home" });
+      });
     },
   },
 };
