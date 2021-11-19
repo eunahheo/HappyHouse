@@ -1,6 +1,8 @@
 <template>
-  <div style="margin-top: 100px">
-    <h2 style="text-align: center">로그인</h2>
+  <div style="margin-top: 70px">
+    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+      <h2>로그인</h2>
+    </div>
     <div class="modal-body">
       <form
         id="loginform"

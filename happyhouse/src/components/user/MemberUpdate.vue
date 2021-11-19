@@ -1,9 +1,13 @@
 <template>
   <section class="inner-page">
+    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+      <h2>회원정보 수정</h2>
+      <p>회원정보를 수정하세요.</p>
+    </div>
     <div class="container">
       <div class="form-signin align-center">
         <div name="memberupdateform" id="memberupdateform">
-          <table class="table">
+          <table class="table" v-if="userInfo">
             <tr>
               <td><h5>아이디</h5></td>
               <td><label for="userid" class="sr-only">아이디</label></td>
@@ -14,7 +18,7 @@
                   class="form-control mt-3 mb-4"
                   required=""
                   name="userid"
-                  v-model="this.checkUserInfo.userid"
+                  v-model="userInfo.userid"
                   autofocus=""
                   readonly
                 />
@@ -28,9 +32,8 @@
                   type="text"
                   id="userpwd"
                   name="userpwd"
-                  v-model="userpwd"
                   class="form-control mt-3 mb-4"
-                  value="this.checkUserInfo.userpwd"
+                  v-model="userInfo.userpwd"
                   placeholder=""
                   required=""
                 />
@@ -44,7 +47,8 @@
                   type="text"
                   id="username"
                   name="username"
-                  v-model="username"
+                  v-model="userInfo.username"
+                  value="userInfo.username"
                   class="form-control mt-3 mb-4"
                   required=""
                   autofocus=""
@@ -59,7 +63,7 @@
                   type="email"
                   id="email"
                   name="email"
-                  v-model="email"
+                  v-model="userInfo.email"
                   class="form-control mt-3 mb-4"
                   required=""
                 />
@@ -104,7 +108,7 @@ export default {
     userModify() {
       http
         .put(`/user/`, {
-          userid: this.checkUserInfo.userid,
+          userid: this.userid,
           username: this.username,
           userpwd: this.userpwd,
           email: this.email,
@@ -114,8 +118,8 @@ export default {
           if (data === "success") {
             msg = "수정이 완료되었습니다.";
           }
-          alert(msg);
           this.moveList();
+          alert(msg);
         });
     },
     moveList() {

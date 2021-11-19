@@ -1,8 +1,10 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-orange">
-      <b-icon icon="house-fill"></b-icon> House Service
-    </h3>
+    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+      <br /><br />
+      <h2>주택거래정보</h2>
+      <p>아파트매매 실거래가 정보를 제공합니다.</p>
+    </div>
     <b-row>
       <b-col>
         <house-search-bar></house-search-bar>

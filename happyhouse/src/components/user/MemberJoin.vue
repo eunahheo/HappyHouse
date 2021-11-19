@@ -1,6 +1,8 @@
 <template>
-  <div style="margin-top: 100px">
-    <h2 class="modal-title" style="text-align: center">회원가입</h2>
+  <div style="margin-top: 70px">
+    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+      <h2>회원가입</h2>
+    </div>
 
     <div class="modal-body">
       <form

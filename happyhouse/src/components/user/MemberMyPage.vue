@@ -1,5 +1,9 @@
 <template>
   <section class="inner-page">
+    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+      <h2>마이페이지</h2>
+      <p>회원정보를 조회하세요.</p>
+    </div>
     <div class="container">
       <div class="form-signin align-center">
         <table class="table table-striped">

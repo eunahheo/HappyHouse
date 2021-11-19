@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 100px">
+  <div>
     <h2 style="text-align: center">로그인</h2>
     <div class="modal-body">
       <form
