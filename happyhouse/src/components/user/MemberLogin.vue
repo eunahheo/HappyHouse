@@ -10,9 +10,9 @@
         method="post"
         action=""
       >
-        <b-alert show variant="danger" v-if="isLoginError"
+        <!-- <b-alert show variant="danger" v-if="isLoginError"
           >아이디 또는 비밀번호를 확인하세요.</b-alert
-        >
+        > -->
         <input type="hidden" name="act" id="act" value="login" />
         <label for="userid" class="sr-only">아이디</label>
         <input
@@ -100,6 +100,8 @@ export default {
       if (this.isLogin) {
         await this.getUserInfo(token);
         this.$router.push({ name: "Home" });
+      } else {
+        alert("아이디와 비밀번호를 확인하세요");
       }
     },
     movePage() {
