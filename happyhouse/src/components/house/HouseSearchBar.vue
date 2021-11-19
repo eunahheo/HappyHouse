@@ -101,8 +101,13 @@ export default {
       if (this.gugunCode) this.getDong(this.gugunCode);
     },
     searchApt() {
+      // console.log(this.gugunCode);
       if (this.dongCode) this.getHouseList(this.dongCode);
     },
+    // searchApt() {
+    //   // console.log(this.gugunCode);
+    //   if (this.dongCode) this.getHouseList(this.gugunCode);
+    // },
   },
 };
 </script>

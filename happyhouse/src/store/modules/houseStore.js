@@ -52,7 +52,7 @@ const houseStore = {
     getSido: ({ commit }) => {
       sidoList(
         ({ data }) => {
-          // console.log(data);
+          console.log(data);
           commit("SET_SIDO_LIST", data);
         },
         (error) => {
@@ -84,7 +84,7 @@ const houseStore = {
         params,
         ({ data }) => {
           // console.log(commit, response);
-          // console.log(data);
+          console.log(data);
           commit("SET_DONG_LIST", data);
         },
         (error) => {
@@ -92,29 +92,47 @@ const houseStore = {
         }
       );
     },
-    getHouseList: ({ commit }, dongName) => {
-      // vue cli enviroment variables 검색
-      //.env.local file 생성.
-      // 반드시 VUE_APP으로 시작해야 한다.
-      const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
-      //   const SERVICE_KEY =
-      //     "9Xo0vlglWcOBGUDxH8PPbuKnlBwbWU6aO7%2Bk3FV4baF9GXok1yxIEF%2BIwr2%2B%2F%2F4oVLT8bekKU%2Bk9ztkJO0wsBw%3D%3D";
+    getHouseList: ({ commit }, dongCode) => {
       const params = {
-        LAWD_CD: dongName,
-        DEAL_YMD: "202110",
-        serviceKey: decodeURIComponent(SERVICE_KEY),
+        dong: dongCode,
       };
       houseList(
         params,
-        (response) => {
-          // console.log(response.data.response.body.items.item);
-          commit("SET_HOUSE_LIST", response.data.response.body.items.item);
+        ({ data }) => {
+          // console.log(commit, response);
+          console.log(data);
+          commit("SET_HOUSE_LIST", data);
         },
         (error) => {
           console.log(error);
         }
       );
     },
+
+    // getHouseList: ({ commit }, gugunCode) => {
+    //   console.log("구군: ", gugunCode);
+    //   // vue cli enviroment variables 검색
+    //   //.env.local file 생성.
+    //   // 반드시 VUE_APP으로 시작해야 한다.
+    //   const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
+    //   //   const SERVICE_KEY =
+    //   //     "9Xo0vlglWcOBGUDxH8PPbuKnlBwbWU6aO7%2Bk3FV4baF9GXok1yxIEF%2BIwr2%2B%2F%2F4oVLT8bekKU%2Bk9ztkJO0wsBw%3D%3D";
+    //   const params = {
+    //     LAWD_CD: gugunCode,
+    //     DEAL_YMD: "202110",
+    //     serviceKey: decodeURIComponent(SERVICE_KEY),
+    //   };
+    //   houseList(
+    //     params,
+    //     (response) => {
+    //       console.log(response.data.response.body.items.item);
+    //       commit("SET_HOUSE_LIST", response.data.response.body.items.item);
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // },
     detailHouse: ({ commit }, house) => {
       // 나중에 house.일련번호를 이용하여 API 호출
       commit("SET_DETAIL_HOUSE", house);
