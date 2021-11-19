@@ -1,71 +1,73 @@
 <template>
-  <b-container class="mt-4" v-if="userInfo">
-    <b-row>
-      <b-col>
-        <b-alert variant="secondary" show><h3>내정보</h3></b-alert>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col></b-col>
-      <b-col cols="8">
-        <b-jumbotron>
-          <template #header>My Page</template>
-
-          <template #lead> 내 정보 확인페이지입니다. </template>
-
-          <hr class="my-4" />
-
-          <b-container class="mt-4">
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">아이디</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.userid }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">이름</b-col
-              ><b-col cols="4" align-self="start">{{
-                userInfo.username
-              }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">이메일</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.email }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">가입일</b-col
-              ><b-col cols="4" align-self="start">{{
-                userInfo.joindate
-              }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-          </b-container>
-          <hr class="my-4" />
-
-          <b-button variant="primary" href="#" class="mr-1">정보수정</b-button>
-          <b-button variant="danger" href="#">회원탈퇴</b-button>
-        </b-jumbotron>
-      </b-col>
-      <b-col></b-col>
-    </b-row>
-  </b-container>
+  <section class="inner-page">
+    <div class="container">
+      <div class="form-signin align-center">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>아이디</th>
+              <th id="infoid">{{ checkUserInfo.userid }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>이름</td>
+              <td>{{ checkUserInfo.username }}</td>
+            </tr>
+            <tr>
+              <td>이메일</td>
+              <td>{{ checkUserInfo.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="clearfix mt-5">
+        <a
+          button
+          class="btn btn-lg btn-primary btn-block float-right"
+          @click="movePage"
+          >수정하기</a
+        >
+        <button class="btn btn-lg btn-danger btn-block float-left" id="delbtn">
+          탈퇴
+        </button>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
-import { mapState } from "vuex";
-
+import { mapGetters, mapState } from "vuex";
+import http from "@/util/http-common";
 const memberStore = "memberStore";
 
 export default {
   name: "MemberMyPage",
+  data() {
+    return {
+      userid: "",
+      username: "",
+      userpwd: "",
+      email: "",
+    };
+  },
   components: {},
   computed: {
     ...mapState(memberStore, ["userInfo"]),
+    ...mapGetters(memberStore, ["checkUserInfo"]),
+  },
+  created() {
+    http.get(`/user/info/${this.$route.params.userid}`).then(({ data }) => {
+      this.userid = data.userid;
+      this.username = data.username;
+      this.userpwd = data.userpwd;
+      this.email = data.email;
+    });
+  },
+  methods: {
+    movePage() {
+      this.$router.push({ name: "MemberUpdate" });
+    },
   },
 };
 </script>
