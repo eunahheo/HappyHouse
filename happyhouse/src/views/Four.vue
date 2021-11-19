@@ -48,12 +48,9 @@
               </tbody>
             </table>
             <div class="clearfix">
-              <a
-                href="${root}/guestbook/list?pg=1&key=&word="
-                class="btn btn-primary float-right"
-                role="button"
-                >글쓰기</a
-              >
+              <router-link :to="{ name: 'Board' }" class="link"
+                ><b-icon icon="card-heading" font-scale="1"></b-icon> QnA
+              </router-link>
             </div>
           </div>
         </div>

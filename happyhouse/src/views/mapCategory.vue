@@ -23,26 +23,23 @@
           "
         ></div>
         <ul id="category">
-          <li id="BK9" data-order="0">
-            <span
-              class="category_bg bank"
-              :v-on:click="addCategoryClickEvent"
-            ></span>
+          <li id="BK9" data-order="0" v-on:click="onClickCategory($event)">
+            <span class="category_bg bank"></span>
             은행
           </li>
-          <li id="MT1" data-order="1">
+          <li id="MT1" data-order="1" @click="onClickCategory($event)">
             <span class="category_bg mart"></span> 마트
           </li>
-          <li id="PM9" data-order="2">
+          <li id="PM9" data-order="2" @click="onClickCategory($event)">
             <span class="category_bg pharmacy"></span> 약국
           </li>
-          <li id="OL7" data-order="3">
+          <li id="OL7" data-order="3" @click="onClickCategory($event)">
             <span class="category_bg oil"></span> 주유소
           </li>
-          <li id="CE7" data-order="4">
+          <li id="CE7" data-order="4" @click="onClickCategory($event)">
             <span class="category_bg cafe"></span> 카페
           </li>
-          <li id="CS2" data-order="5">
+          <li id="CS2" data-order="5" @click="onClickCategory($event)">
             <span class="category_bg store"></span> 편의점
           </li>
         </ul>
@@ -337,19 +334,20 @@ export default {
 
     // 각 카테고리에 클릭 이벤트를 등록합니다
     addCategoryClickEvent() {
-      var category = document.getElementById("category"),
-        children = category.children;
-
-      for (var i = 0; i < children.length; i++) {
-        children[i].onclick = this.onClickCategory;
-        // console.log(children[i]);
-      }
+      // var category = document.getElementById("category"),
+      //   children = category.children;
+      // for (var i = 0; i < children.length; i++) {
+      //   children[i].children[i].onclick = this.onClickCategory();
+      //   console.log(children[i]);
+      // }
     },
 
     // 카테고리를 클릭했을 때 호출되는 함수입니다
-    onClickCategory() {
-      var id = this.id,
-        className = this.className;
+    onClickCategory(event) {
+      console.log(event.currentTarget.id);
+
+      // var id = event.currentTarget.id,
+      var className = this.className;
       this.placeOverlay.setMap(null);
 
       if (className === "on") {
@@ -357,8 +355,8 @@ export default {
         this.changeCategoryClass();
         this.removeMarker();
       } else {
-        this.currCategory = id;
-        console.log(id);
+        this.currCategory = event.currentTarget.id;
+        // console.log(id);
         this.changeCategoryClass(this);
         this.searchPlaces();
       }
