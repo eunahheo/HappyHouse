@@ -195,7 +195,7 @@ export default {
     displayPlaces(places) {
       // 몇번째 카테고리가 선택되어 있는지 얻어옵니다
       // 이 순서는 스프라이트 이미지에서의 위치를 계산하는데 사용됩니다
-      console.log(this.currCategory);
+      // console.log(this.currCategory);
       var order = document
         .getElementById(this.currCategory)
         .getAttribute("data-order");
@@ -211,14 +211,59 @@ export default {
         // 마커와 검색결과 항목을 클릭 했을 때
         // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
         (function (marker, place) {
-          console.log(place);
+          // console.log(place);
           kakao.maps.event.addListener(marker, "click", () => {
-            console.log(place);
-            this.displayPlaceInfo(place);
+            console.log("이거 클릭 : ", place);
+            (place) => {
+              console("함수 호출 당함: ", place);
+              var content =
+                '<div class="placeinfo">' +
+                '   <a class="title" href="' +
+                place.place_url +
+                '" target="_blank" title="' +
+                place.place_name +
+                '">' +
+                place.place_name +
+                "</a>";
+
+              if (place.road_address_name) {
+                content +=
+                  '    <span title="' +
+                  place.road_address_name +
+                  '">' +
+                  place.road_address_name +
+                  "</span>" +
+                  '  <span class="jibun" title="' +
+                  place.address_name +
+                  '">(지번 : ' +
+                  place.address_name +
+                  ")</span>";
+              } else {
+                content +=
+                  '    <span title="' +
+                  place.address_name +
+                  '">' +
+                  place.address_name +
+                  "</span>";
+              }
+
+              content +=
+                '    <span class="tel">' +
+                place.phone +
+                "</span>" +
+                "</div>" +
+                '<div class="after"></div>';
+
+              this.contentNode.innerHTML = content;
+              this.placeOverlay.setPosition(
+                new kakao.maps.LatLng(place.y, place.x)
+              );
+              this.placeOverlay.setMap(this.map);
+            };
           });
         })(marker, places[i]);
       }
-      console.log("markers배열 : ", this.markers);
+      // console.log("markers배열 : ", this.markers);
     },
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
@@ -258,49 +303,9 @@ export default {
     },
 
     // 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
-    displayPlaceInfo(place) {
-      var content =
-        '<div class="placeinfo">' +
-        '   <a class="title" href="' +
-        place.place_url +
-        '" target="_blank" title="' +
-        place.place_name +
-        '">' +
-        place.place_name +
-        "</a>";
+    // displayPlaceInfo(place) {
 
-      if (place.road_address_name) {
-        content +=
-          '    <span title="' +
-          place.road_address_name +
-          '">' +
-          place.road_address_name +
-          "</span>" +
-          '  <span class="jibun" title="' +
-          place.address_name +
-          '">(지번 : ' +
-          place.address_name +
-          ")</span>";
-      } else {
-        content +=
-          '    <span title="' +
-          place.address_name +
-          '">' +
-          place.address_name +
-          "</span>";
-      }
-
-      content +=
-        '    <span class="tel">' +
-        place.phone +
-        "</span>" +
-        "</div>" +
-        '<div class="after"></div>';
-
-      this.contentNode.innerHTML = content;
-      this.placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
-      this.placeOverlay.setMap(this.map);
-    },
+    // },
 
     // // 각 카테고리에 클릭 이벤트를 등록합니다
     // addCategoryClickEvent() {
@@ -343,20 +348,20 @@ export default {
       // this.addCategoryClickEvent();
 
       var id = event.currentTarget.id;
-      console.log(id);
+      // console.log(id);
       // var id = event.id;
       var className = this.className;
-      console.log(className);
+      // console.log(className);
       this.placeOverlay.setMap(null);
 
       if (className === "on") {
-        this.currCategory = id;
-        this.changeCategoryClass(this);
-        this.searchPlaces();
+        this.currCategory = id; //"";
+        this.changeCategoryClass(this); //();
+        this.searchPlaces(); //remove();
       } else {
-        console.log("여기 실행");
+        // console.log("여기 실행");
         this.currCategory = id;
-        console.log("this:" + this);
+        // console.log("this:" + this);
         this.changeCategoryClass(this);
         this.searchPlaces();
       }
