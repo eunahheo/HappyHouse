@@ -57,76 +57,79 @@ public class HappyHouseMapController {
 		return new ResponseEntity<List<HouseInfoDto>>(hService.getDongInGugun(gugun), HttpStatus.OK);
 	}
 
-	@GetMapping("/apt")
-	public ResponseEntity<List<HouseInfoDto>> apt(@RequestParam("dong") String dong,
-			@RequestParam Map<String, String> map, @RequestParam("lat") double lat, @RequestParam("lng") double lng)
-			throws Exception {
-		ModelAndView mav = new ModelAndView();
+//	@GetMapping("/apt")
+//	public ResponseEntity<List<HouseInfoDto>> apt(@RequestParam("dong") String dong,
+//			@RequestParam Map<String, String> map, @RequestParam("lat") double lat, @RequestParam("lng") double lng)
+//			throws Exception {
+//		ModelAndView mav = new ModelAndView();
+////
+////		String spp = map.get("spp"); // size per page (페이지당 글갯수)
+////		map.put("spp", spp != null ? spp : "10");
+////		List<HouseInfoDto> list = hService.getAptInDong(dong);
+////		com.ssafy.happyhouse.util.PageNavigation pageNavigation = hService.makePageNavigation(map);
+////		mav.addObject("articles", list);
+////		mav.addObject("navigation", pageNavigation);
+////		mav.addObject("key", map.get("key"));
+////		mav.addObject("word", map.get("word"));
+////		mav.setViewName("guestbook/list");
+////		HouseInfoDto user = new HouseInfoDto();
+////		user.setLat(lat + "");
+////		user.setLng(lng + "");
+////		aptList.add(0, user);
+////		System.out.println("사용자 : " + user);
+////		
+////		System.out.println();
+////		System.out.println("사용자의 현재 위도, 경도 : " + lat + "," + lng);
+//////		Dijkstra();
+////		
+////		
+////		System.out.println("최단경로 후");
+////		for (HouseInfoDto houseInfoDto : aptList) {
+////			System.out.println(houseInfoDto);
+////		}
 //
-//		String spp = map.get("spp"); // size per page (페이지당 글갯수)
-//		map.put("spp", spp != null ? spp : "10");
-//		List<HouseInfoDto> list = hService.getAptInDong(dong);
-//		com.ssafy.happyhouse.util.PageNavigation pageNavigation = hService.makePageNavigation(map);
-//		mav.addObject("articles", list);
-//		mav.addObject("navigation", pageNavigation);
-//		mav.addObject("key", map.get("key"));
-//		mav.addObject("word", map.get("word"));
-//		mav.setViewName("guestbook/list");
-//		HouseInfoDto user = new HouseInfoDto();
+//		aptList = hService.getAptInDong(dong);
+//
+//		user = new HouseInfoDto();
 //		user.setLat(lat + "");
 //		user.setLng(lng + "");
-//		aptList.add(0, user);
-//		System.out.println("사용자 : " + user);
-//		
-//		System.out.println();
-//		System.out.println("사용자의 현재 위도, 경도 : " + lat + "," + lng);
-////		Dijkstra();
-//		
-//		
-//		System.out.println("최단경로 후");
+//
+//		System.out.println("최단경로 전");
 //		for (HouseInfoDto houseInfoDto : aptList) {
 //			System.out.println(houseInfoDto);
 //		}
-
-		aptList = hService.getAptInDong(dong);
-
-		user = new HouseInfoDto();
-		user.setLat(lat + "");
-		user.setLng(lng + "");
-
-		System.out.println("최단경로 전");
-		for (HouseInfoDto houseInfoDto : aptList) {
-			System.out.println(houseInfoDto);
-		}
-
-		int N = aptList.size();
-		pick = new int[N];
-		resultPick = new int[N];
-		result = Double.MAX_VALUE;
-		v = new boolean[N];
-
-		double[][] matrix = new double[N][N];
-		for (int i = 0; i < N; ++i) {
-			HouseInfoDto h1 = aptList.get(i);
-			for (int j = 0; j < N; ++j) {
-				HouseInfoDto h2 = aptList.get(j);
-				double dist = distance(Double.parseDouble(h1.getLat()), Double.parseDouble(h1.getLng()),
-						Double.parseDouble(h2.getLat()), Double.parseDouble(h2.getLng()));
-				matrix[i][j] = dist;
-				System.out.print(dist + " ");
-			}
-			System.out.println();
-		}
-
-		perm(0, N, 0, 0, matrix);
-		List<HouseInfoDto> list = new ArrayList<HouseInfoDto>();
-		for (int n : resultPick) {
-			list.add(aptList.get(n));
-		}
-
-		return new ResponseEntity<List<HouseInfoDto>>(list, HttpStatus.OK);
+//
+//		int N = aptList.size();
+//		pick = new int[N];
+//		resultPick = new int[N];
+//		result = Double.MAX_VALUE;
+//		v = new boolean[N];
+//
+//		double[][] matrix = new double[N][N];
+//		for (int i = 0; i < N; ++i) {
+//			HouseInfoDto h1 = aptList.get(i);
+//			for (int j = 0; j < N; ++j) {
+//				HouseInfoDto h2 = aptList.get(j);
+//				double dist = distance(Double.parseDouble(h1.getLat()), Double.parseDouble(h1.getLng()),
+//						Double.parseDouble(h2.getLat()), Double.parseDouble(h2.getLng()));
+//				matrix[i][j] = dist;
+//				System.out.print(dist + " ");
+//			}
+//			System.out.println();
+//		}
+//
+//		perm(0, N, 0, 0, matrix);
+//		List<HouseInfoDto> list = new ArrayList<HouseInfoDto>();
+//		for (int n : resultPick) {
+//			list.add(aptList.get(n));
+//		}
+//
+//		return new ResponseEntity<List<HouseInfoDto>>(list, HttpStatus.OK);
+//	}
+	@GetMapping("/apt")
+	public ResponseEntity<List<HouseInfoDto>> apt(@RequestParam("dong") String dong) throws Exception {
+		return new ResponseEntity<List<HouseInfoDto>>(hService.getAptInDong(dong), HttpStatus.OK);
 	}
-
 	// 아파트 이름을 검색하면 모든 시, 동에 있는 아파트가 나옴
 	@GetMapping("/aptname")
 	public ResponseEntity<List<HouseInfoDto>> aptname(@RequestParam("aptname") String aptname) throws Exception {
