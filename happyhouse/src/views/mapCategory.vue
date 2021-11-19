@@ -172,7 +172,7 @@ export default {
 
       // 지도에 표시되고 있는 마커를 제거합니다
       this.removeMarker();
-
+      console.log("TT");
       this.ps.categorySearch(this.currCategory, this.placesSearchCB, {
         useMapBounds: true,
       });
@@ -182,6 +182,7 @@ export default {
     placesSearchCB(data, status) {
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면 지도에 마커를 표출합니다
+        console.log("OK");
         this.displayPlaces(data);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         // 검색결과가 없는경우 해야할 처리가 있다면 이곳에 작성해 주세요
@@ -342,18 +343,20 @@ export default {
       // this.addCategoryClickEvent();
 
       var id = event.currentTarget.id;
-
+      console.log(id);
       // var id = event.id;
       var className = this.className;
+      console.log(className);
       this.placeOverlay.setMap(null);
 
       if (className === "on") {
-        this.currCategory = "";
-        this.changeCategoryClass();
-        this.removeMarker();
+        this.currCategory = id;
+        this.changeCategoryClass(this);
+        this.searchPlaces();
       } else {
         console.log("여기 실행");
         this.currCategory = id;
+        console.log("this:" + this);
         this.changeCategoryClass(this);
         this.searchPlaces();
       }
@@ -368,7 +371,6 @@ export default {
       for (i = 0; i < children.length; i++) {
         children[i].className = "";
       }
-
       if (el) {
         el.className = "on";
       }
