@@ -4,8 +4,10 @@
  * Author: BootstrapMade.com
  * License: https://bootstrapmade.com/license/
  */
+
 import AOS from "aos";
 import "aos/dist/aos.css";
+import $ from "jquery";
 
 !(function ($) {
   "use strict";
