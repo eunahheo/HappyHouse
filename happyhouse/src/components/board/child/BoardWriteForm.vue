@@ -5,13 +5,13 @@
         <b-form-group
           id="id-group"
           label="작성자:"
-          label-for="id"
+          label-for="userid"
           description="작성자를 입력하세요."
         >
           <b-form-input
-            id="id"
+            id="userid"
             :disabled="isId"
-            v-model="article.id"
+            v-model="article.userid"
             type="text"
             required
             placeholder="작성자 입력..."
@@ -68,7 +68,7 @@ export default {
     return {
       article: {
         articleno: 0,
-        id: "",
+        userid: "",
         subject: "",
         content: "",
       },
@@ -96,7 +96,7 @@ export default {
 
       let err = true;
       let msg = "";
-      !this.article.id &&
+      !this.article.userid &&
         ((msg = "작성자 입력해주세요"), (err = false), this.$refs.id.focus());
       err &&
         !this.article.subject &&
@@ -123,7 +123,7 @@ export default {
     registArticle() {
       http
         .post(`/board`, {
-          id: this.article.id,
+          userid: this.article.userid,
           subject: this.article.subject,
           content: this.article.content,
         })
@@ -140,7 +140,7 @@ export default {
       http
         .put(`/board`, {
           articleno: this.article.articleno,
-          id: this.article.id,
+          userid: this.article.userid,
           subject: this.article.subject,
           content: this.article.content,
         })

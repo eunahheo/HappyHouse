@@ -8,7 +8,7 @@
       >
     </b-th>
     <b-td>{{ hit }}</b-td>
-    <b-td>{{ id }}</b-td>
+    <b-td>{{ userid }}</b-td>
     <b-td>{{ regtime }}</b-td>
   </b-tr>
 </template>
@@ -20,7 +20,7 @@ export default {
   name: "BoardListRow",
   props: {
     articleno: Number,
-    id: String,
+    userid: String,
     subject: String,
     hit: Number,
     regtime: String,
