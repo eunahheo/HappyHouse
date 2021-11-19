@@ -31,4 +31,7 @@ a:hover {
 a.router-link-exact-active {
   color: skyblue;
 }
+a.router-link {
+  color: balck;
+}
 </style>
