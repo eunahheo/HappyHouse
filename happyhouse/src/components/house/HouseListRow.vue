@@ -15,6 +15,7 @@
     </b-col>
     <b-col cols="10" class="align-self-center">
       [{{ house.aptCode }}] {{ house.aptName }}
+      <!-- <button class="btn btn-primary" v-b-modal.modal-1>상세보기</button> -->
     </b-col>
   </b-row>
 </template>

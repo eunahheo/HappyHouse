@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.happyhouse.model.mapper.CommentsBoardMapper">
+	<!-- articleno에 해당하는 댓글 조회 -->
+	<select id="list" resultType="commentBoardDto">
+		select commentno, userid, comment, commenttime, articleno
+		from comments_board where articleno = #{articleno} order by commenttime desc
+	</select>
+
+	<!-- 댓글 등록 -->
+	<insert id="create">
+		insert into comments_board(commentno, userid, comment, commenttime, articleno) 
+		values (#{commentno}, #{userid}, #{comment}, now(), #{articleno})
+	</insert>
+	
+	<!-- 책 정보 수정 -->
+	<update id="modify">
+		update comments_board set comment = #{comment} 
+		where commentno = #{commentno}
+	</update>
+
+	<!-- isbn에 따른 책 정보 삭제 -->
+	<delete id="delete">
+		delete from comments_board 
+		where commentno = #{commentno}
+	</delete>
+</mapper>
+

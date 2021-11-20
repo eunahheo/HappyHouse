@@ -42,6 +42,9 @@
           <li id="CS2" data-order="5" @click="onClickCategory">
             <span class="category_bg store"></span> 편의점
           </li>
+          <li id="SW8" data-order="5" @click="onClickCategory">
+            <span class="category_bg subway"></span> 지하철역
+          </li>
         </ul>
       </div>
     </section>

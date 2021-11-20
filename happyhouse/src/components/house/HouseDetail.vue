@@ -34,16 +34,19 @@
         <b-alert show variant="warning">층수 : {{ house.층 }}층</b-alert>
       </b-col>
     </b-row> -->
-    <!-- <b-row>
+    <b-row>
       <b-col>
         <b-alert show variant="danger"
+          >거래금액 : {{ house.recentPrice }}만원</b-alert
+        >
+        <!-- <b-alert show variant="danger"
           >거래금액 :
           {{
             (parseInt(house.dealAmount.replace(",", "")) * 10000) | price
           }}원</b-alert
-        >
+        > -->
       </b-col>
-    </b-row> -->
+    </b-row>
   </b-container>
 </template>
 

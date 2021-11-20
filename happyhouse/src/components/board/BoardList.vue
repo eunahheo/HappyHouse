@@ -7,7 +7,7 @@
           <select id="skey" v-model="key" name="key" class="form-control">
             <option value="id">아이디</option>
             <option value="articleno">글번호</option>
-            <option value="subject">제목</option>
+            <option value="subject" :selected="true">제목</option>
           </select>
 
           <input
