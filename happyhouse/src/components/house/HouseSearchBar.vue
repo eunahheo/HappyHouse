@@ -64,6 +64,7 @@ export default {
     //   return this.$store.state.sidos;
     // },
   },
+
   created() {
     // this.$store.dispatch("getSido");
     // this.sidoList();

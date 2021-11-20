@@ -61,15 +61,13 @@ export default {
   data() {
     return {
       map: null,
-
       infowindow: null,
-
       // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
       placeOverlay: null,
 
       markers: [], // 마커를 담을 배열입니다
       currCategory: "", // 현재 선택된 카테고리를 가지고 있을 변수입니다
-      //   mapContainer: document.getElementById("map"), // 지도를 표시할 div
+      // mapContainer: document.getElementById("map"), // 지도를 표시할 div
       mapOption: null,
       ps: null,
       contentNode: "",
