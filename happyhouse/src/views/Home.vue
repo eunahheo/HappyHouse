@@ -15,7 +15,7 @@
       </router-link> -->
 
       <a class="btn-get-started scrollto"
-        ><router-link :to="{ name: 'Four' }" class="link"
+        ><router-link :to="{ name: 'House' }" class="link"
           ><b-icon
             icon="search"
             font-scale="1"

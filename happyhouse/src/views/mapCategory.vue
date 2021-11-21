@@ -30,20 +30,23 @@
           <li id="MT1" data-order="1" @click="onClickCategory($event)">
             <span class="category_bg mart"></span> 마트
           </li>
-          <li id="PM9" data-order="2" @click="onClickCategory">
+          <!-- <li id="PM9" data-order="2" @click="onClickCategory">
             <span class="category_bg pharmacy"></span> 약국
+          </li> -->
+          <li id="AG2" data-order="2" @click="onClickCategory">
+            <span class="category_bg"></span> 중개소
           </li>
-          <li id="OL7" data-order="3" @click="onClickCategory">
+          <!-- <li id="OL7" data-order="3" @click="onClickCategory">
             <span class="category_bg oil"></span> 주유소
-          </li>
+          </li> -->
           <li id="CE7" data-order="4" @click="onClickCategory">
             <span class="category_bg cafe"></span> 카페
           </li>
           <li id="CS2" data-order="5" @click="onClickCategory">
             <span class="category_bg store"></span> 편의점
           </li>
-          <li id="SW8" data-order="5" @click="onClickCategory">
-            <span class="category_bg subway"></span> 지하철역
+          <li id="SW8" data-order="3" @click="onClickCategory">
+            <span class="category_bg"></span> 지하철역
           </li>
         </ul>
       </div>
@@ -60,6 +63,11 @@ export default {
   name: "mapCategory",
   data() {
     return {
+      // 사용자의 현재 위치 정보
+      latitude: "",
+      longitude: "",
+      textContent: "",
+
       map: null,
       infowindow: null,
       // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
@@ -76,6 +84,7 @@ export default {
   },
 
   mounted() {
+    this.userLocation();
     if (window.kakao && window.kakao.maps) {
       this.initMap();
     } else {
@@ -88,6 +97,12 @@ export default {
     }
   },
   methods: {
+    userLocation() {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+      });
+    },
     initMap() {
       this.contentNode = document.createElement("div"); // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
       const mapContainer = document.getElementById("map");
@@ -98,15 +113,11 @@ export default {
       this.ps = new kakao.maps.services.Places(this.map);
       this.mapOption = {
         center: new kakao.maps.LatLng(37.602829, 127.039508), // 지도의 중심좌표
-        level: 5,
+        level: 8,
         // 지도의 확대 레벨
       };
 
-      const options = {
-        center: new kakao.maps.LatLng(37.602829, 127.0395087),
-        level: 5,
-      };
-      this.map = new kakao.maps.Map(mapContainer, options);
+      this.map = new kakao.maps.Map(mapContainer, this.mapOption);
     },
 
     displayMarker(markerPositions) {
@@ -158,7 +169,10 @@ export default {
     // 엘리먼트에 이벤트 핸들러를 등록하는 함수입니다
     addEventHandle(target, type, callback) {
       if (target.addEventListener) {
-        target.addEventListener(type, callback);
+        target.addEventListener(type, () => {
+          callback;
+        });
+        // target.addEventListener(type, callback);
       } else {
         target.attachEvent("on" + type, callback);
       }

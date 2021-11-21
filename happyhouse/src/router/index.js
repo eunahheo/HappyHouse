@@ -19,6 +19,13 @@ import BoardView from "@/components/board/BoardView.vue";
 import BoardUpdate from "@/components/board/BoardUpdate.vue";
 import BoardDelete from "@/components/board/BoardDelete.vue";
 
+import Notice from "@/views/Notice.vue";
+import NoticeList from "@/components/notice/NoticeList.vue";
+import NoticeWrite from "@/components/notice/NoticeWrite.vue";
+import NoticeView from "@/components/notice/NoticeView.vue";
+import NoticeUpdate from "@/components/notice/NoticeUpdate.vue";
+import NoticeDelete from "@/components/notice/NoticeDelete.vue";
+
 import mapCategory from "@/views/mapCategory.vue";
 
 import House from "@/views/House.vue";
@@ -125,6 +132,43 @@ const routes = [
         name: "BoardDelete",
         beforeEnter: onlyAuthUser,
         component: BoardDelete,
+      },
+    ],
+  },
+  {
+    path: "/notice",
+    name: "Notice",
+    component: Notice,
+    redirect: "/notice/list",
+    children: [
+      {
+        path: "list",
+        name: "NoticeList",
+        component: NoticeList,
+      },
+      {
+        path: "write",
+        name: "NoticeWrite",
+        beforeEnter: onlyAuthUser,
+        component: NoticeWrite,
+      },
+      {
+        path: "detail/:noticeno",
+        name: "NoticeView",
+        beforeEnter: onlyAuthUser,
+        component: NoticeView,
+      },
+      {
+        path: "update/:noticeno",
+        name: "NoticeUpdate",
+        beforeEnter: onlyAuthUser,
+        component: NoticeUpdate,
+      },
+      {
+        path: "delete/:noticeno",
+        name: "NoticeDelete",
+        beforeEnter: onlyAuthUser,
+        component: NoticeDelete,
       },
     ],
   },

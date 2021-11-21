@@ -1,12 +1,19 @@
 <template>
   <b-container v-if="houses && houses.length != 0" class="bv-example-row mt-3">
-    <house-list-row
-      v-for="(house, index) in houses"
-      :key="index"
-      :house="house"
-      v-b-modal.modal-center
-    />
-    <b-modal id="modal-center" centered title="BootstrapVue">
+    <b-card no-body>
+      <b-card-body
+        id="scrollspy-nested"
+        style="position: relative; height: 600px; overflow-y: scroll"
+      >
+        <house-list-row
+          v-for="(house, index) in houses"
+          :key="index"
+          :house="house"
+          v-b-modal.modal-center
+        />
+      </b-card-body>
+    </b-card>
+    <b-modal id="modal-center" centered title="아파트 거래정보 상세">
       <b-container v-if="house" class="bv-example-row">
         <b-row>
           <b-col
@@ -35,7 +42,8 @@
         <b-row>
           <b-col>
             <b-alert show variant="info"
-              >법정동 : {{ house.dongName }}
+              >주소 : {{ house.sidoName }} {{ house.gugunName }}
+              {{ house.dongName }}
             </b-alert>
           </b-col>
         </b-row>

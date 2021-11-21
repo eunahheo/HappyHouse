@@ -19,6 +19,45 @@ values ('admin', '관리자', 'admin', 'admin@ssafy.com', now());
 
 commit;
 
+-- -----------------------------------------------------
+-- Table `happyhouse`.`notice` 공지사항
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `happyhouse`.`notice` ;
+CREATE TABLE IF NOT EXISTS `happyhouse`.`notice` (
+  `noticeno` INT NOT NULL AUTO_INCREMENT,
+  `userid` VARCHAR(16) NULL DEFAULT NULL,
+  `subject` VARCHAR(100) NULL DEFAULT NULL,
+  `content` VARCHAR(2000) NULL DEFAULT NULL,
+  `hit` INT NULL DEFAULT 0,
+  `regtime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`noticeno`),
+  INDEX `notice_to_user_fk` (`userid` ASC) VISIBLE,
+  CONSTRAINT `notice_to_user_fk`
+    FOREIGN KEY (`userid`)
+    REFERENCES `happyhouse`.`user` (`userid`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+insert into notice (userid, subject, content, hit, regtime)
+values ('ssafy','[안내]공지사항 게시판입니다.','공지사항 등록은 관리자만 가능합니다.',31,now());
+insert into notice (userid, subject, content, hit, regtime)
+values ('ssafy','[공지] 사이트 점검 예정 안내드립니다.','2021.11.00 ~2021.11.00 기간 동안 사이트 점검 예정입니다.
+참고 바랍니다.',57,now());
+insert into notice (userid, subject, content, hit, regtime)
+values ('admin','[안내]공지사항 작성은 관리자만 가능합니다.','공지사항을 확인하시고 궁금한 점은 QnA 게시판에 문의해주세요.',23,now());
+insert into notice (userid, subject, content, hit, regtime)
+values ('ssafy', '[필독] 아파트매매 실거래가 조회 방법','메인화면의 돋보기 버튼과 오른쪽 상단의 주택거래정보를 클릭하시면 주택거래정보 조회 페이지로 이동합니다. 
+시,구,동을 선택하시면 아파트매매 거래내역을 조회하실 수 있으며 해당 아파트들의 위치와 정보가 지도 위에 표시됩니다.
+아파트 이름을 클릭하시면 아파트매매 거래내역을 상세하게 조회하실 수 있습니다.',75,now());
+insert into notice (userid, subject, content, hit, regtime)
+values ('ssafy','[공지] 사이트 점검 예정 안내드립니다.','2021.11.00 ~2021.11.00 기간 동안 사이트 점검 예정입니다.
+참고 바랍니다.',60,now());
+
+-- -----------------------------------------------------
+-- Table `happyhouse`.`comments_board`  QnA
+-- -----------------------------------------------------
 DROP TABLE IF EXISTS `happyhouse`.`board` ;
 
 CREATE TABLE IF NOT EXISTS `happyhouse`.`board` (
@@ -37,6 +76,12 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
+insert into board (userid, subject, content, hit, regtime)
+		values ('sdi1358','상권정보는 어떻게 조회하나요?','상권정보 조회 방법이 궁금합니다.', 15, now()),
+        ('ojy','사이트 점검 문의드립니다.','사이트 점검 기간 동안은 사이트 사용이 불가한가요?', 20, now()),
+        ('hhh','사이트 설명이 부족해요.', '사이트 사용 방법에 대한 설명이 부족해요.
+        더 상세한 설명 부탁드립니다.',13,now());
 
 DROP TABLE IF EXISTS `happyhouse`.`memo` ;
 

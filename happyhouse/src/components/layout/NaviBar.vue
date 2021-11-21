@@ -36,21 +36,15 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'Board' }" class="link"
-              ><b-icon icon="card-heading" font-scale="1"></b-icon> QNA
+            <router-link :to="{ name: 'Four' }" class="link"
+              ><b-icon icon="card-heading" font-scale="1"></b-icon> 게시판
             </router-link>
           </li>
 
-          <li v-if="userInfo">
-            <span
-              style="color: white"
-              class="link align-self-center"
-              @click.prevent="onClickLogout"
+          <li v-if="userInfo" class="link" @click.prevent="onClickLogout">
+            <router-link :to="{ name: Home }" style="color: white"
+              >로그아웃</router-link
             >
-              로그아웃
-            </span>
-            <!-- </b-nav-item-dropdown>
-            </b-navbar-nav> -->
           </li>
           <li v-else>
             <router-link :to="{ name: 'SignIn' }" class="link"
@@ -95,5 +89,4 @@ export default {
   },
 };
 </script>
-
 <style></style>

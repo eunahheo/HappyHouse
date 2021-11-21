@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 import memberStore from "@/store/modules/memberStore.js";
 import boardStore from "@/store/modules/boardStore.js";
+import noticeStore from "@/store/modules/noticeStore.js";
 import houseStore from "@/store/modules/houseStore.js";
 
 const store = new Vuex.Store({
@@ -13,6 +14,7 @@ const store = new Vuex.Store({
     memberStore,
     boardStore,
     houseStore,
+    noticeStore,
   },
   plugins: [
     createPersistedState({

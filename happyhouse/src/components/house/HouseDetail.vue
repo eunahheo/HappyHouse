@@ -1,5 +1,7 @@
 <template>
   <div class="map_wrap" v-if="houses">
+    <button @click="trafficMap" class="btn btn-primary">실시간 교통정보</button>
+    {{ this.msg }}
     <div id="map" style="width: 100%; height: 640px; position: relative"></div>
   </div>
 </template>
@@ -25,6 +27,8 @@ export default {
   },
   data() {
     return {
+      trafficFlag: false,
+      msg: "off",
       map: null, // 지도
       ps: null,
       infowindow: null, // 검색 결과 목록/마커 클릭 시 장소명 표출한 인포윈도우
@@ -53,6 +57,16 @@ export default {
     }
   },
   methods: {
+    trafficMap() {
+      if (!this.trafficFlag) {
+        this.map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+        this.msg = "on";
+      } else {
+        this.map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+        this.msg = "off";
+      }
+      this.trafficFlag = !this.trafficFlag;
+    },
     initMap() {
       console.log("initMap 호출");
       this.contentNode = document.createElement("div"); // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
@@ -189,7 +203,7 @@ export default {
       const content = `
 		<div class="overlaybox" style="text-align:left">
 			<div class="boxtitle">${title}</div>
-			<div class="first"><img :src="@/assets/img/apt.jpg" style="width:247px; height:136px;" alt=""></div>
+			<div class="first"></div>
 			<ul>
 				<li class="up">
 					<span class="title">건축년도</span>
@@ -209,13 +223,15 @@ export default {
 			</ul>
 		</div>
 	`;
+      this.contentNode.innerHTML = content;
+      console.log(this.contentNode);
       const position = new kakao.maps.LatLng(
         marker.getPosition().getLat() + 0.00033,
         marker.getPosition().getLng() - 0.00003
       );
       this.placeOverlay = new kakao.maps.CustomOverlay({
         position: position,
-        content: content,
+        content: this.contentNode,
         xAnchor: 0.3,
         yAnchor: 0.91,
       });
@@ -244,6 +260,18 @@ ul {
 .overlaybox li {
   list-style: none;
 }
+.overlaybox .first {
+  position: relative;
+  width: 247px;
+  height: 136px;
+  background: url("https://ifh.cc/g/wYV1Ox.png") no-repeat;
+  /* background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumb.png")
+    no-repeat; */
+  /* background: url("/Users/heoeunah/git/happyhouse/happyhouse/src/assets/apt.png"); */
+  /* background-repeat: no-repeat; */
+  margin-bottom: 8px;
+}
+
 .overlaybox .boxtitle {
   color: #fff;
   font-size: 16px;
