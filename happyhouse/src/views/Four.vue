@@ -28,7 +28,15 @@
                   v-bind="notice"
                 >
                   <td>{{ index + 1 }}</td>
-                  <td>{{ notice.subject }}</td>
+                  <td>
+                    <router-link
+                      :to="{
+                        name: 'NoticeView',
+                        params: { noticeno: notice.noticeno },
+                      }"
+                      >{{ notice.subject }}</router-link
+                    >
+                  </td>
                   <td>{{ notice.userid }}</td>
                   <td>{{ notice.hit }}</td>
                 </tr>
@@ -36,7 +44,7 @@
             </table>
             <div class="clearfix" style="text-align: right; margin-right: 5px">
               <router-link :to="{ name: 'Notice' }" class="link">
-                <button class="btn btn-primary">글 목록</button>
+                <b-button variant="secondary">목록</b-button>
               </router-link>
             </div>
           </div>
@@ -65,7 +73,7 @@
                     <router-link
                       :to="{
                         name: 'BoardView',
-                        params: { articleno: board.boardno },
+                        params: { articleno: board.articleno },
                       }"
                       >{{ board.subject }}</router-link
                     >
@@ -77,7 +85,7 @@
             </table>
             <div class="clearfix" style="text-align: right; margin-right: 5px">
               <router-link :to="{ name: 'Board' }" class="link">
-                <button class="btn btn-primary">글 목록</button>
+                <b-button variant="secondary">목록</b-button>
               </router-link>
             </div>
           </div>

@@ -18,19 +18,19 @@
                   href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp"
                   target="_blank"
                   class="linkedin"
-                  ><i class="bx bxl-linkedin"></i
+                  ><b-icon icon="link" font-scale="1.2"></b-icon
                 ></a>
                 <a
                   href="https://www.facebook.com/hellossafy/"
                   target="_blank"
                   class="facebook"
-                  ><i class="bx bxl-facebook"></i
+                  ><b-icon icon="facebook" font-scale="1.2"></b-icon
                 ></a>
                 <a
                   href="https://www.instagram.com/hellossafy/?hl=ko"
                   target="_blank"
                   class="instagram"
-                  ><i class="bx bxl-instagram"> </i
+                  ><b-icon icon="instagram" font-scale="1.2"></b-icon
                 ></a>
               </div>
             </div>
@@ -45,15 +45,20 @@
             <ul>
               <li>
                 <i class="bx bx-chevron-right"></i>
-                <a href="http://localhost:80/#hero">Home</a>
+                <router-link :to="{ name: 'Home' }">Home</router-link>
+                <!-- <a href="http://localhost:80/#hero">Home</a> -->
               </li>
               <li>
                 <i class="bx bx-chevron-right"></i>
-                <a href="http://localhost:80/#team">사이트 소개</a>
+                <router-link :to="{ name: 'Introduce' }"
+                  >사이트 소개</router-link
+                >
+                <!-- <a href="http://localhost:80/#team">사이트 소개</a> -->
               </li>
               <li>
                 <i class="bx bx-chevron-right"></i>
-                <a href="http://localhost:80/map">주택거래정보</a>
+                <router-link :to="{ name: 'House' }">주택거래정보</router-link>
+                <!-- <a href="http://localhost:80/map">주택거래정보</a> -->
               </li>
             </ul>
           </div>

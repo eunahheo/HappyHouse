@@ -30,7 +30,7 @@
       </b-col>
       <b-col class="text-right" style="float: left">
         <b-button
-          v-if="userInfo.userid == 'ssafy' || userInfo.userid == 'admin'"
+          v-show="this.flag"
           variant="outline-primary"
           @click="moveWrite()"
           >글쓰기</b-button
@@ -84,12 +84,18 @@ export default {
       notices: [],
       key: null,
       word: null,
+      flag: false,
     };
   },
   created() {
     http.get(`/notice`).then(({ data }) => {
       this.notices = data;
     });
+    if (this.userInfo.userid == "ssafy" || this.userInfo.userid == "admin") {
+      this.flag = true;
+    } else {
+      this.flag = false;
+    }
   },
   methods: {
     moveWrite() {

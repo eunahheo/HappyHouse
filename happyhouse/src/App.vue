@@ -22,8 +22,9 @@ export default {
     NaviBar,
     Footer,
   },
+
   methods: {
-    function() {
+    init() {
       "use strict";
 
       // Smooth scroll for the navigation menu and links with .scrollto classes
@@ -31,47 +32,41 @@ export default {
       if (window.matchMedia("(max-width: 991px)").matches) {
         scrolltoOffset += 30;
       }
-      $(document).on(
-        "click",
-        ".nav-menu a, .mobile-nav a, .scrollto",
-        function (e) {
-          if (
-            location.pathname.replace(/^\//, "") ==
-              this.pathname.replace(/^\//, "") &&
-            location.hostname == this.hostname
-          ) {
-            var target = $(this.hash);
-            e.preventDefault();
-            if (target.length) {
-              var scrollto = target.offset().top - scrolltoOffset;
-              if ($(this).attr("href") == "#header") {
-                scrollto = 0;
-              }
-              $("html, body").animate(
-                {
-                  scrollTop: scrollto,
-                },
-                1500,
-                "easeInOutExpo"
-              );
-              if ($(this).parents(".nav-menu, .mobile-nav").length) {
-                $(".nav-menu .active, .mobile-nav .active").removeClass(
-                  "active"
-                );
-                $(this).closest("li").addClass("active");
-              }
-              if ($("body").hasClass("mobile-nav-active")) {
-                $("body").removeClass("mobile-nav-active");
-                $(".mobile-nav-toggle i").toggleClass(
-                  "icofont-navigation-menu icofont-close"
-                );
-                $(".mobile-nav-overly").fadeOut();
-              }
-              return false;
+      $(document).on("click", ".nav-menu a, .mobile-nav a, .scrollto", (e) => {
+        if (
+          location.pathname.replace(/^\//, "") ==
+            this.pathname.replace(/^\//, "") &&
+          location.hostname == this.hostname
+        ) {
+          var target = $(this.hash);
+          e.preventDefault();
+          if (target.length) {
+            var scrollto = target.offset().top - scrolltoOffset;
+            if ($(this).attr("href") == "#header") {
+              scrollto = 0;
             }
+            $("html, body").animate(
+              {
+                scrollTop: scrollto,
+              },
+              1500,
+              "easeInOutExpo"
+            );
+            if ($(this).parents(".nav-menu, .mobile-nav").length) {
+              $(".nav-menu .active, .mobile-nav .active").removeClass("active");
+              $(this).closest("li").addClass("active");
+            }
+            if ($("body").hasClass("mobile-nav-active")) {
+              $("body").removeClass("mobile-nav-active");
+              $(".mobile-nav-toggle i").toggleClass(
+                "icofont-navigation-menu icofont-close"
+              );
+              $(".mobile-nav-overly").fadeOut();
+            }
+            return false;
           }
         }
-      );
+      });
 
       // Activate smooth scroll on page load with hash links in the url
       $(document).ready(function () {

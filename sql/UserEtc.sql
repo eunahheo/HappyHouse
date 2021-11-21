@@ -168,3 +168,52 @@ CREATE TABLE IF NOT EXISTS `happyhouse`.`file_info` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
+-- -----------------------------------------------------
+-- Table `happyhouse`.`interest`  관심지역
+-- -----------------------------------------------------
+CREATE TABLE `happyhouse`.`interest` (
+  `interestno` INT NOT NULL AUTO_INCREMENT,
+  `sidoname` VARCHAR(45) NULL,
+  `gugunname` VARCHAR(45) NULL,
+  `dongname` VARCHAR(45) NULL,
+  `dongcode` VARCHAR(45) NULL,
+  `lat` VARCHAR(45) NULL,
+  `lng` VARCHAR(45) NULL,
+  `userid` VARCHAR(20) NULL,
+  PRIMARY KEY (`interestno`),
+  INDEX `interest_user_fk_idx` (`userid` ASC) VISIBLE,
+  CONSTRAINT `interest_user_fk`
+    FOREIGN KEY (`userid`)
+    REFERENCES `happyhouse`.`user` (`userid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 23
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+-- -----------------------------------------------------
+-- Table `happyhouse`.`company`  사용자의 회사
+-- -----------------------------------------------------
+CREATE TABLE `happyhouse`.`company` (
+  `companyno` INT NOT NULL AUTO_INCREMENT,
+  `buildingname` VARCHAR(50) NOT NULL,
+  `sido` VARCHAR(30) NULL,
+  `sigungu` VARCHAR(30) NULL,
+  `bname` VARCHAR(30) NULL,
+  `bcode` VARCHAR(10) NULL,
+  `lat` VARCHAR(30) NULL,
+  `lng` VARCHAR(30) NULL,
+  `userid` VARCHAR(16) NULL,
+  PRIMARY KEY (`companyno`),
+  INDEX `company_user_fk_idx` (`userid` ASC) VISIBLE,
+  CONSTRAINT `company_user_fk`
+    FOREIGN KEY (`userid`)
+    REFERENCES `happyhouse`.`user` (`userid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 23
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
