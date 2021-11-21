@@ -25,6 +25,11 @@ export default {
       isShow: true,
     };
   },
+  updated() {
+    http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
+      this.comments = data;
+    });
+  },
   methods: {
     modifyCommentView() {
       this.$emit("modify-comment", {
@@ -48,7 +53,6 @@ export default {
               msg = "삭제가 완료되었습니다.";
             }
             alert(msg);
-            this.$store.dispatch("getComments", this.comment.articleno);
           });
       }
     },

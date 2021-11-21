@@ -6,9 +6,13 @@
       </b-col>
     </b-row>
     <b-row class="mb-1">
-      <b-col class="text-left">
-        <b-button variant="outline-primary" @click="listArticle">목록</b-button>
-      </b-col>
+      <div class="text-left">
+        <b-col>
+          <b-button variant="outline-primary" @click="listArticle"
+            >목록</b-button
+          >
+        </b-col>
+      </div>
       <b-col class="text-right">
         <b-button
           variant="outline-info"
@@ -77,13 +81,12 @@
 
 <script>
 // import moment from "moment";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import CommentWrite from "@/components/board/comment/CommentWrite.vue";
 import Comment from "@/components/board/comment/Comment.vue";
 import moment from "moment";
 import http from "@/util/http-common";
 const memberStore = "memberStore";
-const boardStore = "boardStore";
 export default {
   components: { CommentWrite, Comment },
 
@@ -98,8 +101,7 @@ export default {
   },
   computed: {
     ...mapGetters(memberStore, ["checkUserInfo"]),
-    ...mapActions(boardStore, ["getComments"]),
-    ...mapGetters(boardStore, ["comments"]),
+
     message() {
       if (this.article.content)
         return this.article.content.split("\n").join("<br>");
@@ -116,6 +118,11 @@ export default {
       this.comments = data;
     });
     // this.$store.dispatch("getComments", this.articleno);
+  },
+  updated() {
+    http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
+      this.comments = data;
+    });
   },
   methods: {
     onModifyComment(comment) {

@@ -1,25 +1,34 @@
 <template>
   <div class="regist">
-    <div v-if="modifyComment != null" class="regist_form">
+    <div
+      v-if="modifyComment != null"
+      class="regist_form"
+      style="text-align: left"
+    >
       <textarea
         name="comment"
         id="comment"
         v-model="modifyComment.comment"
-        cols="35"
+        cols="40"
         rows="2"
       ></textarea>
-      <button class="small" @click="updateCommentCancel">취소</button>
-      <button class="small" @click="updateComment">수정</button>
+      <button
+        class="small btn btn-outline-secondary"
+        @click="updateCommentCancel"
+      >
+        취소
+      </button>
+      <button class="small btn btn-info" @click="updateComment">수정</button>
     </div>
-    <div v-else class="regist_form">
+    <div v-else class="regist_form" style="text-align: left">
       <textarea
         name="comment"
         id="comment"
-        cols="35"
+        cols="40"
         v-model="comment"
         rows="2"
       ></textarea>
-      <button @click="registComment">등록</button>
+      <button class="btn btn-primary" @click="registComment">등록</button>
     </div>
   </div>
 </template>
@@ -43,7 +52,6 @@ export default {
       comment: "",
     };
   },
-
   methods: {
     registComment() {
       http
@@ -60,14 +68,16 @@ export default {
           }
           alert(msg);
           this.comment = "";
-          this.$store.dispatch("getComments", this.articleno);
+          http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
+            this.comments = data;
+          });
           //this.$store.dispatch("getComments", this.commentno);
         });
     },
     updateComment() {
       http
-        .put(`/comment`, {
-          comment_no: this.modifyComment.comment_no,
+        .put(`/board/comment`, {
+          commentno: this.modifyComment.commentno,
           comment: this.modifyComment.comment,
         })
         .then(({ data }) => {
@@ -76,7 +86,9 @@ export default {
             msg = "수정이 완료되었습니다.";
           }
           alert(msg);
-          this.$store.dispatch("getComments", this.modifyComment.articleno);
+          http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
+            this.comments = data;
+          });
           this.updateCommentCancel();
         });
     },
@@ -94,9 +106,11 @@ textarea {
 }
 button {
   float: right;
+  width: 100px;
+  height: 60px;
 }
 button.small {
-  width: 60px;
+  width: 50px;
   font-size: small;
   font-weight: bold;
 }
