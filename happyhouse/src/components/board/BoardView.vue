@@ -37,37 +37,94 @@
         </b-card>
       </b-col>
     </b-row>
+    <!-- <div class="regist">
+      <div v-if="modifyComment != null" class="regist_form">
+        <textarea
+          name="comment"
+          id="comment"
+          v-model="modifyComment.comment"
+          cols="35"
+          rows="2"
+        ></textarea>
+        <button class="small" @click="updateCommentCancel">취소</button>
+        <button class="small" @click="updateComment">수정</button>
+      </div>
+      <div v-else class="regist_form">
+        <textarea
+          name="comment"
+          id="comment"
+          cols="35"
+          v-model="comment"
+          rows="2"
+        ></textarea>
+        <button @click="registComment">등록</button>
+      </div>
+    </div> -->
+    <comment-write :articleno="article.articleno" />
+    <comment-write
+      v-if="isModifyShow && modifyComment != null"
+      :modifyComment="modifyComment"
+      @modify-comment-cancel="onModifyCommentCancel"
+    />
+    <comment
+      v-for="(comment, index) in comments"
+      :key="index"
+      :comment="comment"
+      @modify-comment="onModifyComment"
+    />
   </b-container>
 </template>
 
 <script>
 // import moment from "moment";
+import { mapGetters, mapActions } from "vuex";
+import CommentWrite from "@/components/board/comment/CommentWrite.vue";
+import Comment from "@/components/board/comment/Comment.vue";
+import moment from "moment";
 import http from "@/util/http-common";
-
+const memberStore = "memberStore";
+const boardStore = "boardStore";
 export default {
+  components: { CommentWrite, Comment },
+
   data() {
     return {
       article: {},
+      commentno: 0,
+      isModifyShow: false,
+      modifyComment: Object,
     };
   },
   computed: {
+    ...mapGetters(memberStore, ["checkUserInfo"]),
+    ...mapActions(memberStore, ["getComments"]),
+    ...mapGetters(boardStore, ["comments"]),
     message() {
       if (this.article.content)
         return this.article.content.split("\n").join("<br>");
       return "";
     },
-    // changeDateFormat() {
-    //   return moment(new Date(this.article.regtime)).format(
-    //     "YYYY.MM.DD hh:mm:ss"
-    //   );
-    // },
   },
   created() {
     http.get(`/board/${this.$route.params.articleno}`).then(({ data }) => {
       this.article = data;
     });
+    this.articleno = this.$route.params.articleno;
+    this.$store.dispatch("getComments", this.articleno);
+    console.log(this.$store.dispatch("getComments", this.articleno));
   },
   methods: {
+    onModifyComment(comment) {
+      this.isModifyShow = true;
+      this.modifyComment = comment;
+    },
+    onModifyCommentCancel(isShow) {
+      this.isModifyShow = isShow;
+    },
+    enterToBr(str) {
+      // 문자열에 enter값을 <br />로 변경.(html상에서 줄바꿈 처리)
+      return String(str).replace(/(?:\r\n|\r|\n)/g, "<br />");
+    },
     listArticle() {
       this.$router.push({ name: "BoardList" });
     },
@@ -86,8 +143,43 @@ export default {
         });
       }
     },
+    getFormatDate(regtime) {
+      return moment(new Date(regtime)).format("YYYY-MM-DD HH:mm:ss");
+    },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+textarea {
+  width: 90%;
+  font-size: large;
+}
+button {
+  float: right;
+}
+button.small {
+  width: 60px;
+  font-size: small;
+  font-weight: bold;
+}
+.comment {
+  text-align: left;
+  border-radius: 5px;
+  background-color: #d6e7fa;
+  padding: 10px 20px;
+  margin: 10px;
+}
+.head {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.content {
+  padding: 5px;
+}
+.cbtn {
+  text-align: right;
+  color: steelblue;
+  margin: 5px 0px;
+}
+</style>

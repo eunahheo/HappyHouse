@@ -8,7 +8,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import store from "./store";
 import memberStore from "./store/modules/memberStore";
-
 import "@/assets/css/innerstyle.css";
 import "@/assets/css/style.css";
 

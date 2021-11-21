@@ -29,6 +29,7 @@ public class CommentRestController {
 	@GetMapping("{articleno}")
 	public ResponseEntity<List<CommentBoardDto>> listComment(@PathVariable("articleno") String articleno) {
 		logger.debug("listComment - 호출");
+		System.out.println("호출이다!!!");
 		return new ResponseEntity<>(commentService.list(articleno), HttpStatus.OK);
 	}
 

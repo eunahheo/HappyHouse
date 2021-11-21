@@ -17,6 +17,7 @@ const memberStore = {
       return state.userInfo;
     },
   },
+
   mutations: {
     SET_IS_LOGIN: (state, isLogin) => {
       state.isLogin = isLogin;
@@ -29,8 +30,17 @@ const memberStore = {
       state.userInfo = userInfo;
     },
   },
+  methods: {
+    unLoadEvent: function (event) {
+      if (this.canLeaveSite) return;
+
+      event.preventDefault();
+      event.returnValue = "";
+    },
+  },
   actions: {
     async userConfirm({ commit }, user) {
+      this.isLoginError = false;
       await login(
         user,
         (response) => {
