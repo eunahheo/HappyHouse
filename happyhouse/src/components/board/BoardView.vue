@@ -93,11 +93,12 @@ export default {
       commentno: 0,
       isModifyShow: false,
       modifyComment: Object,
+      comments: {},
     };
   },
   computed: {
     ...mapGetters(memberStore, ["checkUserInfo"]),
-    ...mapActions(memberStore, ["getComments"]),
+    ...mapActions(boardStore, ["getComments"]),
     ...mapGetters(boardStore, ["comments"]),
     message() {
       if (this.article.content)
@@ -110,8 +111,11 @@ export default {
       this.article = data;
     });
     this.articleno = this.$route.params.articleno;
-    this.$store.dispatch("getComments", this.articleno);
-    console.log(this.$store.dispatch("getComments", this.articleno));
+    // this.getComments(this.articleno);
+    http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
+      this.comments = data;
+    });
+    // this.$store.dispatch("getComments", this.articleno);
   },
   methods: {
     onModifyComment(comment) {

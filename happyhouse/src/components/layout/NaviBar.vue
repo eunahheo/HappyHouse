@@ -42,7 +42,7 @@
           </li>
 
           <li v-if="userInfo" class="link" @click.prevent="onClickLogout">
-            <router-link :to="{ name: Home }" style="color: white"
+            <router-link :to="{ name: 'Home' }" style="color: white"
               >로그아웃</router-link
             >
           </li>
