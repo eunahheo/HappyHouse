@@ -10,16 +10,12 @@
         <house-search-bar></house-search-bar>
       </b-col>
     </b-row>
-    <div style="height: 600px">
-      <b-row>
-        <b-col cols="5" align="left">
-          <house-list />
-        </b-col>
-        <b-col cols="7">
-          <house-detail />
-        </b-col>
-      </b-row>
-    </div>
+    <b-row>
+      <house-detail />
+    </b-row>
+
+    <b-row> <house-list /></b-row>
+    <b-row> </b-row>
   </b-container>
 </template>
 <script>

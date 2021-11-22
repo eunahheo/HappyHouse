@@ -12,16 +12,50 @@
       </div>
     </section>
     <div>
-      <b-row>
-        <!-- <b-col class="sm-3 text-right">
-        <b-form-select
-            v-model="sidoCode"
-            :options="sidos"
-            @change="gugunList"
-          ></b-form-select>
-        </b-col> -->
-        <b-col class="sm-3 text-right">
-          <table>
+      <section style="text-left">
+        <div
+          class="map_wrap text-left"
+          style="width: 40%; float: left; margin-left: 80px"
+        >
+          <div
+            id="map"
+            style="
+              width: 100%;
+              height: 100%;
+              position: relative;
+              overflow: hidden;
+            "
+          ></div>
+          <ul id="category">
+            <li id="BK9" data-order="0" v-on:click="onClickCategory($event)">
+              <span class="category_bg bank"></span>
+              은행
+            </li>
+            <li id="MT1" data-order="1" @click="onClickCategory($event)">
+              <span class="category_bg mart"></span> 마트
+            </li>
+            <!-- <li id="PM9" data-order="2" @click="onClickCategory">
+            <span class="category_bg pharmacy"></span> 약국
+          </li> -->
+            <li id="AG2" data-order="2" @click="onClickCategory">
+              <span class="category_bg"></span> 중개소
+            </li>
+            <!-- <li id="OL7" data-order="3" @click="onClickCategory">
+            <span class="category_bg oil"></span> 주유소
+          </li> -->
+            <li id="CE7" data-order="4" @click="onClickCategory">
+              <span class="category_bg cafe"></span> 카페
+            </li>
+            <li id="CS2" data-order="5" @click="onClickCategory">
+              <span class="category_bg store"></span> 편의점
+            </li>
+            <li id="SW8" data-order="3" @click="onClickCategory">
+              <span class="category_bg"></span> 지하철역
+            </li>
+          </ul>
+        </div>
+        <div class="sm-3" style="width: 40%; float: right; margin-right: 80px">
+          <table style="width: 50%">
             <thead>
               관심지역 목록
             </thead>
@@ -31,53 +65,14 @@
             :key="index"
             v-bind="interest"
           />
-        </b-col>
-      </b-row>
+        </div>
+        <div style="height: 300px"></div>
+      </section>
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
-    <section style="text-align: center">
-      <div class="map_wrap">
-        <div
-          id="map"
-          style="
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-          "
-        ></div>
-        <ul id="category">
-          <li id="BK9" data-order="0" v-on:click="onClickCategory($event)">
-            <span class="category_bg bank"></span>
-            은행
-          </li>
-          <li id="MT1" data-order="1" @click="onClickCategory($event)">
-            <span class="category_bg mart"></span> 마트
-          </li>
-          <!-- <li id="PM9" data-order="2" @click="onClickCategory">
-            <span class="category_bg pharmacy"></span> 약국
-          </li> -->
-          <li id="AG2" data-order="2" @click="onClickCategory">
-            <span class="category_bg"></span> 중개소
-          </li>
-          <!-- <li id="OL7" data-order="3" @click="onClickCategory">
-            <span class="category_bg oil"></span> 주유소
-          </li> -->
-          <li id="CE7" data-order="4" @click="onClickCategory">
-            <span class="category_bg cafe"></span> 카페
-          </li>
-          <li id="CS2" data-order="5" @click="onClickCategory">
-            <span class="category_bg store"></span> 편의점
-          </li>
-          <li id="SW8" data-order="3" @click="onClickCategory">
-            <span class="category_bg"></span> 지하철역
-          </li>
-        </ul>
-      </div>
-    </section>
-    <br />
-    <br />
-    <br />
-    <br />
   </main>
 </template>
 
@@ -150,7 +145,7 @@ export default {
   methods: {
     ...mapMutations(houseStore, ["SET_INTEREST_LIST"]),
     iList() {
-      console.log(this.interest);
+      console.log("동코드: ", this.interest);
     },
     userLocation() {
       navigator.geolocation.getCurrentPosition((position) => {

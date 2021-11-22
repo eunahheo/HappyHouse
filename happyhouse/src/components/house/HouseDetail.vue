@@ -1,8 +1,8 @@
 <template>
   <div class="map_wrap" v-if="houses">
-    <button @click="trafficMap" class="btn btn-primary">실시간 교통정보</button>
-    {{ this.msg }}
-    <div id="map" style="width: 100%; height: 640px; position: relative"></div>
+    <!-- <button @click="trafficMap" class="btn btn-primary">실시간 교통정보</button>
+    {{ this.msg }} -->
+    <div id="map" style="width: 100%; height: 380px; position: relative"></div>
   </div>
 </template>
 

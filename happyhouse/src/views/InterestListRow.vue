@@ -19,6 +19,8 @@
 
 <script>
 // import moment from "moment";
+import { mapState } from "vuex";
+const houseStore = "houseStore";
 
 export default {
   name: "InterestListRow",
@@ -31,14 +33,19 @@ export default {
     lat: String,
     lng: String,
     userid: String,
+    interest: Object,
   },
   computed: {
+    ...mapState(houseStore, ["it"]),
     // changeDateFormat() {
     //   return moment(new Date(this.regtime)).format("YY.MM.DD hh:mm:ss");
     // },
   },
   methods: {
     interestClick() {
+      this.it = this.interest;
+      console.log(this.interest);
+      console.log(this.it);
       console.log("dongCode : ", this.dongcode);
     },
   },

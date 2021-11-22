@@ -5,12 +5,19 @@
         id="scrollspy-nested"
         style="position: relative; height: 600px; overflow-y: scroll"
       >
-        <house-list-row
-          v-for="(house, index) in houses"
-          :key="index"
-          :house="house"
-          v-b-modal.modal-center
-        />
+        <section id="services" class="services">
+          <div class="container">
+            <b-row>
+              <house-list-row
+                v-for="(house, index) in houses"
+                :key="index"
+                :house="house"
+                v-b-modal.modal-center
+              >
+              </house-list-row>
+            </b-row>
+          </div>
+        </section>
       </b-card-body>
     </b-card>
     <b-modal id="modal-center" centered title="아파트 거래정보 상세">

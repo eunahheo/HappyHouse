@@ -1,5 +1,4 @@
-import { sidoList, gugunList, dongList } from "@/api/house.js";
-// import { sidoList, gugunList, dongList, houseList } from "@/api/house.js";
+import { sidoList, gugunList, dongList, houseList } from "@/api/house.js";
 
 const houseStore = {
   namespaced: true,
@@ -7,8 +6,7 @@ const houseStore = {
     sidos: [{ value: null, text: "선택하세요" }],
     guguns: [{ value: null, text: "선택하세요" }],
     dongs: [{ value: null, text: "선택하세요" }],
-    // interests: [{ vlaue: null, text: "선택하세요" }],
-    interests: null,
+    interests: [{ vlaue: null, text: "선택하세요" }],
     houses: [],
     house: null,
   },
@@ -31,20 +29,13 @@ const houseStore = {
         state.dongs.push({ value: dong.dongCode, text: dong.dongName });
       });
     },
-    // SET_INTERESTS_LIST: (state, dongs) => {
-    //   dongs.forEach((dong) => {
-    //     state.dongs.push({ value: dong.dongCode, text: dong.dongName });
-    //   });
-    // },
-
     SET_INTEREST_LIST: (state, interests) => {
-      state.interests = interests;
-      // interests.forEach((interest) => {
-      //   state.interests.push({
-      //     value: interest.userid,
-      //     dong: interest.dongname,
-      //   });
-      // });
+      interests.forEach((interest) => {
+        state.interests.push({
+          value: interest.userid,
+          text: interest.dongName,
+        });
+      });
     },
     CLEAR_SIDO_LIST: (state) => {
       state.sidos = [{ value: null, text: "시/도" }];
@@ -109,22 +100,22 @@ const houseStore = {
         }
       );
     },
-    // getHouseList: ({ commit }, dongCode) => {
-    //   const params = {
-    //     dong: dongCode,
-    //   };
-    //   houseList(
-    //     params,
-    //     ({ data }) => {
-    //       // console.log(commit, response);
-    //       console.log(data);
-    //       commit("SET_HOUSE_LIST", data);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // },
+    getHouseList: ({ commit }, dongCode) => {
+      const params = {
+        dong: dongCode,
+      };
+      houseList(
+        params,
+        ({ data }) => {
+          // console.log(commit, response);
+          console.log(data);
+          commit("SET_HOUSE_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
     // getInterestList: ({ commit }, userid) => {
     //   const params = {
     //     userid: userid,
