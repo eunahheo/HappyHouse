@@ -9,8 +9,8 @@
 		values (#{sidoname}, #{gugunname}, #{dongname}, #{dongcode}, #{lat},#{lng},#{userid})
 	</insert>
 	
-	<select id="allList" parameterType="interestDto" resultType="interestDto">
-		select *
+	<select id="allList" parameterType="String" resultType="interestDto">
+		select interestno, sidoname, gugunname, dongname, dongcode, lat, lng, userid
 		from interest
 		where userid = #{userid}
 	</select>

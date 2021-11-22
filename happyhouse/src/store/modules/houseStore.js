@@ -6,6 +6,7 @@ const houseStore = {
     sidos: [{ value: null, text: "선택하세요" }],
     guguns: [{ value: null, text: "선택하세요" }],
     dongs: [{ value: null, text: "선택하세요" }],
+    interests: [{ vlaue: null, text: "선택하세요" }],
     houses: [],
     house: null,
   },
@@ -28,7 +29,14 @@ const houseStore = {
         state.dongs.push({ value: dong.dongCode, text: dong.dongName });
       });
     },
-
+    SET_INTEREST_LIST: (state, interests) => {
+      interests.forEach((interest) => {
+        state.interests.push({
+          value: interest.userid,
+          text: interest.dongName,
+        });
+      });
+    },
     CLEAR_SIDO_LIST: (state) => {
       state.sidos = [{ value: null, text: "시/도" }];
     },
@@ -108,7 +116,22 @@ const houseStore = {
         }
       );
     },
-
+    // getInterestList: ({ commit }, userid) => {
+    //   const params = {
+    //     userid: userid,
+    //   };
+    //   interestList(
+    //     params,
+    //     ({ data }) => {
+    //       // console.log(commit, response);
+    //       console.log(data);
+    //       commit("SET_INTEREST_LIST", data);
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // },
     // getHouseList: ({ commit }, gugunCode) => {
     //   console.log("구군: ", gugunCode);
     //   // vue cli enviroment variables 검색

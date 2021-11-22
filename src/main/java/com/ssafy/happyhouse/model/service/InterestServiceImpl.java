@@ -14,13 +14,13 @@ public class InterestServiceImpl implements InterestService {
 	private SqlSession sqlSession;
 	
 	@Override
-	public int register(InterestDto iDto) throws Exception {
-		return sqlSession.getMapper(InterestMapper.class).register(iDto);
+	public int register(InterestDto interestDto) throws Exception {
+		return sqlSession.getMapper(InterestMapper.class).register(interestDto);
 	}
 
 	@Override
-	public List<InterestDto> allList() throws Exception {
-		return sqlSession.getMapper(InterestMapper.class).allList();
+	public List<InterestDto> allList(String userid) throws Exception {
+		return sqlSession.getMapper(InterestMapper.class).allList(userid);
 	}
 
 	@Override

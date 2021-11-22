@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiParam;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/interest/")
+@RequestMapping("/map/interest")
 @Api("사용자 컨트롤러  API V1")
 public class InterestController {
 
@@ -52,7 +52,7 @@ public class InterestController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 	@PostMapping
-	public ResponseEntity<String> registerInterest(@RequestBody InterestDto interestDto) throws Exception {
+	public ResponseEntity<String> register(@RequestBody InterestDto interestDto) throws Exception {
 		logger.info("registerInterest - 호출");
 		System.out.println(interestDto.getDongcode());
 		if (interestService.register(interestDto)==1) {
@@ -62,10 +62,10 @@ public class InterestController {
 	}
 	
 	@ApiOperation(value = "게시판 글목록", notes = "모든 게시글의 정보를 반환한다.", response = List.class)
-	@GetMapping
-	public ResponseEntity<List<InterestDto>> listInterest() throws Exception {
+	@GetMapping("/{userid}")
+	public ResponseEntity<List<InterestDto>> listInterest(@PathVariable("userid") String userid) throws Exception {
 		logger.info("listInterest - 호출");
-		return new ResponseEntity<List<InterestDto>>(interestService.allList(), HttpStatus.OK);
+		return new ResponseEntity<List<InterestDto>>(interestService.allList(userid), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "게시판 글보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = InterestDto.class)

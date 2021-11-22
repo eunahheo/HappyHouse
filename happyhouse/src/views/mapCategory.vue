@@ -11,6 +11,24 @@
         </div>
       </div>
     </section>
+    <div>
+      <b-row>
+        <!-- <b-col class="sm-3 text-right">
+        <b-form-select
+            v-model="sidoCode"
+            :options="sidos"
+            @change="gugunList"
+          ></b-form-select>
+        </b-col> -->
+        <b-col class="sm-3 text-right">
+          <b-form-select
+            v-model="interests.userid"
+            :options="interests"
+            @change="iList"
+          ></b-form-select>
+        </b-col>
+      </b-row>
+    </div>
     <section style="text-align: center">
       <div class="map_wrap">
         <div
@@ -59,10 +77,21 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+import http from "@/util/http-common";
+
+const memberStore = "memberStore";
+const houseStore = "houseStore";
+
 export default {
   name: "mapCategory",
+  props: {
+    interest: Object,
+  },
   data() {
     return {
+      interesting: {},
+      interests: [],
       // 사용자의 현재 위치 정보
       latitude: "",
       longitude: "",
@@ -82,7 +111,18 @@ export default {
       place: null,
     };
   },
-
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+    // ...mapState(houseStore, ["interests"]),
+  },
+  created() {
+    http.get(`/map/interest/all/${this.userInfo.userid}`).then(({ data }) => {
+      this.interests = data;
+      //this.SET_INTEREST_LIST(data);
+      console.log("결과: ", this.interests.data);
+    });
+    //console.log("결과:", interests);
+  },
   mounted() {
     this.userLocation();
     if (window.kakao && window.kakao.maps) {
@@ -97,6 +137,13 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(houseStore, ["SET_INTEREST_LIST"]),
+    iList() {
+      // console.log(this.gugunCode);
+      // http.get(`/map/interest/all/${this.userInfo.userid}`).then(({ data }) => {
+      //   this.interests = data.userid;
+      // });
+    },
     userLocation() {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
@@ -188,7 +235,6 @@ export default {
 
       // 지도에 표시되고 있는 마커를 제거합니다
       this.removeMarker();
-      console.log("TT");
       this.ps.categorySearch(this.currCategory, this.placesSearchCB, {
         useMapBounds: true,
       });

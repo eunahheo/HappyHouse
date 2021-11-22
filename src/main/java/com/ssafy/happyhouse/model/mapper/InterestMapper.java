@@ -10,8 +10,8 @@ import com.ssafy.happyhouse.model.InterestDto;
 @Mapper
 public interface InterestMapper {
 
-	public int register(InterestDto iDto) throws SQLException;
-	public List<InterestDto> allList() throws SQLException;
+	public int register(InterestDto interestDto) throws SQLException;
+	public List<InterestDto> allList(String userid) throws SQLException;
 	public InterestDto listOne(int interestno) throws SQLException;
 	public int updateInterest(InterestDto interestDto) throws SQLException;
 	public int deleteInterest(int interestno) throws SQLException;

@@ -85,7 +85,7 @@ import HouseListRow from "@/components/house/HouseListRow.vue";
 import { mapState } from "vuex";
 import http from "@/util/http-common";
 const houseStore = "houseStore";
-
+const memberStore = "memberStore";
 export default {
   name: "HouseList",
   components: {
@@ -99,6 +99,7 @@ export default {
   },
   computed: {
     ...mapState(houseStore, ["houses", "house"]),
+    ...mapState(memberStore, ["userInfo"]),
     // houses() {
     //   return this.$store.state.houses;
     // },
@@ -107,17 +108,14 @@ export default {
     registInterest() {
       console.log("집: ", this.house.sidoName);
       http
-        .post(`/interest/`, {
-          params: {
-            // interestno: this.interestno,
-            sidoname: this.house.sidoName,
-            gugunname: this.house.gugunName,
-            dongname: this.house.dongName,
-            dongcode: this.house.dongCode,
-            lat: this.house.lat,
-            lng: this.house.lng,
-            userid: "ssafy",
-          },
+        .post(`/map/interest/`, {
+          sidoname: this.house.sidoName,
+          gugunname: this.house.gugunName,
+          dongname: this.house.dongName,
+          dongcode: this.house.dongCode,
+          lat: this.house.lat,
+          lng: this.house.lng,
+          userid: this.userInfo.userid,
         })
         .then(({ data }) => {
           let msg = "등록 처리시 문제가 발생했습니다.";
