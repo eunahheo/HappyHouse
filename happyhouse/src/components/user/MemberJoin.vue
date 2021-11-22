@@ -96,6 +96,13 @@
             />
             <i class="fa fa-envelope form-control-feedback pr-4"></i>
           </div>
+
+          <input type="text" id="sample5_address" placeholder="주소" />
+          <input
+            type="button"
+            @click="sample5_execDaumPostcode"
+            value="주소 검색"
+          /><br />
         </div>
 
         <button
@@ -128,9 +135,42 @@ export default {
       username: "",
       userpwd: "",
       email: "",
+
+      geocoder: null,
     };
   },
+  mounted() {
+    const script = document.createElement("script");
+    script.src =
+      "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+    document.head.appendChild(script);
+
+    //주소-좌표 변환 객체를 생성
+    this.geocoder = new window.daum.maps.services.Geocoder();
+  },
+
   methods: {
+    sample5_execDaumPostcode() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          var addr = data.address; // 최종 주소 변수
+
+          // 주소 정보를 해당 필드에 넣는다.
+          document.getElementById("sample5_address").value = addr;
+          // 주소로 상세 정보를 검색
+          this.geocoder.addressSearch(data.address, (results, status) => {
+            // 정상적으로 검색이 완료됐으면
+            if (status === window.daum.maps.services.Status.OK) {
+              var result = results[0]; //첫번째 결과의 값을 활용
+
+              // 해당 주소에 대한 좌표를 받아서
+              var coords = new window.daum.maps.LatLng(result.y, result.x);
+              console.log(coords);
+            }
+          });
+        },
+      }).open();
+    },
     onSubmit(event) {
       event.preventDefault();
       console.log(this.userid);
