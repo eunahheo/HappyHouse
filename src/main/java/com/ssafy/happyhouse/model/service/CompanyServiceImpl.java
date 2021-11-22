@@ -29,9 +29,14 @@ public class CompanyServiceImpl implements CompanyService {
 		return sqlSession.getMapper(CompanyMapper.class).deleteCompany(companyno)==1;
 	}
 
+//	@Override
+//	public CompanyDto getCompany(int companyno) throws Exception {
+//		return sqlSession.getMapper(CompanyMapper.class).getCompany(companyno);
+//	}
+	
 	@Override
-	public CompanyDto getCompany(int companyno) throws Exception {
-		return sqlSession.getMapper(CompanyMapper.class).getCompany(companyno);
+	public CompanyDto getCompany(String userid) throws Exception {
+		return sqlSession.getMapper(CompanyMapper.class).getCompany(userid);
 	}
 
 }

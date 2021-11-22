@@ -22,16 +22,21 @@
               <td>이메일</td>
               <td>{{ user.email }}</td>
             </tr>
+            <tr>
+              <td>직장</td>
+              <td>{{ this.company.buildingName }}</td>
+            </tr>
           </tbody>
         </table>
       </div>
       <div class="clearfix mt-5">
-        <a
+        <button
           button
           class="btn btn-lg btn-primary btn-block float-right"
           @click="movePage"
-          >수정하기</a
         >
+          수정하기
+        </button>
         <button
           class="btn btn-lg btn-danger btn-block float-left"
           id="delbtn"
@@ -48,6 +53,7 @@
 import { mapGetters, mapState, mapMutations } from "vuex";
 import http from "@/util/http-common";
 const memberStore = "memberStore";
+const companyStore = "companyStore";
 
 export default {
   name: "MemberMyPage",
@@ -66,11 +72,16 @@ export default {
   computed: {
     ...mapGetters(memberStore, ["checkUserInfo"]),
     ...mapState(memberStore, ["isLogin", "userInfo"]),
+    ...mapState(companyStore, ["company"]),
   },
   created() {
     http.get(`/user/${this.checkUserInfo.userid}`).then(({ data }) => {
       this.user = data;
     });
+    // http.get(`/company`, { userid: this.userInfo.userid }).then(({ data }) => {
+    //   this.company = data;
+    // });
+    console.log(this.company);
   },
   methods: {
     ...mapMutations(memberStore, ["SET_IS_LOGIN", "SET_USER_INFO"]),

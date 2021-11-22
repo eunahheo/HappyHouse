@@ -15,13 +15,16 @@
 		#{bName},#{bCode},#{lat},#{lng},#{userid})
 	</insert>
 
+	<!-- <select id="getCompany" parameterType="int" resultType="companyDto"> 
+		select companyno, buildingname, sido, sigungu, bname,lat,lng,userid from 
+		company where companyno = #{companyno} </select> -->
 
-	<select id="getCompany" parameterType="int"
+	<select id="getCompany" parameterType="String"
 		resultType="companyDto">
 		select companyno, buildingname, sido, sigungu,
 		bname,lat,lng,userid
 		from company
-		where companyno = #{companyno}
+		where userid = #{userid}
 	</select>
 
 
@@ -29,8 +32,8 @@
 	<update id="modifyCompany" parameterType="companyDto">
 		update company
 		set
-		buildingname = #{buildingname}, sido = #{sido}, sigungu = #{sigungu},
-		bname = #{bname}, lat = #{lat}, lng = #{lng}
+		buildingname = #{buildingName}, sido = #{sido}, sigungu = #{sigunGu},
+		bname = #{bName},bcode=#{bCode}, lat = #{lat}, lng = #{lng}
 		where
 		companyno =
 		#{companyno}

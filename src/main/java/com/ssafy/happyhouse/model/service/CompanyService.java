@@ -7,6 +7,7 @@ public interface CompanyService {
 	public boolean registerCompany(CompanyDto companyDto) throws Exception;
 	public boolean modifyCompany(CompanyDto companyDto) throws Exception;
 	public boolean deleteCompany(int companyno) throws Exception;
-	public CompanyDto getCompany(int companyno) throws Exception;
+//	public CompanyDto getCompany(int companyno) throws Exception;
+	public CompanyDto getCompany(String userid) throws Exception;
 	
 }

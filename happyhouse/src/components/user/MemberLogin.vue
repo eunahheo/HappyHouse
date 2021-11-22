@@ -75,9 +75,10 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-
+import { mapState, mapActions, mapMutations } from "vuex";
+import http from "@/util/http-common";
 const memberStore = "memberStore";
+const companyStore = "companyStore";
 
 export default {
   name: "MemberLogin",
@@ -91,19 +92,31 @@ export default {
   },
   computed: {
     ...mapState(memberStore, ["isLogin", "isLoginError"]),
+    ...mapState(companyStore, ["company"]),
   },
   methods: {
+    ...mapMutations(companyStore, ["SET_COMPANY_INFO"]),
     ...mapActions(memberStore, ["userConfirm", "getUserInfo"]),
     async confirm() {
       await this.userConfirm(this.user);
       let token = sessionStorage.getItem("access-token");
       if (this.isLogin) {
         await this.getUserInfo(token);
-        this.$router.push({ name: "Home" });
+        console.log(this.user.userid);
+
+        http.get(`/company/${this.user.userid}`).then(({ data }) => {
+          if (data != null) {
+            console.log(data);
+            this.SET_COMPANY_INFO(data);
+            console.log(this.company);
+          }
+          this.$router.push({ name: "Home" });
+        });
       } else {
         alert("아이디와 비밀번호를 확인하세요");
       }
     },
+
     movePage() {
       this.$router.push({ name: "SignUp" });
     },

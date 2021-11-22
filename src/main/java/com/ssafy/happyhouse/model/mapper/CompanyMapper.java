@@ -10,7 +10,8 @@ import com.ssafy.happyhouse.model.CompanyDto;
 public interface CompanyMapper {
 
 	public int registerCompany(CompanyDto companyDto) throws SQLException; // 등록
-	public CompanyDto getCompany(int companyno) throws SQLException; // 조회
+//	public CompanyDto getCompany(int companyno) throws SQLException; // 조회
+	public CompanyDto getCompany(String userid) throws SQLException; // 조회
 	public int modifyCompany(CompanyDto companyDto) throws SQLException; // 수정
 	public int deleteCompany(int companyno) throws SQLException; // 삭제
 

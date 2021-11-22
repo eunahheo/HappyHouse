@@ -24,23 +24,23 @@ const companyStore = {
   //     event.returnValue = "";
   //   },
   // },
-  actions: {
-    getCompanyInfo({ commit }, companyno) {
-      const params = {
-        companyno: companyno,
-      };
-      getCompany(
-        params,
-        ({ data }) => {
-          console.log(data);
-          commit("GET_COMPANY", data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-  },
+  // actions: {
+  //   getCompanyInfo({ commit }, companyno) {
+  //     const params = {
+  //       companyno: companyno,
+  //     };
+  //     getCompany(
+  //       params,
+  //       ({ data }) => {
+  //         console.log(data);
+  //         commit("GET_COMPANY", data);
+  //       },
+  //       (error) => {
+  //         console.log(error);
+  //       }
+  //     );
+  //   },
+  // },
 };
 
 export default companyStore;
