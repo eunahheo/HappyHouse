@@ -21,11 +21,16 @@
           ></b-form-select>
         </b-col> -->
         <b-col class="sm-3 text-right">
-          <b-form-select
-            v-model="interests.userid"
-            :options="interests"
-            @change="iList"
-          ></b-form-select>
+          <table>
+            <thead>
+              관심지역 목록
+            </thead>
+          </table>
+          <interest-list-row
+            v-for="(interest, index) in interests"
+            :key="index"
+            v-bind="interest"
+          />
         </b-col>
       </b-row>
     </div>
@@ -77,6 +82,7 @@
 </template>
 
 <script>
+import InterestListRow from "@/views/InterestListRow";
 import { mapState, mapMutations } from "vuex";
 import http from "@/util/http-common";
 
@@ -85,13 +91,17 @@ const houseStore = "houseStore";
 
 export default {
   name: "mapCategory",
-  props: {
-    interest: Object,
+  // props: {
+  //   interest: Object,
+  // },
+  components: {
+    InterestListRow,
   },
   data() {
     return {
       interesting: {},
-      interests: [],
+      interest: null,
+      inte: null,
       // 사용자의 현재 위치 정보
       latitude: "",
       longitude: "",
@@ -113,13 +123,14 @@ export default {
   },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
-    // ...mapState(houseStore, ["interests"]),
+    ...mapState(houseStore, ["interests"]),
   },
   created() {
     http.get(`/map/interest/all/${this.userInfo.userid}`).then(({ data }) => {
-      this.interests = data;
-      //this.SET_INTEREST_LIST(data);
-      console.log("결과: ", this.interests.data);
+      // this.interests = data;
+      this.interests = null;
+      this.SET_INTEREST_LIST(data);
+      console.log("결과: ", this.interests);
     });
     //console.log("결과:", interests);
   },
@@ -139,10 +150,7 @@ export default {
   methods: {
     ...mapMutations(houseStore, ["SET_INTEREST_LIST"]),
     iList() {
-      // console.log(this.gugunCode);
-      // http.get(`/map/interest/all/${this.userInfo.userid}`).then(({ data }) => {
-      //   this.interests = data.userid;
-      // });
+      console.log(this.interest);
     },
     userLocation() {
       navigator.geolocation.getCurrentPosition((position) => {
