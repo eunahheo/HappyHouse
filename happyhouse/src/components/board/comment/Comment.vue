@@ -25,11 +25,19 @@ export default {
       isShow: true,
     };
   },
-  updated() {
-    http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
-      this.comments = data;
-    });
-  },
+  // watch: {
+  //   comments: function () {
+  //     http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
+  //       this.comments = data;
+  //     });
+  //     // if (this.modifyComment != null) this.comments = this.modifyComment;
+  //   },
+  // },
+  // updated() {
+  //   http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
+  //     this.comments = data;
+  //   });
+  // },
   methods: {
     modifyCommentView() {
       this.$emit("modify-comment", {
@@ -54,6 +62,9 @@ export default {
             }
             alert(msg);
           });
+        http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
+          this.comments = data;
+        });
       }
     },
     getFormatDate(regtime) {

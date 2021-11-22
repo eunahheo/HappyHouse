@@ -15,10 +15,10 @@ const boardStore = {
     },
   },
   actions: {
-    getComments({ commit }) {
+    getComments({ commit }, payload) {
       console.log("OK");
       http
-        .get("/board/comment/" + 9)
+        .get("/board/comment/" + payload)
         .then(({ data }) => {
           //context.commit("setBook",data);
           commit("SET_COMMENTS", data);

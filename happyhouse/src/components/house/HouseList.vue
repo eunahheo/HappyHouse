@@ -65,6 +65,11 @@
         > -->
           </b-col>
         </b-row>
+        <b-row
+          ><b-col>
+            <b-button @click="registInterest">관심지역 추가</b-button></b-col
+          >
+        </b-row>
       </b-container>
     </b-modal>
   </b-container>
@@ -78,13 +83,16 @@
 <script>
 import HouseListRow from "@/components/house/HouseListRow.vue";
 import { mapState } from "vuex";
-
+import http from "@/util/http-common";
 const houseStore = "houseStore";
 
 export default {
   name: "HouseList",
   components: {
     HouseListRow,
+  },
+  props: {
+    house: Object,
   },
   data() {
     return {};
@@ -94,6 +102,31 @@ export default {
     // houses() {
     //   return this.$store.state.houses;
     // },
+  },
+  methods: {
+    registInterest() {
+      console.log("집: ", this.house.sidoName);
+      http
+        .post(`/interest/`, {
+          params: {
+            // interestno: this.interestno,
+            sidoname: this.house.sidoName,
+            gugunname: this.house.gugunName,
+            dongname: this.house.dongName,
+            dongcode: this.house.dongCode,
+            lat: this.house.lat,
+            lng: this.house.lng,
+            userid: "ssafy",
+          },
+        })
+        .then(({ data }) => {
+          let msg = "등록 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "등록이 완료되었습니다.";
+          }
+          alert(msg);
+        });
+    },
   },
 };
 </script>

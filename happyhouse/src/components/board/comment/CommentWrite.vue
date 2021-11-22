@@ -68,9 +68,6 @@ export default {
           }
           alert(msg);
           this.comment = "";
-          http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
-            this.comments = data;
-          });
           //this.$store.dispatch("getComments", this.commentno);
         });
     },
