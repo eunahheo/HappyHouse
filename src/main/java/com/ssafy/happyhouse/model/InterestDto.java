@@ -9,6 +9,16 @@ public class InterestDto {
 	private String lat;
 	private String lng;
 	private String userid;
+	private String aptname;
+	public String getAptname() {
+		return aptname;
+	}
+	public void setAptname(String aptname) {
+		this.aptname = aptname;
+	}
+	public void setGugunname(String gugunname) {
+		this.gugunname = gugunname;
+	}
 	public int getInterestno() {
 		return interestno;
 	}

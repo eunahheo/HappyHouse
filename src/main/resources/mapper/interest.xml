@@ -5,18 +5,18 @@
 <mapper namespace="com.ssafy.happyhouse.model.mapper.InterestMapper">
 
 	<insert id="register" parameterType="interestDto">
-		insert into interest (sidoname, gugunname, dongname, dongcode, lat, lng, userid)
-		values (#{sidoname}, #{gugunname}, #{dongname}, #{dongcode}, #{lat},#{lng},#{userid})
+		insert into interest (sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname)
+		values (#{sidoname}, #{gugunname}, #{dongname}, #{dongcode}, #{lat},#{lng},#{userid}, #{aptname})
 	</insert>
 	
 	<select id="allList" parameterType="String" resultType="interestDto">
-		select interestno, sidoname, gugunname, dongname, dongcode, lat, lng, userid
+		select interestno, sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname
 		from interest
 		where userid = #{userid}
 	</select>
 	
 	<select id="listOne" parameterType="interestDto" resultType="interestDto">
-		select sidoname, gugunname, dongname, dongcode, lat, lng, userid
+		select sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname
 		from interest
 		where interestno = #{interestno}
 	</select>
@@ -24,7 +24,7 @@
 	<update id="updateInterest" parameterType="interestDto">
 		update interest
 		set sidoname= #{sidoname} , gugunname = #{gugunname} , dongname = #{dongname}
-		, lat = #{lat}, lng = #{lng}
+		, lat = #{lat}, lng = #{lng}, aptname = #{aptname}
 		where interestno = #{interestno}
 	</update>
 	
