@@ -10,12 +10,12 @@
         <house-search-bar></house-search-bar>
       </b-col>
     </b-row>
-    <b-row>
+
+    <b-row style="width: 100%; height: 600px">
       <house-detail />
     </b-row>
 
-    <b-row> <house-list /></b-row>
-    <b-row> </b-row>
+    <b-row style="width: 100%; height: 800px"> <house-list /></b-row>
   </b-container>
 </template>
 <script>

@@ -1,7 +1,7 @@
 <template>
   <b-col
     class="col"
-    cols="4"
+    cols="3"
     @click="selectHouse"
     @mouseover="colorChange(true)"
     @mouseout="colorChange(false)"
@@ -11,7 +11,7 @@
     <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
       <b-img
         thumbnail
-        src="https://picsum.photos/250/250/?image=5"
+        src="https://picsum.photos/250/250/?image=37"
         alt="Image 1"
       ></b-img>
       <div class="icon"><i class="bx bx-file"></i></div>
@@ -54,7 +54,6 @@ export default {
   },
   props: {
     house: Object,
-    key: Number,
   },
   methods: {
     ...mapActions(houseStore, ["detailHouse"]),

@@ -2,7 +2,12 @@
   <div class="map_wrap" v-if="houses">
     <!-- <button @click="trafficMap" class="btn btn-primary">실시간 교통정보</button>
     {{ this.msg }} -->
-    <div id="map" style="width: 100%; height: 380px; position: relative"></div>
+    <div style="text-align: right">
+      <button @click="trafficMap" class="btn btn-primary">
+        실시간 교통정보
+      </button>
+    </div>
+    <div id="map" style="width: 100%; height: 550px; position: relative"></div>
   </div>
 </template>
 
