@@ -13,7 +13,7 @@
           >
         </b-col>
       </div>
-      <b-col class="text-right">
+      <b-col class="text-right" v-show="userInfo.userid === article.userid">
         <b-button
           variant="outline-info"
           size="sm"
@@ -81,12 +81,13 @@
 
 <script>
 // import moment from "moment";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import CommentWrite from "@/components/board/comment/CommentWrite.vue";
 import Comment from "@/components/board/comment/Comment.vue";
 import moment from "moment";
 import http from "@/util/http-common";
 const memberStore = "memberStore";
+
 export default {
   components: { CommentWrite, Comment },
 
@@ -100,8 +101,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(memberStore, ["checkUserInfo"]),
-
+    ...mapGetters(memberStore, ["checkUserInfo", "userInfo"]),
+    ...mapState(memberStore, ["userInfo"]),
     message() {
       if (this.article.content)
         return this.article.content.split("\n").join("<br>");
@@ -119,11 +120,10 @@ export default {
     });
     // this.$store.dispatch("getComments", this.articleno);
   },
-  updated() {
-    http.get(`/board/comment/${this.articleno}`).then(({ data }) => {
-      this.comments = data;
-    });
+  watch: {
+    comments: function () {},
   },
+
   methods: {
     onModifyComment(comment) {
       this.isModifyShow = true;

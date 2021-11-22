@@ -108,10 +108,11 @@
             <input
               type="text"
               class="form-control"
-              v-model="email"
+              v-model="buildingname"
               id="company"
               name="company"
               placeholder="회사"
+              @click="sample5_execDaumPostcode"
             />
 
             <i class="fa fa-envelope form-control-feedback pr-4"></i>
@@ -149,6 +150,10 @@
 
 <script>
 import http from "@/util/http-common";
+
+import { mapState } from "vuex";
+const companyStore = "companyStore";
+
 export default {
   name: "MemberJoin",
   data() {
@@ -158,9 +163,18 @@ export default {
       userpwd: "",
       email: "",
 
+      buildingname: "",
+      sido: "",
+      sigungu: "",
+      bname: "",
+      bcode: 0,
+      lat: "",
+      lng: "",
+
       geocoder: null,
     };
   },
+  computed: { ...mapState(companyStore, ["company"]) },
   mounted() {
     if (window.kakao && window.kakao.maps) {
       const script = document.createElement("script");
@@ -181,6 +195,7 @@ export default {
   },
 
   methods: {
+    // ...mapActions(companyStore, ["getCompanyInfo"]),
     initMap() {
       this.geocoder = new kakao.maps.services.Geocoder();
     },
@@ -191,15 +206,19 @@ export default {
 
       new window.daum.Postcode({
         oncomplete: (data) => {
+          this.buildingname = data.buildingName;
+          console.log(this.buildingname);
+          this.sido = data.sido;
+          this.sigungu = data.sigungu;
+          this.bname = data.bname;
+          this.bcode = data.bcode;
           this.geocoder.addressSearch(data.address, (results, status) => {
             // 정상적으로 검색이 완료됐으면
             if (status === window.daum.maps.services.Status.OK) {
               var result = results[0]; //첫번째 결과의 값을 활용
-              console.log(result.address);
-              // 해당 주소에 대한 좌표를 받아서
-              var coords = new window.kakao.maps.LatLng(result.y, result.x);
-              // 지도를 보여준다.
-              console.log(coords);
+
+              this.lat = result.y;
+              this.lng = result.x;
             }
           });
         },
@@ -225,36 +244,41 @@ export default {
           userpwd: this.userpwd,
           email: this.email,
         })
-        .then(({ data }) => {
-          let msg = "등록 처리시 문제가 발생했습니다.";
-          if (data === "success") {
-            msg = "등록이 완료되었습니다.";
-          }
-          alert(msg);
-          this.moveList();
-        });
 
-      // http
-      //   .post(`/company/register`, {
-      //     userid: this.userid,
-      //     username: this.username,
-      //     userpwd: this.userpwd,
-      //     email: this.email,
-      //   })
-      //   .then(({ data }) => {
-      //     let msg = "등록 처리시 문제가 발생했습니다.";
-      //     if (data === "success") {
-      //       msg = "등록이 완료되었습니다.";
-      //     }
-      //     alert(msg);
-      //     this.moveList();
-      //   });
+        .then(({ data }) => {
+          // let msg = "등록 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            //   msg = "등록이 완료되었습니다.";
+            console.log("회원 등록 완료");
+            http
+              .post(`/company`, {
+                buildingName: this.buildingname,
+                sido: this.sido,
+                sigunGu: this.sigungu,
+                bName: this.bname,
+                bCode: this.bcode,
+                lat: this.lat,
+                lng: this.lng,
+
+                userid: this.userid,
+              })
+              .then(({ data }) => {
+                let msg = "등록 처리시 문제가 발생했습니다.";
+                if (data === "success") {
+                  msg = "등록이 완료되었습니다.";
+                }
+                alert(msg);
+                this.moveList();
+              });
+          }
+          // alert(msg);
+          // this.moveList();
+        });
     },
     moveList() {
       this.$router.push({ name: "Home" });
     },
   },
-  computed: {},
 };
 </script>
 
