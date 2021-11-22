@@ -6,12 +6,18 @@ const houseStore = {
     sidos: [{ value: null, text: "선택하세요" }],
     guguns: [{ value: null, text: "선택하세요" }],
     dongs: [{ value: null, text: "선택하세요" }],
-    interests: [{ vlaue: null, text: "선택하세요" }],
+    // interests: [{ vlaue: null, text: "선택하세요" }],
+    list: [{ lat: 37.602829, lng: 127.039508 }],
+    interests: [],
     houses: [],
     house: null,
   },
 
-  getters: {},
+  getters: {
+    getlat(state) {
+      return state.list;
+    },
+  },
 
   mutations: {
     SET_SIDO_LIST: (state, sidos) => {
@@ -29,13 +35,16 @@ const houseStore = {
         state.dongs.push({ value: dong.dongCode, text: dong.dongName });
       });
     },
+    SET_LAT_INFO: (state, list) => {
+      state.list = list;
+    },
+    // SET_INTERESTS_LIST: (state, dongs) => {
+    //   dongs.forEach((dong) => {
+    //     state.dongs.push({ value: dong.dongCode, text: dong.dongName });
+    //   });
+    // },
     SET_INTEREST_LIST: (state, interests) => {
-      interests.forEach((interest) => {
-        state.interests.push({
-          value: interest.userid,
-          text: interest.dongName,
-        });
-      });
+      state.interests = interests;
     },
     CLEAR_SIDO_LIST: (state) => {
       state.sidos = [{ value: null, text: "시/도" }];

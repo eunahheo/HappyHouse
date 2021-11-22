@@ -19,11 +19,15 @@
 
 <script>
 // import moment from "moment";
-import { mapState } from "vuex";
+import { mapMutations } from "vuex";
 const houseStore = "houseStore";
-
 export default {
   name: "InterestListRow",
+  data() {
+    return {
+      list: {},
+    };
+  },
   props: {
     interestno: Number,
     sidoname: String,
@@ -36,17 +40,19 @@ export default {
     interest: Object,
   },
   computed: {
-    ...mapState(houseStore, ["it"]),
+    // ...mapState(houseStore, ["list"]),
     // changeDateFormat() {
     //   return moment(new Date(this.regtime)).format("YY.MM.DD hh:mm:ss");
     // },
   },
   methods: {
+    ...mapMutations(houseStore, ["SET_LAT_INFO"]),
     interestClick() {
-      this.it = this.interest;
-      console.log(this.interest);
-      console.log(this.it);
-      console.log("dongCode : ", this.dongcode);
+      this.list = {
+        lat: this.lat,
+        lng: this.lng,
+      };
+      this.SET_LAT_INFO(this.list);
     },
   },
 };

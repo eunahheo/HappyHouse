@@ -31,11 +31,6 @@
         @change="searchApt"
       ></b-form-select>
     </b-col>
-    <b-col>
-      <button @click="toggle" class="btn btn-primary">
-        실시간 교통정보
-      </button></b-col
-    >
   </b-row>
 </template>
 

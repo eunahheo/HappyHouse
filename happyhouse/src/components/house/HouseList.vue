@@ -98,9 +98,9 @@ export default {
   components: {
     HouseListRow,
   },
-  props: {
-    house: Object,
-  },
+  // props: {
+  //   house: Object,
+  // },
   data() {
     return {};
   },
@@ -123,6 +123,7 @@ export default {
           lat: this.house.lat,
           lng: this.house.lng,
           userid: this.userInfo.userid,
+          aptname: this.house.aptName,
         })
         .then(({ data }) => {
           let msg = "등록 처리시 문제가 발생했습니다.";

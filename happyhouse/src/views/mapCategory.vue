@@ -92,6 +92,12 @@ export default {
   components: {
     InterestListRow,
   },
+  watch: {
+    list: function () {
+      this.initMap();
+    },
+  },
+
   data() {
     return {
       interesting: {},
@@ -118,7 +124,7 @@ export default {
   },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
-    ...mapState(houseStore, ["interests"]),
+    ...mapState(houseStore, ["interests", "list"]),
   },
   created() {
     http.get(`/map/interest/all/${this.userInfo.userid}`).then(({ data }) => {
@@ -162,7 +168,7 @@ export default {
       // 장소 검색 객체 생성
       this.ps = new kakao.maps.services.Places(this.map);
       this.mapOption = {
-        center: new kakao.maps.LatLng(37.602829, 127.039508), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(this.list.lat, this.list.lng), // 지도의 중심좌표
         level: 8,
         // 지도의 확대 레벨
       };
@@ -204,7 +210,7 @@ export default {
       }
 
       var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        iwPosition = new kakao.maps.LatLng(37.602829, 127.039508), //인포윈도우 표시 위치입니다
+        iwPosition = new kakao.maps.LatLng(this.list.lat, this.list.lng), //인포윈도우 표시 위치입니다
         iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
       this.infowindow = new kakao.maps.InfoWindow({
