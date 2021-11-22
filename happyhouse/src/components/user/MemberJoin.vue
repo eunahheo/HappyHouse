@@ -96,18 +96,35 @@
             />
             <i class="fa fa-envelope form-control-feedback pr-4"></i>
           </div>
+        </div>
+        <div class="form-group has-feedback row">
+          <label
+            for="company"
+            class="col-md-3 control-label text-md-right col-form-label"
+            >직장
+            <span class="text-danger small">*</span>
+          </label>
+          <div class="col-md-7">
+            <input
+              type="text"
+              class="form-control"
+              v-model="email"
+              id="company"
+              name="company"
+              placeholder="회사"
+            />
 
-          <input
-            type="text"
-            id="sample5_address"
-            placeholder="주소"
-            value="멀티캠퍼스"
-          />
-          <input
-            type="button"
-            @click="sample5_execDaumPostcode"
-            value="주소 검색"
-          /><br />
+            <i class="fa fa-envelope form-control-feedback pr-4"></i>
+          </div>
+          <div>
+            <input
+              type="button"
+              class="btn btn-primary"
+              style="width: 110%; height: 38px"
+              @click="sample5_execDaumPostcode"
+              value="검색"
+            />
+          </div>
         </div>
 
         <button
@@ -160,26 +177,7 @@ export default {
       document.head.appendChild(script);
     }
 
-    // if (window.kakao && window.kakao.maps) {
-    //   const script = document.createElement("script");
-    //   script.src =
-    //     "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-    //   document.head.appendChild(script);
-    // } else {
-    //   const script = document.createElement("script");
-    //   /* global kakao */
-    //   script.onload = () => kakao.maps.load(this.initMap);
-    //   script.src =
-    //     "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=64eac5c80b2c73c911146817941a78c0&libraries=services";
-    //   document.head.appendChild(script);
-    // }
-
-    const script2 = document.createElement("script");
-    script2.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=64eac5c80b2c73c911146817941a78c0&libraries=services";
-    document.head.appendChild(script2);
-
-    // this.initMap();
+    this.initMap();
   },
 
   methods: {
@@ -193,35 +191,11 @@ export default {
 
       new window.daum.Postcode({
         oncomplete: (data) => {
-          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-          // var addr = ""; // 주소 변수
-          // var extraAddr = ""; // 참고항목 변수
-
-          // //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-          // if (data.userSelectedType === "R") {
-          //   // 사용자가 도로명 주소를 선택했을 경우
-          //   addr = data.roadAddress;
-          // } else {
-          //   // 사용자가 지번 주소를 선택했을 경우(J)
-          //   addr = data.jibunAddress;
-          // }
-
-          // console.log(data);
-          // console.log(data.y); // undefined
-          // // 주소로 상세 정보를 검색
-          // console.log(data.address);
-          // this.geocoder.addressSearch(data.address, (data, status) => {
-          //   if (status === window.daum.maps.services.Status.OK) {
-          //     // var coords = new window.daum.maps.LatLng(data.y, data.x);
-          //     console.log(new window.daum.maps.LatLng(data.y, data.x));
-          //   }
-          // });
           this.geocoder.addressSearch(data.address, (results, status) => {
             // 정상적으로 검색이 완료됐으면
             if (status === window.daum.maps.services.Status.OK) {
               var result = results[0]; //첫번째 결과의 값을 활용
-
+              console.log(result.address);
               // 해당 주소에 대한 좌표를 받아서
               var coords = new window.kakao.maps.LatLng(result.y, result.x);
               // 지도를 보여준다.
@@ -259,6 +233,22 @@ export default {
           alert(msg);
           this.moveList();
         });
+
+      // http
+      //   .post(`/company/register`, {
+      //     userid: this.userid,
+      //     username: this.username,
+      //     userpwd: this.userpwd,
+      //     email: this.email,
+      //   })
+      //   .then(({ data }) => {
+      //     let msg = "등록 처리시 문제가 발생했습니다.";
+      //     if (data === "success") {
+      //       msg = "등록이 완료되었습니다.";
+      //     }
+      //     alert(msg);
+      //     this.moveList();
+      //   });
     },
     moveList() {
       this.$router.push({ name: "Home" });
