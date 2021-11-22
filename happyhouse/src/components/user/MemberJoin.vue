@@ -97,7 +97,12 @@
             <i class="fa fa-envelope form-control-feedback pr-4"></i>
           </div>
 
-          <input type="text" id="sample5_address" placeholder="주소" />
+          <input
+            type="text"
+            id="sample5_address"
+            placeholder="주소"
+            value="멀티캠퍼스"
+          />
           <input
             type="button"
             @click="sample5_execDaumPostcode"
@@ -140,31 +145,86 @@ export default {
     };
   },
   mounted() {
-    const script = document.createElement("script");
-    script.src =
-      "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-    document.head.appendChild(script);
+    if (window.kakao && window.kakao.maps) {
+      const script = document.createElement("script");
+      script.src =
+        "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+      document.head.appendChild(script);
+      this.initMap();
+    } else {
+      const script = document.createElement("script");
+      /* global kakao */
+      script.onload = () => kakao.maps.load(this.initMap);
+      script.src =
+        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=64eac5c80b2c73c911146817941a78c0&libraries=services";
+      document.head.appendChild(script);
+    }
 
-    //주소-좌표 변환 객체를 생성
-    this.geocoder = new window.daum.maps.services.Geocoder();
+    // if (window.kakao && window.kakao.maps) {
+    //   const script = document.createElement("script");
+    //   script.src =
+    //     "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+    //   document.head.appendChild(script);
+    // } else {
+    //   const script = document.createElement("script");
+    //   /* global kakao */
+    //   script.onload = () => kakao.maps.load(this.initMap);
+    //   script.src =
+    //     "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=64eac5c80b2c73c911146817941a78c0&libraries=services";
+    //   document.head.appendChild(script);
+    // }
+
+    const script2 = document.createElement("script");
+    script2.src =
+      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=64eac5c80b2c73c911146817941a78c0&libraries=services";
+    document.head.appendChild(script2);
+
+    // this.initMap();
   },
 
   methods: {
+    initMap() {
+      this.geocoder = new kakao.maps.services.Geocoder();
+    },
     sample5_execDaumPostcode() {
+      // this.geocoder = new window.daum.maps.services.Geocoder();
+      //주소-좌표 변환 객체를 생성
+      // console.log(this.geocoder);
+
       new window.daum.Postcode({
         oncomplete: (data) => {
-          var addr = data.address; // 최종 주소 변수
+          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          // var addr = ""; // 주소 변수
+          // var extraAddr = ""; // 참고항목 변수
 
-          // 주소 정보를 해당 필드에 넣는다.
-          document.getElementById("sample5_address").value = addr;
-          // 주소로 상세 정보를 검색
+          // //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+          // if (data.userSelectedType === "R") {
+          //   // 사용자가 도로명 주소를 선택했을 경우
+          //   addr = data.roadAddress;
+          // } else {
+          //   // 사용자가 지번 주소를 선택했을 경우(J)
+          //   addr = data.jibunAddress;
+          // }
+
+          // console.log(data);
+          // console.log(data.y); // undefined
+          // // 주소로 상세 정보를 검색
+          // console.log(data.address);
+          // this.geocoder.addressSearch(data.address, (data, status) => {
+          //   if (status === window.daum.maps.services.Status.OK) {
+          //     // var coords = new window.daum.maps.LatLng(data.y, data.x);
+          //     console.log(new window.daum.maps.LatLng(data.y, data.x));
+          //   }
+          // });
           this.geocoder.addressSearch(data.address, (results, status) => {
             // 정상적으로 검색이 완료됐으면
             if (status === window.daum.maps.services.Status.OK) {
               var result = results[0]; //첫번째 결과의 값을 활용
 
               // 해당 주소에 대한 좌표를 받아서
-              var coords = new window.daum.maps.LatLng(result.y, result.x);
+              var coords = new window.kakao.maps.LatLng(result.y, result.x);
+              // 지도를 보여준다.
               console.log(coords);
             }
           });
