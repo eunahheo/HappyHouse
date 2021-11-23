@@ -1,20 +1,16 @@
 <template>
-  <b-tr @click="interestClick">
-    <b-td>{{ interestno }}</b-td>
+  <tr @click="interestClick">
     <!-- <b-th class="text-left">
       <router-link
         :to="{ name: 'NoticeView', params: { noticeno: noticeno } }"
         >{{ subject }}</router-link
       >
     </b-th>   -->
-    <b-td>{{ sidoname }}</b-td>
-    <b-td>{{ gugunname }}</b-td>
-    <b-td>{{ dongname }}</b-td>
-    <b-td>{{ dongcode }}</b-td>
-    <b-td>{{ lat }}</b-td>
-    <b-td>{{ lng }}</b-td>
-    <b-td>{{ userid }}</b-td>
-  </b-tr>
+    <td>{{ sidoname }}</td>
+    <td>{{ gugunname }}</td>
+    <td>{{ dongname }}</td>
+    <td>{{ aptname }}</td>
+  </tr>
 </template>
 
 <script>
@@ -37,6 +33,7 @@ export default {
     lat: String,
     lng: String,
     userid: String,
+    aptname: String,
     interest: Object,
   },
   computed: {
@@ -58,4 +55,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css";
+</style>
