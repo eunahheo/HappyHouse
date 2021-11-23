@@ -25,14 +25,10 @@ import HouseDetail from "@/components/house/HouseDetail.vue";
 
 export default {
   name: "House",
-  components: {
-    HouseSearchBar,
-    HouseList,
-    HouseDetail,
-  },
+  components: { HouseSearchBar, HouseList, HouseDetail },
 };
 </script>
-<style scoped>
+<style>
 .underline-orange {
   display: inline-block;
   background: linear-gradient(
@@ -40,5 +36,99 @@ export default {
     rgba(255, 255, 255, 0) 70%,
     rgba(231, 149, 27, 0.3) 30%
   );
+}
+/*--------------------------------------------------------------
+# Testimonials
+--------------------------------------------------------------*/
+.testimonials .testimonial-item {
+  box-sizing: content-box;
+  text-align: center;
+  min-height: 320px;
+}
+
+.testimonials .testimonial-item .testimonial-img {
+  width: 90px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.testimonials .testimonial-item h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0 5px 0;
+  color: #111;
+}
+
+.testimonials .testimonial-item h4 {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+}
+
+.testimonials .testimonial-item .quote-icon-left,
+.testimonials .testimonial-item .quote-icon-right {
+  color: #d5e9f2;
+  font-size: 26px;
+}
+
+.testimonials .testimonial-item .quote-icon-left {
+  display: inline-block;
+  left: -5px;
+  position: relative;
+}
+
+.testimonials .testimonial-item .quote-icon-right {
+  display: inline-block;
+  right: -5px;
+  position: relative;
+  top: 10px;
+}
+
+.testimonials .testimonial-item p {
+  font-style: italic;
+  margin: 0 15px 15px 15px;
+  padding: 20px;
+  background: #fff;
+  position: relative;
+  margin-bottom: 35px;
+  border-radius: 6px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials .testimonial-item p::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 20px solid #fff;
+  border-right: 20px solid transparent;
+  border-left: 20px solid transparent;
+  position: absolute;
+  bottom: -20px;
+  left: calc(50% - 20px);
+}
+
+.testimonials .owl-nav,
+.testimonials .owl-dots {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.testimonials .owl-dot {
+  display: inline-block;
+  margin: 0 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ddd !important;
+}
+
+.testimonials .owl-dot.active {
+  background-color: #67b0d1 !important;
+}
+
+@media (max-width: 767px) {
+  .testimonials {
+    margin: 30px 10px;
+  }
 }
 </style>

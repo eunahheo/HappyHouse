@@ -68,6 +68,7 @@ export default {
   },
   methods: {
     showCompany() {
+      console.log(this.company);
       this.searchApt();
     },
     trafficMap() {
@@ -82,7 +83,7 @@ export default {
     },
     ...mapActions(houseStore, ["getHouseList"]),
     searchApt() {
-      // console.log(this.gugunCode);
+      console.log("search", this.company);
       if (this.company.bCode) this.getHouseList(this.company.bCode);
     },
     initMap() {

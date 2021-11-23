@@ -1,25 +1,21 @@
 <template>
   <b-container v-if="houses && houses.length != 0" class="bv-example-row mt-3">
     <b-card no-body>
-      <b-card-body
+      <!-- <b-card-body
         id="scrollspy-nested"
         style="position: relative; height: 800px; overflow-y: scroll"
-      >
-        <section id="services" class="services">
-          <div class="container">
-            <b-row>
-              <house-list-row
-                v-for="(house, index) in houses"
-                :key="index"
-                :house="house"
-                v-b-modal.modal-center
-              >
-              </house-list-row>
-            </b-row>
-          </div>
-        </section>
-      </b-card-body>
+      > -->
+      <carousel :autoplay="true" :nav="false" :autoplayTimeout="1500">
+        <house-list-row
+          v-for="(house, index) in houses"
+          :key="index"
+          :house="house"
+          v-b-modal.modal-center
+        ></house-list-row>
+      </carousel>
+      <!-- </b-card-body> -->
     </b-card>
+
     <b-modal id="modal-center" centered title="아파트 거래정보 상세">
       <b-container v-if="house" class="bv-example-row">
         <b-row>
@@ -88,15 +84,20 @@
 </template>
 
 <script>
+import carousel from "vue-owl-carousel";
+
 import HouseListRow from "@/components/house/HouseListRow.vue";
 import { mapState } from "vuex";
+
 import http from "@/util/http-common";
 const houseStore = "houseStore";
 const memberStore = "memberStore";
+
 export default {
   name: "HouseList",
   components: {
     HouseListRow,
+    carousel,
   },
 
   data() {
@@ -121,7 +122,7 @@ export default {
           lat: this.house.lat,
           lng: this.house.lng,
           userid: this.userInfo.userid,
-          aptname: this.house.aptname,
+          aptname: this.house.aptName,
         })
         .then(({ data }) => {
           let msg = "등록 처리시 문제가 발생했습니다.";

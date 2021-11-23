@@ -21,7 +21,7 @@
 
 	<select id="getCompany" parameterType="String"
 		resultType="companyDto">
-		select companyno, buildingname, sido, sigungu,
+		select companyno, buildingname, sido, sigungu,bcode,
 		bname,lat,lng,userid
 		from company
 		where userid = #{userid}
