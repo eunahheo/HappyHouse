@@ -2,23 +2,22 @@
   <!-- <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0"> -->
   <div class="pricing">
     <div class="box" style="width: 90%">
-      <h3 style="color: #65c600"><sup>✔️</sup>아파트 별 상권</h3>
+      <h3 style="color: #ff901c"><sup>✔️</sup>{{ house.recentPrice }}만원</h3>
       <div class="price">
-        상권정보<br />
+        {{ house.aptName }}<br />
         <b-icon icon="shop" scale="1.4"></b-icon>
       </div>
 
       <ul>
         <br />
-        <li><b>아파트 별 상권정보를 제공합니다.</b></li>
+        <li><b>거래정보를 확인하세요.</b></li>
         <li>
-          매물이 위치한 곳의<br />
-          상권 정보를 확인하세요.
+          더 상세한 거래정보가<br />
+          궁금하시다면<br />
+          아래 상세보기 버튼을 눌러보세요.
         </li>
       </ul>
-      <router-link :to="{ name: 'mapCategory' }" class="btn-buy"
-        >상권정보</router-link
-      >
+      <a class="btn-buy" @click="selectHouse">상세보기</a>
     </div>
   </div>
   <!-- <div
@@ -116,11 +115,11 @@ export default {
 }
 .pricing h3 {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 21px;
   margin-bottom: 15px;
 }
 .pricing .price {
-  font-size: 36px;
+  font-size: 32px;
   color: #444444;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
