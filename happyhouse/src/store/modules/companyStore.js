@@ -3,6 +3,7 @@ const companyStore = {
   namespaced: true,
   state: {
     company: null,
+    // clist: [{ lat: 37.602829, lng: 127.039508 }],
   },
   getters: {
     getCompany(state) {
@@ -14,6 +15,9 @@ const companyStore = {
     SET_COMPANY_INFO: (state, company) => {
       state.company = company;
     },
+    // SET_LIST_INFO: (state, clist) => {
+    //   state.clist = clist;
+    // },
   },
 
   // methods: {

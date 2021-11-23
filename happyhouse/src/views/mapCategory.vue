@@ -15,7 +15,7 @@
       <section style="text-left">
         <div
           class="map_wrap text-left"
-          style="width: 40%; float: left; margin-left: 80px"
+          style="width: 40%; float: left; margin-left: 80px; margin-top: 50px"
         >
           <div
             id="map"
@@ -54,18 +54,39 @@
             </li>
           </ul>
         </div>
-        <button @click="showCompany" class="btn btn-primary">회사상권</button>
         <div class="sm-3" style="width: 40%; float: right; margin-right: 80px">
-          <table style="width: 50%">
+          <!-- <h2 style="text-align: center">관심지역</h2> -->
+          <b-button
+            squared
+            variant="info"
+            @click="showCompany"
+            size="sm"
+            style="width: 90px; height: 40px; float: right"
+          >
+            회사
+          </b-button>
+
+          <table style="width: 100%" class="table table-hover">
             <thead>
-              관심지역 목록
+              <tr>
+                <th>&nbsp;시</th>
+                <th>&nbsp;구/군</th>
+                <th>&nbsp;동</th>
+                <th>&nbsp;아파트 이름</th>
+              </tr>
             </thead>
           </table>
-          <interest-list-row
-            v-for="(interest, index) in interests"
-            :key="index"
-            v-bind="interest"
-          />
+          <div style="height: 300px; overflow-y: auto; overflow-x: hidden">
+            <table style="width: 100%" class="table table-hover">
+              <tbody>
+                <interest-list-row
+                  v-for="(interest, index) in interests"
+                  :key="index"
+                  v-bind="interest"
+                />
+              </tbody>
+            </table>
+          </div>
         </div>
         <div style="height: 300px"></div>
       </section>
@@ -110,7 +131,8 @@ export default {
       latitude: "",
       longitude: "",
       textContent: "",
-
+      isIshow: false,
+      isCshow: false,
       map: null,
       infowindow: null,
       // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
@@ -162,9 +184,6 @@ export default {
       };
       this.SET_LAT_INFO(this.clist);
     },
-    iList() {
-      console.log("동코드: ", this.interest);
-    },
     userLocation() {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
@@ -181,11 +200,15 @@ export default {
       this.ps = new kakao.maps.services.Places(this.map);
       this.mapOption = {
         center: new kakao.maps.LatLng(this.list.lat, this.list.lng), // 지도의 중심좌표
-        level: 5,
+        level: 6,
         // 지도의 확대 레벨
       };
-
+      var markerPosition = new kakao.maps.LatLng(this.list.lat, this.list.lng);
       this.map = new kakao.maps.Map(mapContainer, this.mapOption);
+      this.marker = new kakao.maps.Marker({
+        position: markerPosition,
+      });
+      this.marker.setMap(this.map);
     },
 
     displayMarker(markerPositions) {
@@ -473,6 +496,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css";
 .map_wrap,
 .map_wrap * {
   margin: 0;
