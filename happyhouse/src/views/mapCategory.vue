@@ -56,6 +56,18 @@
           </ul>
         </div>
       </section>
+      <div style="width: 40%; float: right; margin-right: 80px">
+        <div>
+          <div class="" style="width: 400px; height: 500px" v-if="chartLoading">
+            <div indeterminate color="red"></div>
+          </div>
+          <line-chart
+            :chartData="chartData"
+            v-if="!chartLoading"
+            style="height: 400px"
+          />
+        </div>
+      </div>
       <div class="sm-3" style="width: 40%; margin-left: 80px; margin-top: 50px">
         <!-- <h2 style="text-align: center">관심지역</h2> -->
         <a
@@ -105,6 +117,7 @@
 import InterestListRow from "@/views/InterestListRow";
 import { mapState, mapMutations } from "vuex";
 import http from "@/util/http-common";
+import LineChart from "@/components/Charts/LineChart";
 
 const memberStore = "memberStore";
 const houseStore = "houseStore";
@@ -117,6 +130,7 @@ export default {
   // },
   components: {
     InterestListRow,
+    LineChart,
   },
   watch: {
     list: function () {
@@ -126,6 +140,8 @@ export default {
 
   data() {
     return {
+      chartLoading: false, // 데이터를 불러오기 전까지는 progress circle을 사용
+      chartData: [],
       interesting: {},
       interest: null,
       inte: null,
@@ -165,6 +181,7 @@ export default {
     //console.log("결과:", interests);
   },
   mounted() {
+    this.first();
     this.userLocation();
     if (window.kakao && window.kakao.maps) {
       this.initMap();
@@ -180,6 +197,12 @@ export default {
   methods: {
     ...mapMutations(houseStore, ["SET_INTEREST_LIST"]),
     ...mapMutations(houseStore, ["SET_LAT_INFO"]),
+    first() {
+      let item =
+        '{"labels":["01","02","03","04","05","06","07","08","09","10","11"],"chartData":[{"label":"다음","data":["65","13","22","125","41","142","156","121","24","29","151"]},{"label":"다우존스","data":["1","1","0","6","1","3","6","8","0","0","6"]},{"label":"네이버","data":["65","13","22","119","41","139","150","119","20","28","147"]},{"label":"뉴스원","data":["61","7","17","105","28","128","138","108","10","20","137"]},{"label":"다나와","data":["0","0","0","1","0","0","1","0","0","0","0"]}]}';
+      let data = JSON.parse(item);
+      this.chartData = { labels: data.labels, chartData: data.chartData }; // 차트 보이기 this.chartLoading = false
+    },
     showCompany() {
       this.clist = {
         lat: this.company.lat,
