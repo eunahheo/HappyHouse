@@ -10,7 +10,13 @@
       <section style="text-left">
         <div
           class="map_wrap text-left"
-          style="width: 40%; float: left; margin-left: 80px; margin-top: 50px"
+          style="
+            width: 40%;
+            float: left;
+            margin-left: 80px;
+            margin-top: 10px;
+            margin-bottom: 50px;
+          "
         >
           <div
             id="map"
@@ -49,43 +55,44 @@
             </li>
           </ul>
         </div>
-        <div class="sm-3" style="width: 40%; float: right; margin-right: 80px">
-          <!-- <h2 style="text-align: center">관심지역</h2> -->
-          <a
-            class="btn-buy"
-            squared
-            variant="info"
-            @click="showCompany"
-            size="sm"
-            style="height: 40px; float: right"
-          >
-            회사
-          </a>
-
-          <table style="width: 100%" class="table table-hover">
-            <thead>
-              <tr>
-                <th>&nbsp;시</th>
-                <th>&nbsp;구/군</th>
-                <th>&nbsp;동</th>
-                <th>&nbsp;아파트 이름</th>
-              </tr>
-            </thead>
-          </table>
-          <div style="height: 300px; overflow-y: auto; overflow-x: hidden">
-            <table style="width: 100%" class="table table-hover">
-              <tbody>
-                <interest-list-row
-                  v-for="(interest, index) in interests"
-                  :key="index"
-                  v-bind="interest"
-                />
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div style="height: 300px"></div>
       </section>
+      <div class="sm-3" style="width: 40%; margin-left: 80px; margin-top: 50px">
+        <!-- <h2 style="text-align: center">관심지역</h2> -->
+        <a
+          class="btn-buy"
+          squared
+          variant="info"
+          @click="showCompany"
+          size="sm"
+          style="height: 40px; float: right"
+        >
+          회사
+        </a>
+
+        <table style="width: 100%" class="table table-hover">
+          <thead>
+            <tr>
+              <th>&nbsp;시</th>
+              <th>&nbsp;구/군</th>
+              <th>&nbsp;동</th>
+              <th>&nbsp;아파트 이름</th>
+            </tr>
+          </thead>
+        </table>
+        <div style="height: 300px; overflow-y: auto; overflow-x: hidden">
+          <table style="width: 100%" class="table table-hover">
+            <tbody>
+              <interest-list-row
+                v-for="(interest, index) in interests"
+                :key="index"
+                v-bind="interest"
+              />
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="height: 100px"></div>
       <br />
       <br />
       <br />
@@ -504,7 +511,7 @@ export default {
 .map_wrap {
   position: relative;
   width: 100%;
-  height: 350px;
+  height: 470px;
 }
 
 #category {
