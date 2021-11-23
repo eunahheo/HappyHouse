@@ -3,12 +3,19 @@
     <!-- <button @click="trafficMap" class="btn btn-primary">실시간 교통정보</button>
     {{ this.msg }} -->
     <div style="text-align: right">
-      <button @click="trafficMap" class="btn btn-primary">
-        실시간 교통정보
-      </button>
-      <button @click="showCompany" class="btn btn-primary">
-        직장 근처 매물보기
-      </button>
+      <b-button
+        @click="trafficMap"
+        style="width: 90px; height: 60px; float: right"
+      >
+        실시간 <br />교통정보
+      </b-button>
+      <b-button
+        v-show="this.company.bCode != null"
+        @click="showCompany"
+        style="width: 90px; height: 60px; float: right"
+      >
+        회사
+      </b-button>
     </div>
     <div id="map" style="width: 100%; height: 550px; position: relative"></div>
   </div>

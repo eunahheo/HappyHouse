@@ -105,7 +105,7 @@
                   직장 위치 또한 고려해보세요.
                 </li>
               </ul>
-              <router-link :to="{ name: 'mapCategory' }" class="btn-buy"
+              <router-link :to="{ name: 'House' }" class="btn-buy"
                 >상권/거래정보</router-link
               >
             </div>

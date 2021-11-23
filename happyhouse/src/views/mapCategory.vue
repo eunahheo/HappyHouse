@@ -1,16 +1,11 @@
 <template>
-  <main id="main" style="align-content: center">
-    <!-- ======= Breadcrumbs Section ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
-        <div class="section-title">
-          <h2>
-            <b>카테고리별 상권 정보</b>
-          </h2>
-          <p>주변 상권을 카테고리 별로 살펴보세요.</p>
-        </div>
-      </div>
-    </section>
+  <main class="bv-example-row mt-3 text-center">
+    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+      <br /><br />
+      <h2>상권정보</h2>
+      <p>관심 매물과 회사 주변의 상권을 카테고리 별로 살펴보세요.</p>
+    </div>
+
     <div>
       <section style="text-left">
         <div

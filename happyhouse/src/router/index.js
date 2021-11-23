@@ -44,11 +44,11 @@ const onlyAuthUser = async (to, from, next) => {
     await getUserInfo(token);
   }
   if (checkUserInfo === null) {
-    alert("로그인이 필요한 페이지입니다..");
+    alert("로그인 하시고 다양한 서비스를 이용해보세요.");
     // next({ name: "SignIn" });
     router.push({ name: "SignIn" });
   } else {
-    console.log("로그인 했다.");
+    console.log("로그인 성공");
     next();
   }
 };
@@ -175,6 +175,7 @@ const routes = [
   {
     path: "/house",
     name: "House",
+    beforeEnter: onlyAuthUser,
     component: House,
   },
   {
