@@ -3,7 +3,7 @@
     <b-card no-body>
       <b-card-body
         id="scrollspy-nested"
-        style="position: relative; height: 600px; overflow-y: scroll"
+        style="position: relative; height: 800px; overflow-y: scroll"
       >
         <section id="services" class="services">
           <div class="container">
@@ -98,9 +98,7 @@ export default {
   components: {
     HouseListRow,
   },
-  // props: {
-  //   house: Object,
-  // },
+
   data() {
     return {};
   },
@@ -123,7 +121,7 @@ export default {
           lat: this.house.lat,
           lng: this.house.lng,
           userid: this.userInfo.userid,
-          aptname: this.house.aptName,
+          aptname: this.house.aptname,
         })
         .then(({ data }) => {
           let msg = "등록 처리시 문제가 발생했습니다.";
