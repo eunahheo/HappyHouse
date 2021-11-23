@@ -4,33 +4,34 @@
     <slide>
      
     </slide> -->
+    <div>
+      <section id="hero">
+        <div class="hero-container" data-aos="fade-up">
+          <h1>Welcome to HAPPYHOUSE</h1>
+          <h2>
+            주택의 아파트/다세대,주택 별 거래 정보와 아파트 정보를 조회할 수
+            있습니다.
+          </h2>
 
-    <section id="hero">
-      <div class="hero-container" data-aos="fade-up">
-        <h1>Welcome to HAPPYHOUSE</h1>
-        <h2>
-          주택의 아파트/다세대,주택 별 거래 정보와 아파트 정보를 조회할 수
-          있습니다.
-        </h2>
-
-        <!-- <form action="" method="post">
+          <!-- <form action="" method="post">
               <input type="email" name="email" id="inputEmail"><input type="submit" value="검색" id="searchBtn">
             </form>
  -->
-        <!-- <router-link :to="{ name: 'Four' }" class="link"
+          <!-- <router-link :to="{ name: 'Four' }" class="link"
         ><b-icon icon="house" font-scale="1"></b-icon>
       </router-link> -->
 
-        <a class="btn-get-started scrollto"
-          ><router-link :to="{ name: 'House' }" class="link"
-            ><b-icon
-              icon="search"
-              font-scale="1"
-              style="color: white"
-            ></b-icon> </router-link
-        ></a>
-      </div>
-    </section>
+          <a class="btn-get-started scrollto"
+            ><router-link :to="{ name: 'House' }" class="link"
+              ><b-icon
+                icon="search"
+                font-scale="1"
+                style="color: white"
+              ></b-icon> </router-link
+          ></a>
+        </div>
+      </section>
+    </div>
     <section id="pricing" class="pricing">
       <div class="container" data-aos="fade-up">
         <header class="section-header">

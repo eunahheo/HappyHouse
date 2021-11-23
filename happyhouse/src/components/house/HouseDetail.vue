@@ -6,21 +6,26 @@
       <button @click="trafficMap" class="btn btn-primary">
         실시간 교통정보
       </button>
+      <button @click="showCompany" class="btn btn-primary">
+        직장 근처 매물보기
+      </button>
     </div>
     <div id="map" style="width: 100%; height: 550px; position: relative"></div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 const houseStore = "houseStore";
+const companyStore = "companyStore";
 
 export default {
   name: "HouseDetail",
 
   computed: {
     ...mapState(houseStore, ["houses"]),
+    ...mapState(companyStore, ["company"]),
     // house() {
     //   return this.$store.state.house;
     // },
@@ -62,6 +67,9 @@ export default {
     }
   },
   methods: {
+    showCompany() {
+      this.searchApt();
+    },
     trafficMap() {
       if (!this.trafficFlag) {
         this.map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
@@ -71,6 +79,11 @@ export default {
         this.msg = "off";
       }
       this.trafficFlag = !this.trafficFlag;
+    },
+    ...mapActions(houseStore, ["getHouseList"]),
+    searchApt() {
+      // console.log(this.gugunCode);
+      if (this.company.bCode) this.getHouseList(this.company.bCode);
     },
     initMap() {
       console.log("initMap 호출");

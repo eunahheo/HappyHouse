@@ -54,6 +54,7 @@
             </li>
           </ul>
         </div>
+        <button @click="showCompany" class="btn btn-primary">회사상권</button>
         <div class="sm-3" style="width: 40%; float: right; margin-right: 80px">
           <table style="width: 50%">
             <thead>
@@ -83,6 +84,7 @@ import http from "@/util/http-common";
 
 const memberStore = "memberStore";
 const houseStore = "houseStore";
+const companyStore = "companyStore";
 
 export default {
   name: "mapCategory",
@@ -104,6 +106,7 @@ export default {
       interest: null,
       inte: null,
       // 사용자의 현재 위치 정보
+      clist: {},
       latitude: "",
       longitude: "",
       textContent: "",
@@ -125,6 +128,7 @@ export default {
   computed: {
     ...mapState(memberStore, ["userInfo"]),
     ...mapState(houseStore, ["interests", "list"]),
+    ...mapState(companyStore, ["company"]),
   },
   created() {
     http.get(`/map/interest/all/${this.userInfo.userid}`).then(({ data }) => {
@@ -150,6 +154,14 @@ export default {
   },
   methods: {
     ...mapMutations(houseStore, ["SET_INTEREST_LIST"]),
+    ...mapMutations(houseStore, ["SET_LAT_INFO"]),
+    showCompany() {
+      this.clist = {
+        lat: this.company.lat,
+        lng: this.company.lng,
+      };
+      this.SET_LAT_INFO(this.clist);
+    },
     iList() {
       console.log("동코드: ", this.interest);
     },
@@ -169,7 +181,7 @@ export default {
       this.ps = new kakao.maps.services.Places(this.map);
       this.mapOption = {
         center: new kakao.maps.LatLng(this.list.lat, this.list.lng), // 지도의 중심좌표
-        level: 8,
+        level: 5,
         // 지도의 확대 레벨
       };
 
