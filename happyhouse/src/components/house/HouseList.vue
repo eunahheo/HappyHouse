@@ -18,61 +18,50 @@
 
     <b-modal id="modal-center" centered title="아파트 거래정보 상세">
       <b-container v-if="house" class="bv-example-row">
-        <b-row>
-          <b-col
-            ><h3>{{ house.아파트 }}</h3></b-col
-          >
-        </b-row>
         <b-row class="mb-2 mt-1">
           <b-col
             ><b-img :src="require('@/assets/apt.png')" fluid-grow></b-img
           ></b-col>
         </b-row>
-        <b-row>
-          <b-col>
-            <b-alert show variant="secondary"
-              >일련번호 : {{ house.aptCode }}</b-alert
-            >
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <b-alert show variant="primary"
-              >아파트 이름 : {{ house.aptName }}
-            </b-alert>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <b-alert show variant="info"
-              >주소 : {{ house.sidoName }} {{ house.gugunName }}
-              {{ house.dongName }}
-            </b-alert>
-          </b-col>
-        </b-row>
-        <!-- <b-row>
-      <b-col>
-        <b-alert show variant="warning">층수 : {{ house.층 }}층</b-alert>
-      </b-col>
-    </b-row> -->
-        <b-row>
-          <b-col>
-            <b-alert show variant="danger"
-              >거래금액 : {{ house.recentPrice }}만원</b-alert
-            >
-            <!-- <b-alert show variant="danger"
-          >거래금액 :
-          {{
-            (parseInt(house.dealAmount.replace(",", "")) * 10000) | price
-          }}원</b-alert
-        > -->
-          </b-col>
-        </b-row>
-        <b-row
-          ><b-col>
-            <b-button @click="registInterest">관심지역 추가</b-button></b-col
-          >
-        </b-row>
+        <table style="width: 100%" class="table table-hover">
+          <thead>
+            <tr style="font-size: 30px">
+              <th>{{ house.aptName }}</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>
+                <b-button
+                  @click="registInterest"
+                  style="width: 90%; font-size: 20px"
+                  >관심</b-button
+                >
+              </th>
+            </tr>
+          </thead>
+        </table>
+        <tr style="font-size: 20px">
+          <td>일련번호 :</td>
+          <td>{{ house.aptCode }}</td>
+        </tr>
+
+        <tr style="font-size: 20px">
+          <td>아파트이름 :</td>
+          <td>{{ house.aptName }}</td>
+        </tr>
+        <tr style="font-size: 20px">
+          <td>주 소 :</td>
+          <td>
+            {{ house.sidoName }} {{ house.gugunName }} {{ house.dongName }}
+          </td>
+        </tr>
+        <tr style="font-size: 20px">
+          <td>거래금액 :</td>
+          <td>{{ house.recentPrice }}만원</td>
+        </tr>
       </b-container>
     </b-modal>
   </b-container>

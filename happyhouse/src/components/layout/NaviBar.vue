@@ -17,13 +17,6 @@
         <!-- 네비게이션바 -->
         <ul>
           <li>
-            <router-link :to="{ name: 'Introduce' }" class="link"
-              ><b-icon icon="emoji-wink" font-scale="1"></b-icon> 사이트
-              소개</router-link
-            >
-          </li>
-          <!-- <li><a href="#team">사이트 소개</a></li> -->
-          <li>
             <router-link :to="{ name: 'House' }" class="link"
               ><b-icon icon="house-fill" font-scale="1"></b-icon>
               주택거래정보</router-link

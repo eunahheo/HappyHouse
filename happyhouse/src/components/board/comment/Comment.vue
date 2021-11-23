@@ -1,13 +1,15 @@
 <template>
   <div v-show="isShow" class="comment">
-    <div class="head">
-      {{ comment.userid }} ({{ getFormatDate(comment.commenttime) }})
-    </div>
-    <div class="content" v-html="enterToBr(comment.comment)"></div>
-    <!-- 로그인 기능 구현 후 로그인한 자신의 글에만 보이게 한다. -->
-    <div class="cbtn">
-      <label @click="modifyCommentView">수정</label> |
-      <label @click="deleteComment">삭제</label>
+    <div class="testimonial-item" data-aos="fade-up" data-aos-delay="300">
+      <p class="head">
+        {{ comment.userid }} ({{ getFormatDate(comment.commenttime) }})
+      </p>
+      <p class="content" v-html="enterToBr(comment.comment)"></p>
+      <!-- 로그인 기능 구현 후 로그인한 자신의 글에만 보이게 한다. -->
+      <p class="cbtn">
+        <label @click="modifyCommentView">수정</label> |
+        <label @click="deleteComment">삭제</label>
+      </p>
     </div>
   </div>
 </template>
@@ -78,7 +80,8 @@ export default {
 .comment {
   text-align: left;
   border-radius: 5px;
-  background-color: #d6e7fa;
+  background-color: #465566;
+  border-color: black;
   padding: 10px 20px;
   margin: 10px;
 }

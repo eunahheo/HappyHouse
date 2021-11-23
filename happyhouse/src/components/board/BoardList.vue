@@ -17,20 +17,20 @@
             name="word"
             v-model="word"
           />
-          <b-button
-            variant="outline-primary"
-            type="button"
-            id="searchBtn"
-            class="ml-1 btn btn-outline-primary"
+          <b-icon
+            icon="search"
+            class="btn-s"
             @click="searchBoard()"
-          >
-            검색
-          </b-button>
+            font-scale="1.5"
+          ></b-icon>
         </form>
       </b-col>
       <b-col class="text-right" style="float: left">
-        <b-button variant="outline-primary" @click="moveWrite()"
-          >글쓰기</b-button
+        <router-link
+          :to="{ name: 'Notice' }"
+          @click="moveWrite()"
+          class="btn-buy"
+          >글쓰기</router-link
         >
       </b-col>
     </b-row>

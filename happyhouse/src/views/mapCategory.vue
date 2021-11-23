@@ -51,15 +51,16 @@
         </div>
         <div class="sm-3" style="width: 40%; float: right; margin-right: 80px">
           <!-- <h2 style="text-align: center">관심지역</h2> -->
-          <b-button
+          <a
+            class="btn-buy"
             squared
             variant="info"
             @click="showCompany"
             size="sm"
-            style="width: 90px; height: 40px; float: right"
+            style="height: 40px; float: right"
           >
             회사
-          </b-button>
+          </a>
 
           <table style="width: 100%" class="table table-hover">
             <thead>

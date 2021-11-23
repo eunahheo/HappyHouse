@@ -43,9 +43,9 @@
               </tbody>
             </table>
             <div class="clearfix" style="text-align: right; margin-right: 5px">
-              <router-link :to="{ name: 'Notice' }" class="link">
-                <b-button variant="secondary">목록</b-button>
-              </router-link>
+              <router-link :to="{ name: 'Notice' }" class="btn-buy"
+                >목록</router-link
+              >
             </div>
           </div>
         </div>
@@ -84,9 +84,9 @@
               </tbody>
             </table>
             <div class="clearfix" style="text-align: right; margin-right: 5px">
-              <router-link :to="{ name: 'Board' }" class="link">
-                <b-button variant="secondary">목록</b-button>
-              </router-link>
+              <router-link :to="{ name: 'Board' }" class="btn-buy"
+                >목록</router-link
+              >
             </div>
           </div>
         </div>
@@ -184,5 +184,22 @@ export default {
     rgba(255, 255, 255, 0) 70%,
     rgba(72, 190, 233, 0.3) 30%
   );
+}
+.btn {
+  display: inline-block;
+  padding: 8px 40px 10px 40px;
+  border-radius: 50px;
+  color: #2f4d5a;
+  transition: none;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+  border: 1px solid #2f4d5a;
+}
+.btn:hover {
+  background: #2f4d5a;
+  color: #fff;
 }
 </style>

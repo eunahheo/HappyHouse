@@ -1,69 +1,55 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row>
-      <b-col>
-        <b-alert show><h3>글보기</h3></b-alert>
-      </b-col>
-    </b-row>
     <b-row class="mb-1">
       <div class="text-left">
         <b-col>
-          <b-button variant="outline-primary" @click="listArticle"
-            >목록</b-button
+          <a variant="outline-primary" class="btn-buy" @click="listArticle"
+            >목록</a
           >
         </b-col>
       </div>
       <b-col class="text-right" v-show="userInfo.userid === article.userid">
-        <b-button
+        <a
           variant="outline-info"
           size="sm"
           @click="moveModifyArticle"
-          class="mr-2"
-          >글수정</b-button
+          class="btn-buy"
+          >글수정</a
         >
-        <b-button variant="outline-danger" size="sm" @click="deleteArticle"
-          >글삭제</b-button
+        <a
+          variant="outline-danger"
+          class="btn-buy"
+          size="sm"
+          @click="deleteArticle"
+          >글삭제</a
         >
       </b-col>
     </b-row>
     <b-row class="mb-1">
       <b-col>
-        <b-card
-          :header-html="`<h3>${article.articleno}.
+        <b-table-simple hover responsive>
+          <b-thead head-variant="dark">
+            <b-tr>
+              <b-th
+                style="font-size: 27px"
+                :header-html="`<h3>${article.articleno}.
           ${article.subject} [${article.hit}]</h3><div><h6>${article.userid}</div><div>${article.regtime}</h6></div>`"
-          class="mb-2"
-          border-variant="dark"
-          no-body
-        >
-          <b-card-body class="text-left">
-            <div v-html="message"></div>
-          </b-card-body>
-        </b-card>
+                >{{ article.articleno }}. {{ article.subject }} [{{
+                  article.hit
+                }}] <br />
+              </b-th> </b-tr
+            ><b-tr style="text-align: right"
+              >작성자 : {{ article.userid }} | 작성시간 :
+              {{ article.regtime }}</b-tr
+            >
+            <hr />
+            <b-tr v-html="message" style="font-size: 20px; text-align: left">
+            </b-tr>
+          </b-thead>
+        </b-table-simple>
       </b-col>
     </b-row>
-    <!-- <div class="regist">
-      <div v-if="modifyComment != null" class="regist_form">
-        <textarea
-          name="comment"
-          id="comment"
-          v-model="modifyComment.comment"
-          cols="35"
-          rows="2"
-        ></textarea>
-        <button class="small" @click="updateCommentCancel">취소</button>
-        <button class="small" @click="updateComment">수정</button>
-      </div>
-      <div v-else class="regist_form">
-        <textarea
-          name="comment"
-          id="comment"
-          cols="35"
-          v-model="comment"
-          rows="2"
-        ></textarea>
-        <button @click="registComment">등록</button>
-      </div>
-    </div> -->
+
     <comment-write :articleno="article.articleno" />
     <comment-write
       v-if="isModifyShow && modifyComment != null"
@@ -177,7 +163,8 @@ button.small {
 .comment {
   text-align: left;
   border-radius: 5px;
-  background-color: #d6e7fa;
+  border-color: black;
+  background-color: #dce1e920;
   padding: 10px 20px;
   margin: 10px;
 }

@@ -255,9 +255,6 @@ a:hover {
   font-weight: bold;
 }
 
-a.router-link-exact-active {
-  color: skyblue;
-}
 a.router-link {
   color: balck;
 }

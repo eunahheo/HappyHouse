@@ -1,43 +1,54 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row>
-      <b-col>
-        <b-alert show><h3>글보기</h3></b-alert>
-      </b-col>
-    </b-row>
     <b-row class="mb-1">
       <b-col class="text-left">
-        <b-button variant="outline-primary" @click="listNotice">목록</b-button>
+        <a variant="outline-primary" class="btn-buy" @click="listNotice"
+          >목록</a
+        >
       </b-col>
+
       <b-col
         v-if="userInfo.userid == 'ssafy' || userInfo.userid == 'admin'"
         class="text-right"
       >
-        <b-button
+        <a
           variant="outline-info"
           size="sm"
           @click="moveModifyNotice"
-          class="mr-2"
-          >글수정</b-button
+          class="btn-buy"
+          >글수정</a
         >
-        <b-button variant="outline-danger" size="sm" @click="deleteNotice"
-          >글삭제</b-button
+        <a
+          variant="outline-danger"
+          class="btn-buy"
+          size="sm"
+          @click="deleteNotice"
+          >글삭제</a
         >
       </b-col>
     </b-row>
+
     <b-row class="mb-1">
       <b-col>
-        <b-card
-          :header-html="`<h3>${notice.noticeno}.
+        <b-table-simple hover responsive>
+          <b-thead head-variant="dark">
+            <b-tr>
+              <b-th
+                style="font-size: 27px"
+                :header-html="`<h3>${notice.noticeno}.
           ${notice.subject} [${notice.hit}]</h3><div><h6>${notice.userid}</div><div>${notice.regtime}</h6></div>`"
-          class="mb-2"
-          border-variant="dark"
-          no-body
-        >
-          <b-card-body class="text-left">
-            <div v-html="message"></div>
-          </b-card-body>
-        </b-card>
+                >{{ notice.noticeno }}. {{ notice.subject }} [{{ notice.hit }}]
+                <br />
+              </b-th> </b-tr
+            ><b-tr style="text-align: right"
+              >작성자 : {{ notice.userid }} | 작성시간 :
+              {{ notice.regtime }}</b-tr
+            >
+            <hr />
+            <b-tr v-html="message" style="font-size: 20px; text-align: left">
+            </b-tr>
+          </b-thead>
+        </b-table-simple>
       </b-col>
     </b-row>
   </b-container>
@@ -95,4 +106,21 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.pricing .btn-buy:hover {
+  background: #2f4d5a;
+  color: #fff;
+}
+.pricing .featured {
+  width: 200px;
+  position: absolute;
+  top: 18px;
+  right: -68px;
+  transform: rotate(45deg);
+  z-index: 1;
+  font-size: 14px;
+  padding: 1px 0 3px 0;
+  background: #2f4d5a;
+  color: #fff;
+}
+</style>

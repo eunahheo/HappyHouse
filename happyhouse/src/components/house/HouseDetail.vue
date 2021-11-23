@@ -3,19 +3,16 @@
     <!-- <button @click="trafficMap" class="btn btn-primary">실시간 교통정보</button>
     {{ this.msg }} -->
     <div style="text-align: right">
-      <b-button
-        @click="trafficMap"
-        style="width: 90px; height: 60px; float: right"
-      >
-        실시간 <br />교통정보
-      </b-button>
-      <b-button
+      <a class="btn-buy" @click="trafficMap" style="float: right"> 교통정보 </a>
+
+      <a
+        class="btn-buy"
         v-show="this.company.bCode != null"
         @click="showCompany"
-        style="width: 90px; height: 60px; float: right"
+        style="float: right"
       >
-        회사
-      </b-button>
+        회사 주변
+      </a>
     </div>
     <div id="map" style="width: 100%; height: 550px; position: relative"></div>
   </div>
@@ -391,5 +388,22 @@ ul {
 }
 .overlaybox li:hover .down {
   background-position: 0 -20px;
+}
+.btn-buy {
+  display: inline-block;
+  padding: 8px 40px 10px 40px;
+  border-radius: 50px;
+  color: #4154f1;
+  transition: none;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+  border: 1px solid #4154f1;
+}
+.btn-buy:hover {
+  background: #4154f1;
+  color: #fff;
 }
 </style>

@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
-import Introduce from "@/views/Introduce.vue";
 import Four from "@/views/Four.vue";
 import Login from "@/views/Login.vue";
 import Sign from "@/views/SignUp.vue";
@@ -59,11 +58,7 @@ const routes = [
     name: "Home",
     component: Home,
   },
-  {
-    path: "/introduce",
-    name: "Introduce",
-    component: Introduce,
-  },
+
   {
     path: "/four",
     name: "Four",
@@ -175,7 +170,7 @@ const routes = [
   {
     path: "/house",
     name: "House",
-    beforeEnter: onlyAuthUser,
+
     component: House,
   },
   {
@@ -191,6 +186,7 @@ const routes = [
   {
     path: "/category",
     name: "mapCategory",
+    beforeEnter: onlyAuthUser,
     component: mapCategory,
   },
 ];

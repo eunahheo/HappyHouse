@@ -194,13 +194,13 @@ h6 {
   font-size: 14px;
   font-weight: 500;
   text-transform: none;
-  color: #25607a;
+  color: #d6ebf59a;
 }
 
 .nav-menu .drop-down ul a:hover,
 .nav-menu .drop-down ul .active > a,
 .nav-menu .drop-down ul li:hover > a {
-  color: #5b7c8b;
+  color: #d6ebf59a;
 }
 
 .nav-menu .drop-down > a:after {
@@ -553,7 +553,7 @@ section {
 .about .content h3 {
   font-weight: 700;
   font-size: 34px;
-  color: #2f4d5a;
+  color: #2b5a6e;
   margin-bottom: 30px;
 }
 
@@ -1292,6 +1292,7 @@ section {
   padding: 0 0 30px 0;
   color: #fff;
   font-size: 14px;
+  bottom: 0;
 }
 
 #footer .footer-top {

@@ -84,13 +84,13 @@
                 />
               </td>
               <td>
-                <input
-                  type="button"
-                  class="btn btn-primary"
-                  style="width: 60%; height: 38px"
+                <br />
+                <b-icon
+                  icon="search"
+                  class="btn-s"
                   @click="sample5_execDaumPostcode"
-                  value="검색"
-                />
+                  font-scale="1.5"
+                ></b-icon>
               </td>
             </tr>
           </table>

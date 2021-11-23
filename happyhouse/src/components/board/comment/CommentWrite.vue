@@ -9,26 +9,21 @@
         name="comment"
         id="comment"
         v-model="modifyComment.comment"
-        cols="40"
+        cols="30"
         rows="2"
       ></textarea>
-      <button
-        class="small btn btn-outline-secondary"
-        @click="updateCommentCancel"
-      >
-        취소
-      </button>
-      <button class="small btn btn-info" @click="updateComment">수정</button>
+      <a class="btn-buy" @click="updateCommentCancel"> 취소 </a>
+      <a class="btn-buy" @click="updateComment">수정</a>
     </div>
     <div v-else class="regist_form" style="text-align: left">
       <textarea
         name="comment"
         id="comment"
-        cols="40"
+        cols="30"
         v-model="comment"
         rows="2"
       ></textarea>
-      <button class="btn btn-primary" @click="registComment">등록</button>
+      <a class="btn-buy" @click="registComment">등록</a>
     </div>
   </div>
 </template>
@@ -110,5 +105,19 @@ button.small {
   width: 50px;
   font-size: small;
   font-weight: bold;
+}
+.btn-s {
+  width: 50px;
+  color: #4154f1;
+  transition: none;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.btn-s:hover {
+  background: #fff;
+  color: rgb(0, 0, 0);
 }
 </style>

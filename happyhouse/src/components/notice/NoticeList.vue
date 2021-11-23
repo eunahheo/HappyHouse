@@ -17,24 +17,17 @@
             name="word"
             v-model="word"
           />
-          <b-button
-            variant="outline-primary"
-            type="button"
-            id="searchBtn"
-            class="ml-1 btn btn-outline-primary"
+          <!-- <a variant="outline-primary" class="btn" @click="searchNotice()"> </a> -->
+          <b-icon
+            icon="search"
+            class="btn-s"
             @click="searchNotice()"
-          >
-            검색
-          </b-button>
+            font-scale="1.5"
+          ></b-icon>
         </form>
       </b-col>
       <b-col class="text-right" style="float: left">
-        <b-button
-          v-show="this.flag"
-          variant="outline-primary"
-          @click="moveWrite()"
-          >글쓰기</b-button
-        >
+        <a v-show="this.flag" class="btn-buy" @click="moveWrite()">글쓰기</a>
       </b-col>
     </b-row>
     <b-row>
@@ -122,7 +115,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style>
 .tdClass {
   width: 50px;
   text-align: center;
@@ -130,5 +123,19 @@ export default {
 .tdSubject {
   width: 300px;
   text-align: left;
+}
+.btn-s {
+  width: 50px;
+  color: #4154f1;
+  transition: none;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.btn-s:hover {
+  background: #fff;
+  color: rgb(0, 0, 0);
 }
 </style>
