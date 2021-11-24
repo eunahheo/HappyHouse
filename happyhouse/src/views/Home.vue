@@ -116,31 +116,110 @@
     <!-- </slide> -->
     <!-- </hooper> -->
 
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container">
+        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+          <h2>단위 변환기</h2>
+          <p>면적과 평수를 변환해보세요.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-6 align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up">
+              <h4 class="title"><b-icon icon="house"></b-icon> 평수 - 면적</h4>
+              <p class="description">1평은 3.305785㎡ 입니다.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6 align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+              <h4 class="title"><b-icon icon="house"></b-icon> 면적 - 평수</h4>
+              <p class="description">1㎡는 0.3025평입니다.</p>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div
+            class="col-md-12 col-lg-12 align-items-stretch mb-5 mb-lg-0"
+            style="margin: 0 auto"
+          >
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon"><i class="bx bx-world"></i></div>
+
+              <div class="form-group has-feedback row">
+                <label
+                  for="area"
+                  class="col-md-3 control-label text-md-right col-form-label"
+                  >면적
+                </label>
+                <div class="col-md-3">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="area"
+                    v-model="area"
+                    name="area"
+                    placeholder="제곱미터"
+                    required
+                  />
+                </div>
+                <div class="col-md-5">{{ result1 + " 평" }}</div>
+              </div>
+
+              <div class="form-group has-feedback row">
+                <label
+                  for="py"
+                  class="col-md-3 control-label text-md-right col-form-label"
+                  >평
+                </label>
+                <div class="col-md-3">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="py"
+                    v-model="py"
+                    name="py"
+                    placeholder="평"
+                    required
+                    style="float: right"
+                  />
+                </div>
+                <div class="col-md-5">
+                  {{ result2 + " ㎡" }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div style="text-align: center"> -->
+    </section>
+    <!-- End Services Section -->
+
+    <!-- team  -->
     <section id="team" class="team">
       <div class="container">
         <div class="section-title">
-          <h2>사이트 소개</h2>
-          <p>
-            Web Front-End 기술인 <b>HTML / JSP / CSS / JavaScript</b> 등을
-            활용한 스프링부트 웹 사이트로<br />
-            <b>jQuery 와 Bootstrap 등 Library</b> 를 활용해, 더욱 향상된 디자인
-            및 기능을 구현하였습니다.<br />
-            또한, <b>Ajax</b>를 활용해 동적인 데이터 처리를 했습니다.
-          </p>
-          <p>
-            <b>이미지, Kakao Map, Form</b> 등을 활용해, 시각적인 효과를 내
-            사용자 입장에서 편리하고 직관적으로 사용할 수 있도록 설계했습니다.
-          </p>
+          <h2>개발자 소개</h2>
+          <h5>HappyHouse의 개발자를 소개합니다.<br /></h5>
+          <p></p>
         </div>
 
         <div class="row">
           <div class="col-lg-6 col-md-6">
             <div class="member" data-aos="fade-up">
               <div class="pic">
-                <img src="@/assets/img/woman.jpg" class="img-fluid" alt="" />
+                <!-- <img
+                  src="@/assets/img/ojy.jpeg"
+                  style="scale: 0.7"
+                  class="img-fluid"
+                  alt=""
+                /> -->
               </div>
               <div class="member-info">
-                <h4>허은아</h4>
+                <h4>오지영</h4>
                 <span>Developer</span>
                 <div class="social">
                   <a href=""><i class="icofont-twitter"></i></a>
@@ -158,7 +237,7 @@
                 <img src="@/assets/img/woman.jpg" class="img-fluid" alt="" />
               </div>
               <div class="member-info">
-                <h4>오지영</h4>
+                <h4>허은아</h4>
                 <span>Developer</span>
                 <div class="social">
                   <a href=""><i class="icofont-twitter"></i></a>
@@ -182,14 +261,29 @@ import "hooper/dist/hooper.css";
 export default {
   name: "Main",
   // components: { Hooper, Slide },
-
+  data() {
+    return {
+      area: "제곱미터",
+      py: "평",
+      result1: 0,
+      result2: 0,
+    };
+  },
+  watch: {
+    area: function () {
+      this.result1 = this.area * 0.3025;
+    },
+    py: function () {
+      this.result2 = this.py * 3.305785;
+    },
+  },
   props: {
     msg: String,
   },
 };
 </script>
 
-<style scoped>
+<style>
 .underline-steelblue {
   display: inline-block;
   background: linear-gradient(

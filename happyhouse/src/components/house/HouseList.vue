@@ -5,14 +5,21 @@
         id="scrollspy-nested"
         style="position: relative; height: 800px; overflow-y: scroll"
       > -->
-      <carousel :autoplay="true" :nav="false" :autoplayTimeout="1900">
-        <house-list-row
-          v-for="(house, index) in houses"
-          :key="index"
-          :house="house"
-          v-b-modal.modal-center
-        ></house-list-row>
-      </carousel>
+      <div style="height: 500px; float: left">
+        <carousel
+          :autoplay="true"
+          :nav="false"
+          :autoplayTimeout="1900"
+          style="float: left; over-flow: auto"
+        >
+          <house-list-row
+            v-for="(house, index) in houses"
+            :key="index"
+            :house="house"
+            v-b-modal.modal-center
+          ></house-list-row>
+        </carousel>
+      </div>
       <!-- </b-card-body> -->
     </b-card>
 
