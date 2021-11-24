@@ -36,7 +36,7 @@
               <th>
                 <b-button
                   @click="registInterest"
-                  style="width: 90%; font-size: 20px"
+                  style="width: 120px; font-size: 20px"
                   >관심</b-button
                 >
               </th>
@@ -67,7 +67,7 @@
   </b-container>
   <b-container v-else class="bv-example-row mt-3">
     <b-row>
-      <b-col><b-alert show>주택 목록이 없습니다.</b-alert></b-col>
+      <b-col>주택 목록이 없습니다.</b-col>
     </b-row>
   </b-container>
 </template>

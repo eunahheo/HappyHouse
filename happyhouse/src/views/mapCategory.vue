@@ -13,7 +13,7 @@
           style="
             width: 40%;
             float: left;
-            margin-left: 80px;
+            margin-left: 140px;
             margin-top: 10px;
             margin-bottom: 50px;
           "
@@ -56,7 +56,7 @@
           </ul>
         </div>
       </section>
-      <div style="width: 40%; float: right; margin-right: 80px">
+      <div style="width: 40%; float: right; margin-right: 140px">
         <div>
           <div class="" style="width: 400px; height: 500px" v-if="chartLoading">
             <div indeterminate color="red"></div>
@@ -68,7 +68,10 @@
           />
         </div>
       </div>
-      <div class="sm-3" style="width: 40%; margin-left: 80px; margin-top: 50px">
+      <div
+        class="sm-3"
+        style="width: 40%; margin-left: 140px; margin-top: 50px"
+      >
         <!-- <h2 style="text-align: center">관심지역</h2> -->
         <a
           class="btn-buy"

@@ -50,14 +50,12 @@
               </li>
               <li>
                 <i class="bx bx-chevron-right"></i>
-                <router-link :to="{ name: 'Introduce' }"
-                  >사이트 소개</router-link
-                >
+                <router-link :to="{ name: 'House' }">주택거래정보</router-link>
                 <!-- <a href="http://localhost:80/#team">사이트 소개</a> -->
               </li>
               <li>
                 <i class="bx bx-chevron-right"></i>
-                <router-link :to="{ name: 'House' }">주택거래정보</router-link>
+                <router-link :to="{ name: 'Board' }">게시판</router-link>
                 <!-- <a href="http://localhost:80/map">주택거래정보</a> -->
               </li>
             </ul>
