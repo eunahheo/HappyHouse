@@ -2,7 +2,7 @@
   <header
     id="header"
     class="header-transparent"
-    style="background-color: rgba(40, 40, 40, 0.8)"
+    style="background-color: rgba(40, 40, 40, 0.75)"
   >
     <div class="container d-flex align-items-center">
       <div class="logo mr-auto">

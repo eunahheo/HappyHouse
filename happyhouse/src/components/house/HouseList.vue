@@ -5,13 +5,8 @@
         id="scrollspy-nested"
         style="position: relative; height: 800px; overflow-y: scroll"
       > -->
-      <div style="height: 500px; float: left">
-        <carousel
-          :autoplay="true"
-          :nav="false"
-          :autoplayTimeout="1900"
-          style="float: left; over-flow: auto"
-        >
+      <div style="height: 500px">
+        <carousel :autoplay="true" :nav="false" :autoplayTimeout="1900">
           <house-list-row
             v-for="(house, index) in houses"
             :key="index"

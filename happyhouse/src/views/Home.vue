@@ -26,7 +26,23 @@
       <div class="container" data-aos="fade-up">
         <header class="section-header">
           <h1>HappyHouse의 다양한 서비스를 경험해보세요!</h1>
-          <h4>직장인들을 위한 기능도 있습니다.</h4>
+          <span>
+            <span style="font-size: 17px"> <b>회사 주변의</b></span> &nbsp;
+            <span style="color: #ff0071; font-size: 19px">
+              <sup>✔️</sup><b>인기 매물</b>
+            </span>
+            &nbsp;&nbsp;
+            <span style="color: #ff0071; font-size: 19px">
+              <sup>✔️</sup><b>상권</b>
+            </span>
+            &nbsp;&nbsp;
+            <span style="color: #ff0071; font-size: 19px">
+              <sup>✔️</sup><b>길찾기</b>
+            </span>
+            <span style="font-size: 17px"> <b> 를 제공합니다.</b></span>
+            &nbsp;
+          </span>
+          <br />
           <br />
         </header>
 
