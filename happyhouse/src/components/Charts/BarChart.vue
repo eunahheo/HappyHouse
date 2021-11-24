@@ -21,7 +21,6 @@ export default {
   },
   data() {
     return {
-      ranking: [],
       dongs: [],
       prices: [],
       datacollection: {
@@ -29,7 +28,7 @@ export default {
         labels: [],
         datasets: [
           {
-            label: "단위 : 만원",
+            label: "단위 : 찜 수",
             backgroundColor: "#86B1E5",
             pointBackgroundColor: "white",
             borderWidth: 1,
@@ -70,22 +69,26 @@ export default {
   },
   created() {
     http.get(`/map/interest/popular/${this.company.bCode}`).then(({ data }) => {
-      this.ranking.push(data);
+      console.log("응답 ", data);
+      // this.ranking = data;
+
+      this.datacollection.labels = [];
+      this.datacollection.datasets[0].data = [];
+      // console.log("결과다임마: ", this.ranking);
+      var i = 0;
+      data.forEach((item) => {
+        this.datacollection.labels.push(item.aptname);
+        this.datacollection.datasets[0].data[i++] = item.popularity;
+        this.renderChart(this.datacollection, this.options);
+        // set1.add(item.popularity);
+      });
     });
-    this.updatechart();
+
+    // this.updatechart();
   },
+
   methods: {
     updatechart() {
-      var set = new Set();
-      var set1 = new Set();
-      this.datacollection.labels = [];
-      this.datacollection.datasets.data = [];
-      console.log("결과다임마: ", this.ranking[0]);
-      this.ranking.forEach((item) => {
-        console.log(item[0]);
-        set.add(item.aptname);
-        set1.add(item.popularity);
-      });
       // console.log(set);
       // set.forEach((item) => {
       //   this.datacollection.labels.push(item);
@@ -94,7 +97,8 @@ export default {
       //   this.datacollection.datasets.data.push(item);
       // });
       // this.datacollection.datasets[0].data = this.datacollection.datasets.data;
-      this.renderChart(this.datacollection, this.options);
+      // console.log(this.datacollection);
+      // this.renderChart(this.datacollection, this.options);
     },
   },
 };

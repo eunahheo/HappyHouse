@@ -11,6 +11,7 @@ const houseStore = {
     interests: [],
     houses: [],
     house: null,
+    popularity: [],
   },
 
   getters: {
@@ -62,6 +63,9 @@ const houseStore = {
     },
     SET_DETAIL_HOUSE: (state, house) => {
       state.house = house;
+    },
+    SET_POPULARITY: (state, popularity) => {
+      state.popularity = popularity;
     },
   },
 
