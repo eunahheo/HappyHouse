@@ -95,13 +95,13 @@
             </tr>
           </table>
           <div class="clearfix">
-            <button
-              class="btn btn-lg btn-primary btn-block float-right"
+            <b-button
+              class="btn btn-lg btn-block float-right"
               id="modifyBtn"
               @click="userModify"
             >
               수정하기
-            </button>
+            </b-button>
           </div>
         </div>
       </div>

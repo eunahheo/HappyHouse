@@ -30,15 +30,11 @@
         </table>
       </div>
       <div class="clearfix mt-5">
-        <button
-          button
-          class="btn btn-lg btn-primary btn-block float-right"
-          @click="movePage"
-        >
+        <b-button class="btn btn-lg btn-block float-right" @click="movePage">
           수정하기
-        </button>
+        </b-button>
         <button
-          class="btn btn-lg btn-danger btn-block float-left"
+          class="btn btn-lg btn-block float-left"
           id="delbtn"
           @click="deleteUser"
         >

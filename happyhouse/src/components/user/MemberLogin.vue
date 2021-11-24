@@ -52,22 +52,17 @@
         </div>
 
         <!-- <div class="text-danger mb-2">${msg}</div> -->
-        <button
-          class="btn btn-lg btn-primary btn-block"
-          type="button"
-          variant="primary"
-          @click="confirm"
-        >
+        <b-button class="btn btn-lg btn-block" type="button" @click="confirm">
           로그인
-        </button>
-        <button
-          class="btn btn-lg btn-danger btn-block"
+        </b-button>
+        <b-button
+          variant="primary"
+          class="btn btn-lg btn-block"
           type="button"
-          variant="success"
           @click="movePage"
         >
           회원가입
-        </button>
+        </b-button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
       </form>
     </div>

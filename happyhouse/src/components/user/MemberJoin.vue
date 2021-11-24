@@ -128,13 +128,14 @@
           </div>
         </div>
 
-        <button
+        <b-button
           type="submit"
           id="registerBtn1"
+          variant="primary"
           class="btn btn-lg btn-primary btn-block"
         >
           회원가입
-        </button>
+        </b-button>
         <button
           type="reset"
           class="btn btn-lg btn-secondary btn-block"

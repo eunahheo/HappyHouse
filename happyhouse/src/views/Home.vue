@@ -227,21 +227,21 @@
           <div class="col-lg-6 col-md-6">
             <div class="member" data-aos="fade-up">
               <div class="pic">
-                <!-- <img
+                <img
                   src="@/assets/img/ojy.jpeg"
-                  style="scale: 0.7"
+                  style="border-radius: 60%"
                   class="img-fluid"
                   alt=""
-                /> -->
+                />
               </div>
               <div class="member-info">
                 <h4>오지영</h4>
                 <span>Developer</span>
                 <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
-                  <a href=""><i class="icofont-linkedin"></i></a>
+                  <a href=""><b-icon icon="twitter"></b-icon></a>
+                  <a href=""><b-icon icon="facebook"></b-icon></a>
+                  <a href=""><b-icon icon="instagram"></b-icon></a>
+                  <a href=""><b-icon icon="linkedin"></b-icon></a>
                 </div>
               </div>
             </div>
@@ -250,16 +250,21 @@
           <div class="col-lg-6 col-md-6">
             <div class="member" data-aos="fade-up" data-aos-delay="150">
               <div class="pic">
-                <img src="@/assets/img/woman.jpg" class="img-fluid" alt="" />
+                <img
+                  src="@/assets/img/hea.jpeg"
+                  style="border-radius: 60%"
+                  class="img-fluid"
+                  alt=""
+                />
               </div>
               <div class="member-info">
                 <h4>허은아</h4>
                 <span>Developer</span>
                 <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
-                  <a href=""><i class="icofont-linkedin"></i></a>
+                  <a href=""><b-icon icon="twitter"></b-icon></a>
+                  <a href=""><b-icon icon="facebook"></b-icon></a>
+                  <a href=""><b-icon icon="instagram"></b-icon></a>
+                  <a href=""><b-icon icon="linkedin"></b-icon></a>
                 </div>
               </div>
             </div>
