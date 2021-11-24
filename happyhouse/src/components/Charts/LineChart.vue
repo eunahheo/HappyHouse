@@ -1,14 +1,11 @@
 <script>
-//Importing Line class from the vue-chartjs wrapper
 import { Line } from "vue-chartjs";
 import { mapState } from "vuex";
 const houseStore = "houseStore";
-//Exporting this so it can be used in other components
 export default {
   extends: Line,
   computed: {
     ...mapState(houseStore, ["interests"]),
-    // ...mapState(companyStore, ["company"]),
   },
   watch: {
     interests: function () {
@@ -74,7 +71,6 @@ export default {
         set.add(item.dongname);
         set1.add(item.avgPrice);
       });
-      console.log(set);
       set.forEach((item) => {
         this.datacollection.labels.push(item);
       });
@@ -82,16 +78,6 @@ export default {
         this.datacollection.datasets.data.push(item);
       });
       this.datacollection.datasets[0].data = this.datacollection.datasets.data;
-      // for (let index = 0; index < this.interests.length; index++) {
-      //   //   // console.log(this.interests[index].dongname);
-
-      //   this.datacollection.labels[index] = this.interests[index].dongname;
-      //   //   this.datacollection.options.data[index] = 5;
-      //   this.datacollection.datasets[0].data[index] =
-      //     this.interests[index].avgPrice;
-      // }
-      console.log("datacollection", this.datacollection.datasets);
-      //renderChart function renders the chart with the datacollection and options object.
       this.renderChart(this.datacollection, this.options);
     },
   },

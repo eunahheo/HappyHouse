@@ -11,7 +11,14 @@ public class InterestDto {
 	private String userid;
 	private String aptname;
 	private int avgPrice;
+	private int popularity;
 	
+	public int getPopularity() {
+		return popularity;
+	}
+	public void setPopularity(int popularity) {
+		this.popularity = popularity;
+	}
 	public String getAptname() {
 		return aptname;
 	}
