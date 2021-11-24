@@ -18,8 +18,9 @@
 
 <script>
 // import moment from "moment";
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 const houseStore = "houseStore";
+const companyStore = "companyStore";
 export default {
   name: "InterestListRow",
   data() {
@@ -42,13 +43,39 @@ export default {
     interest: Object,
   },
   computed: {
-    // ...mapState(houseStore, ["list"]),
+    ...mapState(companyStore, ["company"]),
     // changeDateFormat() {
     //   return moment(new Date(this.regtime)).format("YY.MM.DD hh:mm:ss");
     // },
   },
   mounted() {
-    this.url = this.url + this.aptname + "," + this.lat + "," + this.lng;
+    // this.url = this.url + this.aptname + "," + this.lat + "," + this.lng;
+    // this.url="https://map.kakao.com/?map_type=TYPE+MAP&target=car&rt="+this.lat+","+this.lng+"&rt1=";
+    this.url =
+      "https://map.kakao.com/?sName=" +
+      this.sidoname +
+      " " +
+      this.gugunname +
+      " " +
+      this.dongname +
+      " " +
+      this.aptname +
+      // "," +
+      // this.lat +
+      // "," +
+      // this.lng +
+      "&eName=" +
+      this.company.sido +
+      " " +
+      this.company.sigunGu +
+      " " +
+      this.company.bName +
+      " " +
+      this.company.buildingName;
+    // "," +
+    // this.company.lat +
+    // "," +
+    // this.company.lng;
   },
   methods: {
     ...mapMutations(houseStore, ["SET_LAT_INFO"]),
