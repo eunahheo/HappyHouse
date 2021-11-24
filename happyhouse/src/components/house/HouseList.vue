@@ -34,11 +34,14 @@
               <th></th>
               <th></th>
               <th>
-                <b-button
+                <b-icon
+                  icon="heart-fill"
+                  class="rounded-circle bg-danger p-2"
+                  variant="light"
                   @click="registInterest"
-                  style="width: 120px; font-size: 20px"
-                  >관심</b-button
+                  style="font-size: 20px"
                 >
+                </b-icon>
               </th>
             </tr>
           </thead>
@@ -112,6 +115,7 @@ export default {
           lng: this.house.lng,
           userid: this.userInfo.userid,
           aptname: this.house.aptName,
+          avgPrice: this.house.avgPrice,
         })
         .then(({ data }) => {
           let msg = "등록 처리시 문제가 발생했습니다.";
@@ -125,4 +129,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.rounded-circle:hover {
+  transform: scale(1.3);
+}
+</style>

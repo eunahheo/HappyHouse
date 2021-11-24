@@ -5,8 +5,8 @@
 <mapper namespace="com.ssafy.happyhouse.model.mapper.InterestMapper">
 
 	<insert id="register" parameterType="interestDto">
-		insert into interest (sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname)
-		values (#{sidoname}, #{gugunname}, #{dongname}, #{dongcode}, #{lat},#{lng},#{userid}, #{aptname})
+		insert into interest (sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname, avgPrice)
+		values (#{sidoname}, #{gugunname}, #{dongname}, #{dongcode}, #{lat},#{lng},#{userid}, #{aptname}, #{avgPrice})
 	</insert>
 	
 	<select id="allList" parameterType="String" resultType="interestDto">

@@ -27,7 +27,7 @@
       </b-col>
       <b-col class="text-right" style="float: left">
         <router-link
-          :to="{ name: 'Notice' }"
+          :to="{ name: 'BoardWrite' }"
           @click="moveWrite()"
           class="btn-buy"
           >글쓰기</router-link

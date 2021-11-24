@@ -68,6 +68,19 @@
           />
         </div>
       </div>
+
+      <div style="width: 40%; float: right; margin-right: 140px">
+        <div>
+          <div class="" style="width: 400px; height: 500px" v-if="chartLoading">
+            <div indeterminate color="red"></div>
+          </div>
+          <bar-chart
+            :chartData="chartData"
+            v-if="!chartLoading"
+            style="height: 400px"
+          />
+        </div>
+      </div>
       <div
         class="sm-3"
         style="width: 40%; margin-left: 140px; margin-top: 50px"
@@ -120,6 +133,7 @@
 import InterestListRow from "@/views/InterestListRow";
 import { mapState, mapMutations } from "vuex";
 import http from "@/util/http-common";
+import BarChart from "@/components/Charts/BarChart";
 import LineChart from "@/components/Charts/LineChart";
 
 const memberStore = "memberStore";
@@ -133,6 +147,7 @@ export default {
   // },
   components: {
     InterestListRow,
+    BarChart,
     LineChart,
   },
   watch: {
@@ -184,7 +199,7 @@ export default {
     //console.log("결과:", interests);
   },
   mounted() {
-    this.first();
+    // this.first();
     this.userLocation();
     if (window.kakao && window.kakao.maps) {
       this.initMap();

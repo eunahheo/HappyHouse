@@ -5,12 +5,7 @@
     <div style="text-align: right">
       <a class="btn-buy" @click="trafficMap" style="float: right"> 교통정보 </a>
 
-      <a
-        class="btn-buy"
-        v-show="this.company.bCode != null"
-        @click="showCompany"
-        style="float: right"
-      >
+      <a class="btn-buy" @click="showCompany" style="float: right">
         회사 주변
       </a>
     </div>
