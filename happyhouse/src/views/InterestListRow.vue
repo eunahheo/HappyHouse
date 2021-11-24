@@ -10,6 +10,13 @@
     <td>{{ gugunname }}</td>
     <td>{{ dongname }}</td>
     <td>{{ aptname }}</td>
+    <td>
+      <a
+        class="btn-buy"
+        href="https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212"
+        >길찾기</a
+      >
+    </td>
   </tr>
 </template>
 
