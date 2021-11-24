@@ -32,6 +32,11 @@
 		delete from interest
 		where interestno = #{interestno}
 	</delete>
-
+	
+	<select id="selectPopularity" parameterType="String" resultType="interestDto">
+		select *, count(aptname) as popularity from interest where dongcode = #{dongcode} 
+		group by aptname
+		order by popularity desc;
+	</select>
 </mapper>
 

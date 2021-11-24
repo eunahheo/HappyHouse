@@ -11,4 +11,5 @@ public interface InterestService {
 	public InterestDto listOne(int interestno) throws Exception;
 	public int updateInterest(InterestDto interestDto) throws Exception;
 	public int deleteInterest(int interestno) throws Exception;
+	public List<InterestDto> selectPopularity(String dongcode) throws Exception;
 }

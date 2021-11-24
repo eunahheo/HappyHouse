@@ -11,11 +11,7 @@
     <td>{{ dongname }}</td>
     <td>{{ aptname }}</td>
     <td>
-      <a
-        class="btn-buy"
-        href="https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212"
-        >길찾기</a
-      >
+      <a class="btn-buy" :href="this.url">길찾기</a>
     </td>
   </tr>
 </template>
@@ -29,6 +25,8 @@ export default {
   data() {
     return {
       list: {},
+
+      url: "https://map.kakao.com/link/to/",
     };
   },
   props: {
@@ -48,6 +46,9 @@ export default {
     // changeDateFormat() {
     //   return moment(new Date(this.regtime)).format("YY.MM.DD hh:mm:ss");
     // },
+  },
+  mounted() {
+    this.url = this.url + this.aptname + "," + this.lat + "," + this.lng;
   },
   methods: {
     ...mapMutations(houseStore, ["SET_LAT_INFO"]),

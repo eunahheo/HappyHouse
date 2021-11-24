@@ -15,4 +15,5 @@ public interface InterestMapper {
 	public InterestDto listOne(int interestno) throws SQLException;
 	public int updateInterest(InterestDto interestDto) throws SQLException;
 	public int deleteInterest(int interestno) throws SQLException;
+	public List<InterestDto> selectPopularity(String dongcode) throws SQLException;
 }

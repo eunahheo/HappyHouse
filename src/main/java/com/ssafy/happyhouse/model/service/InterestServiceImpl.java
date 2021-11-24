@@ -38,4 +38,9 @@ public class InterestServiceImpl implements InterestService {
 		return sqlSession.getMapper(InterestMapper.class).deleteInterest(interestno);
 	}
 
+	@Override
+	public List<InterestDto> selectPopularity(String dongcode) throws Exception {
+		return sqlSession.getMapper(InterestMapper.class).selectPopularity(dongcode);
+	}
+
 }

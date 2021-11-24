@@ -155,7 +155,6 @@ export default {
       this.initMap();
     },
   },
-
   data() {
     return {
       chartLoading: false, // 데이터를 불러오기 전까지는 progress circle을 사용

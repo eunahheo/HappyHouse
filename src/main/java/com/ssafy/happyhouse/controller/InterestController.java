@@ -68,6 +68,13 @@ public class InterestController {
       return new ResponseEntity<List<InterestDto>>(interestService.allList(userid), HttpStatus.OK);
    }
    
+   @ApiOperation(value = "게시판 글목록", notes = "모든 게시글의 정보를 반환한다.", response = List.class)
+   @GetMapping("/popular/{dongcode}")
+   public ResponseEntity<List<InterestDto>> selectPopularity(@PathVariable("dongcode") String dongcode) throws Exception {
+      logger.info("listInterest - 호출");
+      return new ResponseEntity<List<InterestDto>>(interestService.selectPopularity(dongcode), HttpStatus.OK);
+   }
+   
    @ApiOperation(value = "게시판 글보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = InterestDto.class)
    @GetMapping("/{interestno}")
    public ResponseEntity<InterestDto> listOneInterest(@PathVariable("interestno") @ApiParam(value = "얻어올 글의 글번호.", required = true) int interestno) throws Exception {
