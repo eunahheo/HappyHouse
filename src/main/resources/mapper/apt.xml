@@ -29,7 +29,7 @@
 		order by dongName
 	</select>
 
-	<!-- <select id="getAptInDong" parameterType="string" resultType="houseInfoDto"> 
+	<select id="getAptInDong" parameterType="string" resultType="houseInfoDto"> 
 		select h.aptCode, h.aptName, h.buildyear, h.dongCode, h.dongName, h.jibun, 
 		h.lat, h.lng, si.sidoname, gu.gugunname, (select dealAmount from housedeal 
 		where aptCode = h.aptCode and no = (select max(no) from housedeal where aptCode 
@@ -39,8 +39,8 @@
 		si on left(h.dongcode,2) = left(si.sidocode,2) left join guguncode gu on 
 		left(h.dongcode,5) = left(gu.guguncode,5) left outer join housedeal hd on 
 		h.aptCode = hd.aptCode where dongCode = #{dong} group by aptCode order by 
-		aptCode; </select> -->
-	<select id="getAptInDong" parameterType="string"
+		aptCode; </select>
+	<!--<select id="getAptInDong" parameterType="string"
 		resultType="houseInfoDto">
 		select h.aptCode, h.aptName, h.buildyear, h.dongCode, h.dongName, h.jibun,
 		h.lat, h.lng, si.sidoname, gu.gugunname, (select dealAmount from
@@ -52,7 +52,7 @@
 		= left(si.sidocode,2) left join guguncode gu on left(h.dongcode,5) =
 		left(gu.guguncode,5)
 		where dongCode = #{dong} order by aptName
-	</select>
+	</select>-->
 
 	<select id="getAptName" parameterType="string"
 		resultType="houseInfoDto">

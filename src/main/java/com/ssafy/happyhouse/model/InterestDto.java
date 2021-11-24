@@ -10,7 +10,7 @@ public class InterestDto {
 	private String lng;
 	private String userid;
 	private String aptname;
-	private String avgPrice;
+	private int avgPrice;
 	
 	public String getAptname() {
 		return aptname;
@@ -69,10 +69,10 @@ public class InterestDto {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	public String getAvgPrice() {
+	public int getAvgPrice() {
 		return avgPrice;
 	}
-	public void setAvgPrice(String avgPrice) {
+	public void setAvgPrice(int avgPrice) {
 		this.avgPrice = avgPrice;
 	}
 	 

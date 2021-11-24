@@ -10,13 +10,13 @@
 	</insert>
 	
 	<select id="allList" parameterType="String" resultType="interestDto">
-		select interestno, sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname
+		select interestno, sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname, avgPrice
 		from interest
 		where userid = #{userid}
 	</select>
 	
 	<select id="listOne" parameterType="interestDto" resultType="interestDto">
-		select sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname
+		select sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname, avgPrice
 		from interest
 		where interestno = #{interestno}
 	</select>
