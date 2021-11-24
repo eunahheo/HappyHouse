@@ -55,21 +55,30 @@
             </li>
           </ul>
         </div>
-      </section>
-      <div style="width: 40%; float: right; margin-right: 140px">
-        <div>
-          <div class="" style="width: 400px; height: 500px" v-if="chartLoading">
-            <div indeterminate color="red"></div>
+        <div style="width: 40%; float: right; margin-right: 140px">
+          <h3 class="section-title">관심 지역들의 평균 매매가</h3>
+          <div>
+            <div
+              class=""
+              style="width: 400px; height: 500px"
+              v-if="chartLoading"
+            >
+              <div indeterminate color="red"></div>
+            </div>
+            <line-chart
+              :chartData="chartData"
+              v-if="!chartLoading"
+              style="height: 400px"
+            />
           </div>
-          <line-chart
-            :chartData="chartData"
-            v-if="!chartLoading"
-            style="height: 400px"
-          />
         </div>
-      </div>
+      </section>
 
       <div style="width: 40%; float: right; margin-right: 140px">
+        <br />
+        <br />
+        <br />
+        <h3 class="section-title">회사 주변의 인기 매물</h3>
         <div>
           <div class="" style="width: 400px; height: 500px" v-if="chartLoading">
             <div indeterminate color="red"></div>
@@ -85,6 +94,7 @@
         class="sm-3"
         style="width: 40%; margin-left: 140px; margin-top: 50px"
       >
+        <br />
         <!-- <h2 style="text-align: center">관심지역</h2> -->
         <a
           class="btn-buy"
@@ -96,7 +106,7 @@
         >
           회사
         </a>
-
+        <br />
         <table style="width: 100%" class="table table-hover">
           <thead>
             <tr>
