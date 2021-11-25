@@ -33,7 +33,12 @@
               ><b-icon icon="card-heading" font-scale="1"></b-icon> 게시판
             </router-link>
           </li>
-          <li v-if="userInfo != null && userInfo.userid == 'ssafy'">
+          <li
+            v-if="
+              userInfo != null &&
+              (userInfo.userid == 'ssafy' || userInfo.userid == 'admin')
+            "
+          >
             <router-link
               :to="{ name: 'MemberManage' }"
               class="link"
