@@ -23,6 +23,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -61,49 +62,53 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	 @DeleteMapping(value="/{id}")
-	   public ResponseEntity<String>delete(@PathVariable("id")String id,HttpSession session) throws Exception{
-	      memberService.deleteMember(id);
-	      session.invalidate();
-	      return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-	   }
-	   @GetMapping("/{userid}")
-	   public ResponseEntity<MemberDto>listOne(@PathVariable("userid")String id,HttpSession session) throws Exception{
-	      MemberDto member = memberService.userInfo(id);
-	      logger.debug(id);
-	      return new ResponseEntity<MemberDto>(member, HttpStatus.OK);
-	   }
-	   @PostMapping("/signup")
-	   public ResponseEntity<String>register(@RequestBody MemberDto memberDto, Model model) throws Exception {
-	      logger.debug("memberDto info : {}", memberDto);
-	      logger.debug(memberDto.getUserid());
-	      memberService.registerMember(memberDto);
-	      return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-	   }
-	   @PutMapping("/")
-	   public ResponseEntity<String> update(@RequestBody MemberDto memberDto, HttpSession session, Model model) throws Exception {
-	      logger.debug("memberDto info : {}", memberDto);
-	      logger.debug(memberDto.getUserid());
-	      memberService.updateMember(memberDto);
-	      session.setAttribute("userinfo", memberDto);
-	      return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-	   }
-	//   @GetMapping("/userList")
-	//   public String list() {
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<String> delete(@PathVariable("id") String id, HttpSession session) throws Exception {
+		memberService.deleteMember(id);
+		session.invalidate();
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
+	@GetMapping("/{userid}")
+	public ResponseEntity<MemberDto> listOne(@PathVariable("userid") String id, HttpSession session) throws Exception {
+		MemberDto member = memberService.userInfo(id);
+		logger.debug(id);
+		return new ResponseEntity<MemberDto>(member, HttpStatus.OK);
+	}
+
+	@PostMapping("/signup")
+	public ResponseEntity<String> register(@RequestBody MemberDto memberDto, Model model) throws Exception {
+		logger.debug("memberDto info : {}", memberDto);
+		logger.debug(memberDto.getUserid());
+		memberService.registerMember(memberDto);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
+	@PutMapping("/")
+	public ResponseEntity<String> update(@RequestBody MemberDto memberDto, HttpSession session, Model model)
+			throws Exception {
+		logger.debug("memberDto info : {}", memberDto);
+		logger.debug(memberDto.getUserid());
+		memberService.updateMember(memberDto);
+		session.setAttribute("userinfo", memberDto);
+		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+	}
+
+	// @GetMapping("/userList")
+	// public String list() {
 //	      return "userList";
-	//   }
-	   @GetMapping(value="/")
-	   public ResponseEntity<List<MemberDto>> userList(MemberParameterDto memberParameterDto) throws Exception {
-	      List<MemberDto> list = memberService.listMember(memberParameterDto);
-	      if(list != null && !list.isEmpty()) {
-	         return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
-	      }else {
-	         return new ResponseEntity(HttpStatus.NO_CONTENT);
-	      }
+	// }
+	@GetMapping(value = "/")
+	public ResponseEntity<List<MemberDto>> userList(MemberParameterDto memberParameterDto) throws Exception {
+		List<MemberDto> list = memberService.listMember(memberParameterDto);
+		if (list != null && !list.isEmpty()) {
+			return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
+		} else {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
 //	      session.setAttribute("list", list);
 //	      return "userList";
-	   }
-
+	}
 
 	@ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
 	@PostMapping("/login")
@@ -161,13 +166,20 @@ public class MemberController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
+//	@Bean
+//	public JavaMailSenderImpl mailSender() {
+//		JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+//		javaMailSender.setProtocol("smtp");
+//		javaMailSender.setHost("smtp.gmail.com");
+//		javaMailSender.setPort(587);
+//		return javaMailSender;
+//	}
 
 	@Autowired
-	private static JavaMailSender javaMailSender;
-	
+	private EmailUtil emailUtil;
+
 	@GetMapping("/temporary/{userid}")
-	public ResponseEntity<String> temporaryPass(@PathVariable("userid") String id, HttpSession session)
-			throws Exception {
+	public ResponseEntity temporaryPass(@PathVariable("userid") String id, HttpSession session) throws Exception {
 		String tempoPass = getRamdomPassword(8);
 		MemberDto member = memberService.userInfo(id); // 비밀번호 변경을 요청한 회원
 		member.setUserpwd(tempoPass);
@@ -175,23 +187,29 @@ public class MemberController {
 		System.out.println(member.getEmail());
 
 		System.out.println("호출22");
-		// SSL 사용일때
-		SimpleMailMessage simpleMessage = new SimpleMailMessage();
-		System.out.println(simpleMessage);
-		simpleMessage.setTo(member.getEmail());
-		// boolean isAttach;
-		simpleMessage.setSubject("[HappyHouse]임시 비밀번호 발급");
 
-		simpleMessage.setText(
-				"안녕하세요. \n 저희 HappyHouse를 이용해 주셔서 감사합니다. \n 임시 비밀번호로 로그인 해주세요.\n\n임시 비밀번호 : " + member.getUserpwd());
-		javaMailSender.send(simpleMessage);
-		System.out.println(simpleMessage);
-
+//		SimpleMailMessage simpleMessage = new SimpleMailMessage();
+//		System.out.println(simpleMessage);
+//		simpleMessage.setTo(member.getEmail());
+//		simpleMessage.setFrom("asi20735@gmail.com");
+//		// boolean isAttach;
+//		simpleMessage.setReplyTo("dd");
+//		simpleMessage.setCc("");
+//		simpleMessage.setBcc("");
+//		simpleMessage.setSentDate(new Date(2021, 11, 26));
+//		simpleMessage.setSubject("[HappyHouse]임시 비밀번호 발급");
+//
+//		simpleMessage.setText(
+//				"안녕하세요. \n 저희 HappyHouse를 이용해 주셔서 감사합니다. \n 임시 비밀번호로 로그인 해주세요.\n\n임시 비밀번호 : " + member.getUserpwd());
+//		System.out.println(simpleMessage);
+//		javaMailSender.send(simpleMessage);
+		emailUtil.sendEmail(member.getEmail(), "[HappyHouse]임시 비밀번호 발급", "안녕하세요. \n 임시 비밀번호로 로그인 해주세요.\n\n임시 비밀번호 : "
+				+ member.getUserpwd() + " \n\n 저희 HappyHouse를 이용해 주셔서 감사합니다.");
 		System.out.println("성공");
 
 		System.out.println("메일 보냄?");
 
-		return new ResponseEntity<String>(HttpStatus.OK);
+		return new ResponseEntity(HttpStatus.OK);
 
 	}
 
@@ -212,6 +230,5 @@ public class MemberController {
 		}
 		return sb.toString();
 	}
-
 
 }

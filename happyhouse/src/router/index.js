@@ -11,6 +11,7 @@ import MemberJoin from "@/components/user/MemberJoin.vue";
 import MemberMyPage from "@/components/user/MemberMyPage.vue";
 import MemberUpdate from "@/components/user/MemberUpdate.vue";
 import MemberManage from "@/components/user/MemberManage.vue";
+import FindPass from "@/components/user/FindPass.vue";
 // import MemberListRow from "@/components/user/child/MemberListRow.vue";
 
 import Board from "@/views/Board.vue";
@@ -77,6 +78,11 @@ const routes = [
         component: MemberLogin,
       },
       {
+        path: "fingpass",
+        name: "FindPass",
+        component: FindPass,
+      },
+      {
         path: "singup",
         name: "SignUp",
         component: MemberJoin,
@@ -86,6 +92,11 @@ const routes = [
         name: "MemberManage",
         beforeEnter: onlyAuthUser,
         component: MemberManage,
+      },
+      {
+        path: "findpass",
+        name: "fingPass",
+        component: MemberJoin,
       },
       // {
       //   path: "MemberListRow",
