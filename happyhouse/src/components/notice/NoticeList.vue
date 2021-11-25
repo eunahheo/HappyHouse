@@ -45,12 +45,16 @@
           <tbody>
             <!-- 하위 component인 ListRow에 데이터 전달(props) -->
             <notice-list-row
-              v-for="(notice, index) in notices"
-              :key="index"
+              v-for="notice in pageOfItems"
+              :key="notice.noticeno"
               v-bind="notice"
             />
           </tbody>
         </b-table-simple>
+        <jw-pagination
+          :items="notices"
+          @changePage="onChangePage"
+        ></jw-pagination>
       </b-col>
       <!-- <b-col v-else class="text-center">도서 목록이 없습니다.</b-col> -->
     </b-row>
@@ -78,6 +82,7 @@ export default {
       key: null,
       word: null,
       flag: false,
+      pageOfItems: [],
     };
   },
   created() {
@@ -91,6 +96,11 @@ export default {
     }
   },
   methods: {
+    onChangePage(pageOfItems) {
+      console.log("확인", pageOfItems);
+      // update page of items
+      this.pageOfItems = pageOfItems;
+    },
     moveWrite() {
       this.$router.push({ name: "NoticeWrite" });
     },
