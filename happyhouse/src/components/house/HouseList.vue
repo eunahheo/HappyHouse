@@ -22,7 +22,7 @@
       <b-container v-if="house" class="bv-example-row">
         <b-row class="mb-2 mt-1">
           <b-col
-            ><b-img :src="require('@/assets/apt.png')" fluid-grow></b-img
+            ><b-img :src="require('@/assets/img/apt/1.jpg')" fluid-grow></b-img
           ></b-col>
         </b-row>
         <table style="width: 100%" class="table table-hover">
@@ -95,7 +95,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      imgSrc: "@/assets/img/apt/",
+    };
   },
   computed: {
     ...mapState(houseStore, ["houses", "house"]),
