@@ -1,11 +1,24 @@
 package com.ssafy.happyhouse.controller;
 
+import java.security.SecureRandom;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.internet.AddressException;
+import javax.mail.Authenticator;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,36 +53,40 @@ public class MemberController {
 	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-	
+
 	@Autowired
 	private JwtServiceImpl jwtService;
 
 	@Autowired
 	private MemberService memberService;
-	
-	@DeleteMapping(value="/{id}")
-	public ResponseEntity<String>delete(@PathVariable("id")String id,HttpSession session) throws Exception{
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<String> delete(@PathVariable("id") String id, HttpSession session) throws Exception {
 		memberService.deleteMember(id);
 		session.invalidate();
 		List<MemberDto> list = memberService.listMember();
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
+
 	@GetMapping("/{userid}")
-	public ResponseEntity<MemberDto>listOne(@PathVariable("userid")String id,HttpSession session) throws Exception{
+	public ResponseEntity<MemberDto> listOne(@PathVariable("userid") String id, HttpSession session) throws Exception {
 		MemberDto member = memberService.userInfo(id);
 		logger.debug(id);
 		return new ResponseEntity<MemberDto>(member, HttpStatus.OK);
 	}
+
 	@PostMapping("/signup")
-	public ResponseEntity<String>register(@RequestBody MemberDto memberDto, Model model) throws Exception {
+	public ResponseEntity<String> register(@RequestBody MemberDto memberDto, Model model) throws Exception {
 		logger.debug("memberDto info : {}", memberDto);
 		logger.debug(memberDto.getUserid());
 		memberService.registerMember(memberDto);
 		List<MemberDto> list = memberService.listMember();
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
+
 	@PutMapping("/")
-	public ResponseEntity<String> update(@RequestBody MemberDto memberDto, HttpSession session, Model model) throws Exception {
+	public ResponseEntity<String> update(@RequestBody MemberDto memberDto, HttpSession session, Model model)
+			throws Exception {
 		logger.debug("memberDto info : {}", memberDto);
 		logger.debug(memberDto.getUserid());
 		memberService.updateMember(memberDto);
@@ -77,16 +94,18 @@ public class MemberController {
 		List<MemberDto> list = memberService.listMember();
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
+
 	@GetMapping("/userList")
 	public String list() {
 		return "userList";
 	}
-	@GetMapping(value="/")
+
+	@GetMapping(value = "/")
 	public ResponseEntity<List<MemberDto>> userList() throws Exception {
 		List<MemberDto> list = memberService.listMember();
-		if(list != null && !list.isEmpty()) {
+		if (list != null && !list.isEmpty()) {
 			return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
 //		session.setAttribute("list", list);
@@ -118,7 +137,7 @@ public class MemberController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
+
 	@ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
 	@GetMapping("/info/{userid}")
 	public ResponseEntity<Map<String, Object>> getInfo(
@@ -148,5 +167,58 @@ public class MemberController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+
+
+	@Autowired
+	private static JavaMailSender javaMailSender;
+	
+	@GetMapping("/temporary/{userid}")
+	public ResponseEntity<String> temporaryPass(@PathVariable("userid") String id, HttpSession session)
+			throws Exception {
+		String tempoPass = getRamdomPassword(8);
+		MemberDto member = memberService.userInfo(id); // 비밀번호 변경을 요청한 회원
+		member.setUserpwd(tempoPass);
+		memberService.updateMember(member);
+		System.out.println(member.getEmail());
+
+		System.out.println("호출22");
+		// SSL 사용일때
+		SimpleMailMessage simpleMessage = new SimpleMailMessage();
+		System.out.println(simpleMessage);
+		simpleMessage.setTo(member.getEmail());
+		// boolean isAttach;
+		simpleMessage.setSubject("[HappyHouse]임시 비밀번호 발급");
+
+		simpleMessage.setText(
+				"안녕하세요. \n 저희 HappyHouse를 이용해 주셔서 감사합니다. \n 임시 비밀번호로 로그인 해주세요.\n\n임시 비밀번호 : " + member.getUserpwd());
+		javaMailSender.send(simpleMessage);
+		System.out.println(simpleMessage);
+
+		System.out.println("성공");
+
+		System.out.println("메일 보냄?");
+
+		return new ResponseEntity<String>(HttpStatus.OK);
+
+	}
+
+	// 임시 비밀번호 생성
+	public String getRamdomPassword(int size) {
+		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+				'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a',
+				'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+				'w', 'x', 'y', 'z', '!', '@', '#', '$', '%', '^', '&' };
+		StringBuffer sb = new StringBuffer();
+		SecureRandom sr = new SecureRandom();
+		sr.setSeed(new Date().getTime());
+		int idx = 0;
+		int len = charSet.length;
+		for (int i = 0; i < size; i++) {
+			idx = sr.nextInt(len);
+			sb.append(charSet[idx]);
+		}
+		return sb.toString();
+	}
+
 
 }

@@ -30,7 +30,7 @@
         />
 
         <div class="form-group form-check text-right">
-          <label class="form-check-label">
+          <!-- <label class="form-check-label">
             <input
               class="form-check-input"
               type="checkbox"
@@ -39,7 +39,7 @@
               value="saveok"
             />
             아이디저장
-          </label>
+          </label> -->
         </div>
 
         <!-- <div class="text-danger mb-2">${msg}</div> -->

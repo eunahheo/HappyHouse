@@ -39,16 +39,89 @@
         />
 
         <div class="form-group form-check text-right">
-          <label class="form-check-label">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="idsave"
-              name="idsave"
-              value="saveok"
-            />
-            아이디저장
-          </label>
+          <a v-b-modal.modal-center>비밀번호 찾기</a>
+
+          <b-modal id="modal-center" centered title="비밀번호 찾기">
+            <form
+              class="form-signin mx-auto m-5"
+              name="memberform"
+              id="memberform"
+              action="post"
+              @submit="confirm"
+              @reset="onReset"
+            >
+              <input type="hidden" name="act" id="act" value="register" />
+
+              <div class="form-group has-feedback row">
+                <label
+                  for="useridC"
+                  class="col-md-3 control-label text-md-right col-form-label"
+                  >아이디
+                  <span class="text-danger small">*</span>
+                </label>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="useridC"
+                    v-model="useridC"
+                    name="useridC"
+                    placeholder=""
+                    required
+                    value="qweadzs"
+                    @keyup.enter="confirmIs"
+                  />
+                  <i class="fa fa-pencil form-control-feedback pr-4"></i>
+                </div>
+              </div>
+
+              <div class="form-group has-feedback row">
+                <label
+                  for="usernameC"
+                  class="col-md-3 control-label text-md-right col-form-label"
+                  >이름
+                  <span class="text-danger small">*</span>
+                </label>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="usernameC"
+                    v-model="usernameC"
+                    name="usernameC"
+                    placeholder="User Name"
+                  />
+                  <i class="fa fa-user form-control-feedback pr-4"></i>
+                </div>
+              </div>
+              <div class="form-group has-feedback row">
+                <label
+                  for="emailC"
+                  class="col-md-3 control-label text-md-right col-form-label"
+                  >이메일
+                  <span class="text-danger small">*</span>
+                </label>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="emailC"
+                    id="emailC"
+                    name="emailC"
+                    placeholder="address"
+                    value="qweadzs@naver.com"
+                  />
+                  <i class="fa fa-envelope form-control-feedback pr-4"></i>
+                </div>
+              </div>
+
+              <b-button @click="confirmC" id="tempoBtn" variant="primary">
+                임시 비밀번호 발급
+              </b-button>
+
+              <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
+            </form>
+          </b-modal>
         </div>
 
         <!-- <div class="text-danger mb-2">${msg}</div> -->
@@ -83,6 +156,9 @@ export default {
         userid: null,
         userpwd: null,
       },
+      useridC: "",
+      usernameC: "",
+      emailC: "",
     };
   },
   computed: {
@@ -111,9 +187,33 @@ export default {
         alert("아이디와 비밀번호를 확인하세요");
       }
     },
+    confirmC() {
+      // console.log(this.useridC);
+      http.get(`/user/${this.useridC}`).then(({ data }) => {
+        if (data == null) {
+          alert("해당하는 유저가 없습니다.");
+        } else {
+          if (
+            data.userid == this.useridC &&
+            data.username == this.usernameC &&
+            data.email == this.emailC
+          ) {
+            http.get(`/user/temporary/${this.useridC}`).then(({ data }) => {
+              console.log(data);
+              alert("임시 비밀번호가 메일로 발송되었습니다.");
+              this.$router.push({ name: "SignIn" });
+            });
+          }
+        }
+      });
+    },
 
     movePage() {
-      this.$router.push({ name: "SignUp" });
+      this.$router.push({ name: "SignIn" });
+    },
+
+    onSubmit(event) {
+      event.preventDefault();
     },
   },
 };
