@@ -10,6 +10,8 @@ import MemberLogin from "@/components/user/MemberLogin.vue";
 import MemberJoin from "@/components/user/MemberJoin.vue";
 import MemberMyPage from "@/components/user/MemberMyPage.vue";
 import MemberUpdate from "@/components/user/MemberUpdate.vue";
+import MemberManage from "@/components/user/MemberManage.vue";
+// import MemberListRow from "@/components/user/child/MemberListRow.vue";
 
 import Board from "@/views/Board.vue";
 import BoardList from "@/components/board/BoardList.vue";
@@ -79,6 +81,18 @@ const routes = [
         name: "SignUp",
         component: MemberJoin,
       },
+      {
+        path: "membermanage",
+        name: "MemberManage",
+        beforeEnter: onlyAuthUser,
+        component: MemberManage,
+      },
+      // {
+      //   path: "MemberListRow",
+      //   name: "MemberListRow",
+      //   beforeEnter: onlyAuthUser,
+      //   component: MemberListRow,
+      // },
       {
         path: "mypage",
         name: "MyPage",

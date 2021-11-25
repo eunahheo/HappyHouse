@@ -33,7 +33,14 @@
               ><b-icon icon="card-heading" font-scale="1"></b-icon> 게시판
             </router-link>
           </li>
-
+          <li v-if="userInfo != null && userInfo.userid == 'ssafy'">
+            <router-link
+              :to="{ name: 'MemberManage' }"
+              class="link"
+              style="color: white"
+              >회원관리</router-link
+            >
+          </li>
           <li v-if="userInfo" class="link" @click.prevent="onClickLogout">
             <router-link :to="{ name: 'Home' }" style="color: white"
               >로그아웃</router-link
@@ -68,6 +75,9 @@ const memberStore = "memberStore";
 
 export default {
   name: "NaviBar",
+  created() {
+    console.log(this.userInfo);
+  },
   computed: {
     ...mapState(memberStore, ["isLogin", "userInfo"]),
   },

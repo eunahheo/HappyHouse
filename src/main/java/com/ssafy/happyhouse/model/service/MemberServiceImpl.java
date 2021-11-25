@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.happyhouse.model.MemberDto;
+import com.ssafy.happyhouse.model.MemberParameterDto;
 import com.ssafy.happyhouse.model.mapper.MemberMapper;
+import com.ssafy.happyhouse.model.mapper.NoticeMapper;
+import com.ssafy.happyhouse.util.PageNavigation;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -37,8 +40,10 @@ public class MemberServiceImpl implements MemberService {
 		sqlSession.getMapper(MemberMapper.class).registerMember(memberDto);
 	}
 	@Override
-	public List<MemberDto> listMember() throws Exception {
-		return sqlSession.getMapper(MemberMapper.class).listMember();
+	public List<MemberDto> listMember(MemberParameterDto memberParameterDto) throws Exception {
+		int start = memberParameterDto.getPg() == 0 ? 0 : (memberParameterDto.getPg() - 1) * memberParameterDto.getSpp();
+		memberParameterDto.setStart(start);
+		return sqlSession.getMapper(MemberMapper.class).listMember(memberParameterDto);
 	}
 
 	@Override
@@ -55,5 +60,21 @@ public class MemberServiceImpl implements MemberService {
 	public void deleteMember(String userId) throws Exception {
 		sqlSession.getMapper(MemberMapper.class).deleteMember(userId);
 	}
-
+	@Override
+	public PageNavigation makePageNavigation(MemberParameterDto memberParameterDto) throws Exception {
+		int naviSize = 5;
+		PageNavigation pageNavigation = new PageNavigation();
+		pageNavigation.setCurrentPage(memberParameterDto.getPg());
+		pageNavigation.setNaviSize(naviSize);
+		int totalCount = sqlSession.getMapper(MemberMapper.class).getTotalCount(memberParameterDto);//총글갯수  269
+		pageNavigation.setTotalCount(totalCount);  
+		int totalPageCount = (totalCount - 1) / memberParameterDto.getSpp() + 1;//27
+		pageNavigation.setTotalPageCount(totalPageCount);
+		boolean startRange = memberParameterDto.getPg() <= naviSize;
+		pageNavigation.setStartRange(startRange);
+		boolean endRange = (totalPageCount - 1) / naviSize * naviSize < memberParameterDto.getPg();
+		pageNavigation.setEndRange(endRange);
+		pageNavigation.makeNavigator();
+		return pageNavigation;
+	}
 }

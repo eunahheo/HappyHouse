@@ -18,7 +18,13 @@
 	
 	<select id="listMember" resultType="MemberDto">
 		select * from user
+		<if test="word != null and word != ''">
+			where ${key} like concat('%', #{word}, '%')
+		</if>
+		order by joindate desc
+		limit #{start}, #{spp}
 	</select>
+	
 	<insert id="registerMember" parameterType="MemberDto">
 		insert into user (userid, username, userpwd, email,joindate) values( #{userid}, #{username}, #{userpwd}, #{email},now() )
 	</insert>
