@@ -212,7 +212,7 @@ export default {
     },
 
     movePage() {
-      this.$router.push({ name: "SignIn" });
+      this.$router.push({ name: "SignUp" });
     },
 
     onSubmit(event) {

@@ -49,7 +49,7 @@
               class="form-control"
               id="userpwd"
               v-model="userpwd"
-              placeholder="영문 숫자 포함 6자리 이상"
+              placeholder=""
               required
               name="userpwd"
               value="ehfkdl7"
@@ -71,7 +71,7 @@
               id="username"
               v-model="username"
               name="username"
-              placeholder="User Name"
+              placeholder=""
               value="오지영"
             />
             <i class="fa fa-user form-control-feedback pr-4"></i>
@@ -91,7 +91,7 @@
               v-model="email"
               id="email"
               name="email"
-              placeholder="address"
+              placeholder=""
               value="qweadzs@naver.com"
             />
             <i class="fa fa-envelope form-control-feedback pr-4"></i>
@@ -111,7 +111,7 @@
               v-model="buildingname"
               id="company"
               name="company"
-              placeholder="회사"
+              placeholder=""
               @click="sample5_execDaumPostcode"
             />
 
@@ -236,6 +236,7 @@ export default {
       this.username = "";
       this.userpwd = "";
       this.email = "";
+      this.$router.dispatch({ name: "SignIn" });
     },
     submitForm() {
       http
