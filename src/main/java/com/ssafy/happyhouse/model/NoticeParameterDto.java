@@ -16,7 +16,7 @@ public class NoticeParameterDto {
 	private String key;
 	@ApiModelProperty(value = "검색어")
 	private String word;
-	
+
 	public NoticeParameterDto() {
 		pg = 1;
 		spp = 20;
@@ -64,4 +64,3 @@ public class NoticeParameterDto {
 	}
 
 }
-
