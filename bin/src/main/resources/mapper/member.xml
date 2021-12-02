@@ -1,25 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.ssafy.happyhouse.model.mapper.MemberMapper">
 
-	<select id="login" resultType="MemberDto">
-		select * from user where id = #{id} and pass = #{pass}
+	<select id="login" parameterType="memberDto" resultType="memberDto">
+		select username, userid, email
+		from user
+		where userid = #{userid} and userpwd = #{userpwd}
 	</select>
+	
+	<select id="userInfo" parameterType="String" resultType="memberDto">
+		select username, userid, email, joindate
+		from user
+		where userid = #{userid}
+	</select>
+	
 	<select id="listMember" resultType="MemberDto">
 		select * from user
+		<if test="word != null and word != ''">
+			where ${key} like concat('%', #{word}, '%')
+		</if>
+		order by joindate desc
+		limit #{start}, #{spp}
 	</select>
+	
 	<insert id="registerMember" parameterType="MemberDto">
-		insert into user (id, name, pass, email) values( #{id}, #{name}, #{pass}, #{email} )
+		insert into user (userid, username, userpwd, email,joindate) values( #{userid}, #{username}, #{userpwd}, #{email},now() )
 	</insert>
 	<update id="updateMember" parameterType="MemberDto">
-		update user set name = #{name}, pass = #{pass}, email = #{email} where id = #{id}
+		update user set username = #{username}, userpwd = #{userpwd}, email = #{email} where userid = #{userid}
 	</update>
 	<delete id="deleteMember">
-		delete from user where id = #{id}
+		delete from user where userid = #{userid}
 	</delete>
-	<select id="idCheck" parameterType="string" resultType="int">
-		select count(id)
+	<select id="useridCheck" parameterType="string" resultType="int">
+		select count(userid)
 		from user
-		where id = #{id}
-	</select>
+		where userid = #{userid}
+	</select>	
 </mapper>

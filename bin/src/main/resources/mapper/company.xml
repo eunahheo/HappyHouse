@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.ssafy.happyhouse.model.mapper.CompanyMapper">
+
+	<insert id="registerCompany" parameterType="companyDto">
+		insert into company
+		(
+		buildingname, sido, sigungu, bname,bcode,lat,lng,userid)
+		values
+		(
+		#{buildingName}, #{sido},#{sigunGu},
+		#{bName},#{bCode},#{lat},#{lng},#{userid})
+	</insert>
+
+	<!-- <select id="getCompany" parameterType="int" resultType="companyDto"> 
+		select companyno, buildingname, sido, sigungu, bname,lat,lng,userid from 
+		company where companyno = #{companyno} </select> -->
+
+	<select id="getCompany" parameterType="String"
+		resultType="companyDto">
+		select companyno, buildingname, sido, sigungu,bcode,
+		bname,lat,lng,userid
+		from company
+		where userid = #{userid}
+	</select>
+
+
+
+	<update id="modifyCompany" parameterType="companyDto">
+		update company
+		set
+		buildingname = #{buildingName}, sido = #{sido}, sigungu = #{sigunGu},
+		bname = #{bName},bcode=#{bCode}, lat = #{lat}, lng = #{lng}
+		where
+		companyno =
+		#{companyno}
+	</update>
+
+
+	<delete id="deleteCompany" parameterType="int">
+		delete from company
+		where companyno = #{companyno}
+	</delete>
+
+</mapper>
+

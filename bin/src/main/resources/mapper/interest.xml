@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.happyhouse.model.mapper.InterestMapper">
+
+	<insert id="register" parameterType="interestDto">
+		insert into interest (sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname, avgPrice)
+		values (#{sidoname}, #{gugunname}, #{dongname}, #{dongcode}, #{lat},#{lng},#{userid}, #{aptname}, #{avgPrice})
+	</insert>
+	
+	<select id="allList" parameterType="String" resultType="interestDto">
+		select interestno, sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname, avgPrice
+		from interest
+		where userid = #{userid}
+	</select>
+	
+	<select id="listOne" parameterType="interestDto" resultType="interestDto">
+		select sidoname, gugunname, dongname, dongcode, lat, lng, userid, aptname, avgPrice
+		from interest
+		where interestno = #{interestno}
+	</select>
+	
+	<update id="updateInterest" parameterType="interestDto">
+		update interest
+		set sidoname= #{sidoname} , gugunname = #{gugunname} , dongname = #{dongname}
+		, lat = #{lat}, lng = #{lng}, aptname = #{aptname}
+		where interestno = #{interestno}
+	</update>
+	
+	<delete id="deleteInterest" parameterType="int">
+		delete from interest
+		where interestno = #{interestno}
+	</delete>
+	
+	<select id="selectPopularity" parameterType="String" resultType="interestDto">
+		select *, count(aptname) as popularity from interest where dongcode = #{dongcode} 
+		group by aptname
+		order by popularity desc;
+	</select>
+</mapper>
+
