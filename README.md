@@ -12,9 +12,12 @@
 7. npm run build
 
 ## 메인화면
-<img width="1561" alt="스크린샷 2021-12-02 오전 11 47 02" src="https://user-images.githubusercontent.com/63037344/144636501-a16f6a38-9d96-49f7-8a71-7aeb110ef9a3.png">
-<img width="1561" alt="메인" src="https://user-images.githubusercontent.com/63037344/145149165-bfb48d2b-575a-4dbb-8188-578b5c43fc9f.png">
+<img width="783" alt="스크린샷 2021-12-02 오전 11 47 02" src="https://user-images.githubusercontent.com/63037344/144636501-a16f6a38-9d96-49f7-8a71-7aeb110ef9a3.png">
+<img width="783" alt="메인" src="https://user-images.githubusercontent.com/63037344/145149165-bfb48d2b-575a-4dbb-8188-578b5c43fc9f.png">
 
 
+## 주택거래정보
+ 
+<img width="783" alt="주택거래정보" src="https://user-images.githubusercontent.com/63037344/145149302-f562c85b-edae-48d0-a39c-9c4dbbfcaa0c.png">
 
 
