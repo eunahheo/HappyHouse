@@ -17,7 +17,13 @@
 
 
 ## 주택거래정보
- 
 <img width="783" alt="주택거래정보" src="https://user-images.githubusercontent.com/63037344/145149302-f562c85b-edae-48d0-a39c-9c4dbbfcaa0c.png">
 
+
+## 상권정보
+<img width="783" alt="상권정보" src="https://user-images.githubusercontent.com/63037344/145149703-9d89ae7b-a455-436f-ad45-4cdbb7b8780f.png">
+<img width="400" alt="길찾기" src="https://user-images.githubusercontent.com/63037344/145149774-1d26f18c-6fd7-49f0-b944-d5766bebf7c6.png">
+
+## 게시판 - 공지사항, QnA 
+<img width="783" alt="게시판" src="https://user-images.githubusercontent.com/63037344/145149503-05c7c2d3-d766-49ea-82a0-9fd0987de776.png">
 
