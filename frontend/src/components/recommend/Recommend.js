@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback } from "react";
-import Physical from "../images/Physical.png";
-import Auditory from "../images/Auditory.png";
-import Pregnant from "../images/Pregnant.png";
-import Senior from "../images/Senior.png";
-import Visual from "../images/Visual.png";
+import React, { useEffect, useState, useCallback } from 'react';
+import Physical from '../images/Physical.png';
+import Auditory from '../images/Auditory.png';
+import Pregnant from '../images/Pregnant.png';
+import Senior from '../images/Senior.png';
+import Visual from '../images/Visual.png';
 import {
   Button,
   FormControl,
@@ -21,14 +21,14 @@ import Header from "../common/Header";
 import './Recommend.css';
 
 const Recommend = () => {
-  const myuser = useSelector((state) => state.user.userData)
+  const myuser = useSelector((state) => state.user.userData);
   // console.log(myuser)
   const dispatch = useDispatch();
   const [itemList, setItemList] = useState([]);
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState('all');
   const onSelect = useCallback(
     (category) => (setCategory(category), console.log(category)),
-    []
+    [],
   );
 
   // 시도 설정
@@ -40,13 +40,9 @@ const Recommend = () => {
 
   useEffect(() => {
     const SetRecommendPage = () => {
-        
-          findMyLocation();
-          setCityDropdown();          
-        }
-      
-      SetRecommendPage();
-      }, []);
+      findMyLocation();
+      setCityDropdown();
+    };
 
   // 내 위치 받아오기
   const findMyLocation = () => {      
@@ -72,15 +68,15 @@ const Recommend = () => {
         }
         );
     } else {
-        alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
+      alert('이 브라우저에서는 Geolocation이 지원되지 않습니다.');
     }
   };
 
   // 여행 지역 선택하기
   const setCityDropdown = () => {
     axios({
-      method: "GET",
-      url: "recommend/sido",
+      method: 'GET',
+      url: 'recommend/sido',
     }).then(function (res) {
       setCityList(res.data);
     });
@@ -100,17 +96,16 @@ const Recommend = () => {
   }
 
   const selectTown = (sidoCode) => {
-    axios(
-      {
-        url: 'recommend/sigungu',
-        method: 'GET',
-        params: {
-          sidoCode: sidoCode
-        }
-      }).then(function (res) {
-        console.log(res)
-        setTownList(res.data)
-      })
+    axios({
+      url: 'recommend/sigungu',
+      method: 'GET',
+      params: {
+        sidoCode: sidoCode,
+      },
+    }).then(function (res) {
+      console.log(res);
+      setTownList(res.data);
+    });
   };
   
   const handleChangeTown = (event) => {
@@ -167,10 +162,12 @@ const Recommend = () => {
   }
 
 
+  console.log(itemList);
+  // !!!!!!!!!!!!! 검색 기능 만들기
+  const onClickSearch = () => {};
 
   return (
     <div>
-      <Header />
       <Container maxWidth="md">
         <h2>내 주변 무장애 여행지</h2>
         <div class="selete-box">
@@ -186,26 +183,32 @@ const Recommend = () => {
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="find-city">시도 검색</InputLabel>
             <Select
-            labelId="find-city"
-            id="find-city"
-            value={city}
-            onChange={handleChangeCity}
-            label="시도">
-              {cityList.map(city => (
-                <MenuItem name={city.name} value={city.code} key={city.rnum}>{city.name}</MenuItem>
+              labelId="find-city"
+              id="find-city"
+              value={city}
+              onChange={handleChangeCity}
+              label="시도"
+            >
+              {cityList.map((city) => (
+                <MenuItem name={city.name} value={city.code} key={city.rnum}>
+                  {city.name}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="find-town">시구군 검색</InputLabel>
             <Select
-            labelId="find-town"
-            id="find-town"
-            value={town}
-            onChange={handleChangeTown}
-            label="시도">
-              {townList.map(town => (
-                <MenuItem value={town.code} key={town.rnum}>{town.name}</MenuItem>
+              labelId="find-town"
+              id="find-town"
+              value={town}
+              onChange={handleChangeTown}
+              label="시도"
+            >
+              {townList.map((town) => (
+                <MenuItem value={town.code} key={town.rnum}>
+                  {town.name}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>

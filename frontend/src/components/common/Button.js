@@ -60,11 +60,18 @@ const buttonStyle = css`
       //   color: black;
       // }
     `}
+    ${(props) =>
+    props.check &&
+    css`
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: space-between;
+      // align-items: center;
+    `}
 `;
 const StyledButton = styled.button`
   ${buttonStyle}
 `;
-
 const StyledLink = styled(Link)`
   ${buttonStyle}
 `;
