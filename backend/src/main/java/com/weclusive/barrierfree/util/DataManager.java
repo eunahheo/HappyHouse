@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -411,5 +412,17 @@ public class DataManager {
 			return 0;
 		}
 		return 1;
+	}
+
+	public void updateImage(String tourapi_contenttypeid) {
+		 List<Tourapi> list = tourapiRepository.findByTourapiImageIsNullAndTourapiContenttypeid(tourapi_contenttypeid);
+		 
+//		 for (Tourapi tour : list) {
+//			tour.setTourapiImage("https://ifh.cc/g/3PePgp.jpg");
+//			tourapiRepository.save(tour);
+//		}
+		 
+		 System.out.println(list.size());
+		
 	}
 }

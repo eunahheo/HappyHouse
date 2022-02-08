@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.weclusive.barrierfree.util.DataManager;
 
@@ -17,7 +18,7 @@ import io.swagger.annotations.ApiOperation;
 
 
 //@RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RequestMapping("/db")
 public class DbController {
 	@Autowired
@@ -48,4 +49,16 @@ public class DbController {
 		
 		return null;
 	}
+//	
+//	@PostMapping("/image")
+//	public ResponseEntity<String> touriamge(@RequestParam String tourapi_contenttypeid) {
+//		
+//		try {
+//			dbService.updateImage(tourapi_contenttypeid);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return new ResponseEntity<String>("db", HttpStatus.OK);
+//	}
 }
